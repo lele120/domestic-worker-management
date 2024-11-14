@@ -1,0 +1,319 @@
+{
+    "app": {
+      "title": "Domestic Worker Management"
+    },
+    "navigation": {
+      "title": "Domestic Worker Management",
+      "employers": {
+        "title": "Employers",
+        "list": "Employers List",
+        "new": "New Employer"
+      },
+      "workers": {
+        "title": "Workers",
+        "list": "Workers List",
+        "new": "New Worker",
+        "subtitle": "Manage your workers and their contracts"
+      },
+      "contracts": {
+        "title": "Contracts",
+        "list": "Contracts List",
+        "new": "New Contract"
+      },
+      "payroll": {
+        "title": "Payroll",
+        "attendance": "Attendance",
+        "payslips": "Payslips",
+        "payments": "Payments"
+      },
+      "documents": {
+        "title": "Documents"
+      },
+      "leave": {
+        "title": "Leave Management"
+      },
+      "settings": {
+        "title": "Settings"
+      }
+    },
+    "worker": {
+      "title": "New Worker",
+      "subtitle": "Add a new worker to the system",
+      "validation": {
+        "required": "This field is required",
+        "employerRequired": "An employer must be selected",
+        "email": "Please enter a valid email address",
+        "phone": "Please enter a valid phone number"
+      },
+      "sections": {
+        "employer": "Employer",
+        "personalInfo": "Personal Information",
+        "contactInfo": "Contact Information",
+        "address": "Address",
+        "documentInfo": "Document Information"
+      },
+      "fields": {
+        "employer": "Employer",
+        "firstName": "First Name",
+        "lastName": "Last Name",
+        "birthDate": "Date of Birth",
+        "birthPlace": "Place of Birth",
+        "nationality": "Nationality",
+        "gender": "Gender",
+        "fiscalCode": "Fiscal Code",
+        "email": "Email",
+        "phone": "Phone",
+        "mobile": "Mobile",
+        "streetAddress": "Street Address",
+        "city": "City",
+        "province": "Province",
+        "postalCode": "Postal Code",
+        "documentType": "Document Type",
+        "documentNumber": "Document Number",
+        "documentIssuer": "Document Issuer",
+        "documentExpiry": "Document Expiry"
+      },
+      "options": {
+        "selectEmployer": "Select Employer",
+        "selectNationality": "Select Nationality",
+        "italian": "Italian",
+        "eu": "European Union",
+        "nonEu": "Non-EU",
+        "selectGender": "Select Gender",
+        "male": "Male",
+        "female": "Female",
+        "other": "Other",
+        "selectDocType": "Select Document Type",
+        "passport": "Passport",
+        "idCard": "ID Card",
+        "driversLicense": "Driver's License"
+      }
+    },
+    "contract": {
+      "title": "New Contract",
+      "subtitle": "Create a new contract for a worker",
+      "steps": {
+        "association": "Association",
+        "contract": "Contract",
+        "schedule": "Schedule",
+        "salary": "Salary",
+        "advanced": "Advanced",
+        "review": "Review"
+      },
+      "association": {
+        "title": "Select Employer and Worker",
+        "subtitle": "Choose the employer and worker for this contract",
+        "employer": "Employer",
+        "worker": "Worker",
+        "addNew": "Add New",
+        "selectEmployer": "Select an Employer",
+        "selectWorker": "Select a Worker",
+        "selectEmployerFirst": "Select an employer first",
+        "employerRequired": "An employer must be selected before choosing a worker"
+      },
+      "contract": {
+        "title": "Contract Details",
+        "subtitle": "Define the contract terms and conditions",
+        "sections": {
+          "type": "Contract Type",
+          "level": "Professional Level",
+          "fixedTerm": "Fixed Term Contract",
+          "certification": "Quality Certification"
+        },
+        "fields": {
+          "startDate": "Start Date",
+          "endDate": "End Date",
+          "terminationReason": "Termination Reason",
+          "contractType": "Contract Type",
+          "level": "Level",
+          "qualityCertification": "Quality Certification",
+          "isFixedTerm": "Fixed Term Contract",
+          "fixedTermEndDate": "Fixed Term End Date",
+          "fixedTermReason": "Fixed Term Reason"
+        },
+        "options": {
+          "terminationReasons": {
+            "resignation": "Resignation",
+            "mutual": "Mutual Agreement",
+            "dismissal": "Dismissal",
+            "retirement": "Retirement",
+            "contractEnd": "Contract End",
+            "death": "Death",
+            "justCause": "Just Cause"
+          },
+          "contractTypes": {
+            "nonLiveIn": "Non Live-in",
+            "fullTimeLiveIn": "Full-time Live-in",
+            "nightOnlyLiveIn": "Night Only Live-in",
+            "partTimeLiveIn": "Part-time Live-in",
+            "substitute": "Substitute"
+          },
+          "levels": {
+            "dSuper": "Level D Super",
+            "d": "Level D",
+            "cSuper": "Level C Super",
+            "c": "Level C",
+            "bSuper": "Level B Super",
+            "b": "Level B",
+            "aSuper": "Level A Super",
+            "a": "Level A",
+            "dSuperDescription": "Assistant (trained) for non-self-sufficient persons",
+            "dDescription": "Family workers with responsibility and autonomy",
+            "cSuperDescription": "Assistant for non-self-sufficient persons (no diploma)",
+            "cDescription": "Family workers with complete autonomy",
+            "bSuperDescription": "Assistant for self-sufficient persons",
+            "bDescription": "Generic multi-functional employee",
+            "aSuperDescription": "Companion for self-sufficient persons",
+            "aDescription": "Generic workers not involved in care assistance"
+          },
+          "fixedTermReasons": {
+            "substituteFamily": "Family Member Substitution",
+            "substituteMedical": "Medical Leave Substitution",
+            "substituteVacation": "Vacation Substitution",
+            "specificProject": "Specific Project",
+            "other": "Other"
+          }
+        }
+      },
+      "schedule": {
+        "title": "Schedule Configuration",
+        "subtitle": "Set up the worker's weekly schedule",
+        "sections": {
+          "weeklyHours": "Weekly Hours",
+          "dailySchedule": "Daily Schedule",
+          "breaks": "Breaks",
+          "nightShift": "Night Shift",
+          "holidays": "Holiday Work"
+        },
+        "fields": {
+          "totalWeeklyHours": "Total Weekly Hours",
+          "startTime": "Start Time",
+          "endTime": "End Time",
+          "breakStart": "Break Start Time",
+          "breakDuration": "Break Duration (minutes)",
+          "nightShift": "Night Shift Work",
+          "nightShiftStart": "Night Shift Start",
+          "nightShiftEnd": "Night Shift End",
+          "holidayWork": "Holiday Work",
+          "holidayCompensation": "Holiday Compensation",
+          "hours": "Hours"
+        },
+        "days": {
+          "monday": "Monday",
+          "tuesday": "Tuesday",
+          "wednesday": "Wednesday",
+          "thursday": "Thursday",
+          "friday": "Friday",
+          "saturday": "Saturday",
+          "sunday": "Sunday"
+        },
+        "options": {
+          "holidayCompensation": {
+            "paid": "Paid Extra",
+            "timeoff": "Time Off",
+            "both": "Both Extra Pay and Time Off"
+          }
+        },
+        "actions": {
+          "addBreak": "Add Break",
+          "removeBreak": "Remove Break"
+        }
+      },
+      "salary": {
+        "title": "Salary Configuration",
+        "subtitle": "Configure the worker's compensation",
+        "sections": {
+          "base": "Base Salary",
+          "allowances": "Allowances",
+          "benefits": "Benefits",
+          "summary": "Cost Summary",
+          "employeeCosts": "Employee Costs",
+          "employerCosts": "Employer Costs"
+        },
+        "fields": {
+          "basePay": "Base Pay",
+          "functionAllowance": "Function Allowance",
+          "overtimeAllowance": "Overtime Allowance",
+          "nonAutomaticAllowance": "Non-Automatic Allowance",
+          "futureIncrements": "Future Increments",
+          "childrenAllowance": "Children Allowance",
+          "includeHolidayPay": "Include Holiday Pay",
+          "include13thMonth": "Include 13th Month",
+          "includeSeverancePay": "Include Severance Pay",
+          "mealAllowance": {
+            "breakfast": "Breakfast Allowance",
+            "lunch": "Lunch Allowance",
+            "dinner": "Dinner Allowance"
+          },
+          "accommodationAllowance": "Accommodation Allowance",
+          "inKindBenefits": "In-Kind Benefits"
+        }
+      },
+      "advanced": {
+        "title": "Advanced Settings",
+        "subtitle": "Configure advanced contract settings",
+        "sections": {
+          "paymentConfig": "Payment Configuration",
+          "contributions": "Contributions"
+        },
+        "fields": {
+          "payHolidaysMonthly": "Pay Holidays Monthly",
+          "pay13thMonthly": "Pay 13th Month Salary Monthly",
+          "payTFRMonthly": "Pay Severance Monthly",
+          "monthlyPayment": "Monthly Payment",
+          "monthlyBonus": "Monthly Bonus",
+          "noWorkerContributions": "No Worker Contributions",
+          "noCassaColf": "No CassaColf"
+        },
+        "descriptions": {
+          "payHolidaysMonthly": "Include holiday pay in monthly salary",
+          "pay13thMonthly": "Distribute 13th month salary across monthly payments",
+          "payTFRMonthly": "Include severance pay in monthly salary",
+          "monthlyPayment": "Pay salary on a monthly basis",
+          "monthlyBonus": "Include monthly performance bonus",
+          "noWorkerContributions": "Exclude worker contributions",
+          "noCassaColf": "Exclude CassaColf contributions"
+        },
+        "warnings": {
+          "title": "Important Notice",
+          "message": "These settings affect payroll calculations and legal compliance"
+        }
+      },
+      "review": {
+        "title": "Contract Review",
+        "subtitle": "Review and confirm contract details",
+        "sections": {
+          "contract": "Contract Details",
+          "schedule": "Schedule",
+          "salary": "Salary",
+          "advanced": "Advanced Settings"
+        },
+        "warnings": {
+          "title": "Please Review Carefully",
+          "reviewMessage": "Please review all contract details before submitting",
+          "message": "Make sure all information is correct"
+        },
+        "actions": {
+          "editInfo": "Edit Information",
+          "submitContract": "Submit Contract"
+        }
+      }
+    },
+    "common": {
+      "save": "Save",
+      "cancel": "Cancel",
+      "next": "Next",
+      "previous": "Previous",
+      "submit": "Submit",
+      "status": "Status",
+      "view": "View",
+      "manage": "Manage",
+      "export": "Export",
+      "yes": "Yes",
+      "no": "No",
+      "change": "Change",
+      "description": "Description",
+      "hourly": "Hourly",
+      "monthly": "Monthly"
+    }
+  }

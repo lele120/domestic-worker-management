@@ -1,0 +1,319 @@
+{
+    "app": {
+      "title": "Gestione Lavoratori Domestici"
+    },
+    "navigation": {
+      "title": "Gestione Lavoratori Domestici",
+      "employers": {
+        "title": "Datori di Lavoro",
+        "list": "Elenco Datori di Lavoro",
+        "new": "Nuovo Datore di Lavoro"
+      },
+      "workers": {
+        "title": "Lavoratori",
+        "list": "Elenco Lavoratori",
+        "new": "Nuovo Lavoratore",
+        "subtitle": "Gestisci i tuoi lavoratori e i loro contratti"
+      },
+      "contracts": {
+        "title": "Contratti",
+        "list": "Elenco Contratti",
+        "new": "Nuovo Contratto"
+      },
+      "payroll": {
+        "title": "Buste Paga",
+        "attendance": "Presenze",
+        "payslips": "Cedolini",
+        "payments": "Pagamenti"
+      },
+      "documents": {
+        "title": "Documenti"
+      },
+      "leave": {
+        "title": "Gestione Assenze"
+      },
+      "settings": {
+        "title": "Impostazioni"
+      }
+    },
+    "worker": {
+      "title": "Nuovo Lavoratore",
+      "subtitle": "Aggiungi un nuovo lavoratore al sistema",
+      "validation": {
+        "required": "Questo campo è obbligatorio",
+        "employerRequired": "È necessario selezionare un datore di lavoro",
+        "email": "Inserisci un indirizzo email valido",
+        "phone": "Inserisci un numero di telefono valido"
+      },
+      "sections": {
+        "employer": "Datore di Lavoro",
+        "personalInfo": "Informazioni Personali",
+        "contactInfo": "Informazioni di Contatto",
+        "address": "Indirizzo",
+        "documentInfo": "Informazioni Documento"
+      },
+      "fields": {
+        "employer": "Datore di Lavoro",
+        "firstName": "Nome",
+        "lastName": "Cognome",
+        "birthDate": "Data di Nascita",
+        "birthPlace": "Luogo di Nascita",
+        "nationality": "Nazionalità",
+        "gender": "Genere",
+        "fiscalCode": "Codice Fiscale",
+        "email": "Email",
+        "phone": "Telefono",
+        "mobile": "Cellulare",
+        "streetAddress": "Indirizzo",
+        "city": "Città",
+        "province": "Provincia",
+        "postalCode": "CAP",
+        "documentType": "Tipo Documento",
+        "documentNumber": "Numero Documento",
+        "documentIssuer": "Ente Rilasciante",
+        "documentExpiry": "Data Scadenza"
+      },
+      "options": {
+        "selectEmployer": "Seleziona Datore di Lavoro",
+        "selectNationality": "Seleziona Nazionalità",
+        "italian": "Italiana",
+        "eu": "Unione Europea",
+        "nonEu": "Extra UE",
+        "selectGender": "Seleziona Genere",
+        "male": "Maschio",
+        "female": "Femmina",
+        "other": "Altro",
+        "selectDocType": "Seleziona Tipo Documento",
+        "passport": "Passaporto",
+        "idCard": "Carta d'Identità",
+        "driversLicense": "Patente di Guida"
+      }
+    },
+    "contract": {
+      "title": "Nuovo Contratto",
+      "subtitle": "Crea un nuovo contratto per un lavoratore",
+      "steps": {
+        "association": "Associazione",
+        "contract": "Contratto",
+        "schedule": "Orario",
+        "salary": "Retribuzione",
+        "advanced": "Avanzate",
+        "review": "Riepilogo"
+      },
+      "association": {
+        "title": "Seleziona Datore di Lavoro e Lavoratore",
+        "subtitle": "Scegli il datore di lavoro e il lavoratore per questo contratto",
+        "employer": "Datore di Lavoro",
+        "worker": "Lavoratore",
+        "addNew": "Aggiungi Nuovo",
+        "selectEmployer": "Seleziona un Datore di Lavoro",
+        "selectWorker": "Seleziona un Lavoratore",
+        "selectEmployerFirst": "Seleziona prima un datore di lavoro",
+        "employerRequired": "È necessario selezionare un datore di lavoro prima di scegliere un lavoratore"
+      },
+      "contract": {
+        "title": "Dettagli Contratto",
+        "subtitle": "Definisci i termini e le condizioni del contratto",
+        "sections": {
+          "type": "Tipo di Contratto",
+          "level": "Livello Professionale",
+          "fixedTerm": "Contratto a Tempo Determinato",
+          "certification": "Certificazione di Qualità"
+        },
+        "fields": {
+          "startDate": "Data di Inizio",
+          "endDate": "Data di Fine",
+          "terminationReason": "Motivo di Cessazione",
+          "contractType": "Tipo di Contratto",
+          "level": "Livello",
+          "qualityCertification": "Certificazione di Qualità",
+          "isFixedTerm": "Contratto a Tempo Determinato",
+          "fixedTermEndDate": "Data Fine Tempo Determinato",
+          "fixedTermReason": "Motivo Tempo Determinato"
+        },
+        "options": {
+          "terminationReasons": {
+            "resignation": "Dimissioni",
+            "mutual": "Accordo Consensuale",
+            "dismissal": "Licenziamento",
+            "retirement": "Pensionamento",
+            "contractEnd": "Fine Contratto",
+            "death": "Decesso",
+            "justCause": "Giusta Causa"
+          },
+          "contractTypes": {
+            "nonLiveIn": "Non Convivente",
+            "fullTimeLiveIn": "Convivente Tempo Pieno",
+            "nightOnlyLiveIn": "Convivente Solo Notte",
+            "partTimeLiveIn": "Convivente Part-time",
+            "substitute": "Sostituzione"
+          },
+          "levels": {
+            "dSuper": "Livello D Super",
+            "d": "Livello D",
+            "cSuper": "Livello C Super",
+            "c": "Livello C",
+            "bSuper": "Livello B Super",
+            "b": "Livello B",
+            "aSuper": "Livello A Super",
+            "a": "Livello A",
+            "dSuperDescription": "Assistente (formato) per persone non autosufficienti",
+            "dDescription": "Lavoratori familiari con responsabilità e autonomia",
+            "cSuperDescription": "Assistente per persone non autosufficienti (senza diploma)",
+            "cDescription": "Lavoratori familiari con completa autonomia",
+            "bSuperDescription": "Assistente per persone autosufficienti",
+            "bDescription": "Collaboratore generico polifunzionale",
+            "aSuperDescription": "Compagno per persone autosufficienti",
+            "aDescription": "Lavoratori generici non addetti all'assistenza"
+          },
+          "fixedTermReasons": {
+            "substituteFamily": "Sostituzione Familiare",
+            "substituteMedical": "Sostituzione Malattia",
+            "substituteVacation": "Sostituzione Ferie",
+            "specificProject": "Progetto Specifico",
+            "other": "Altro"
+          }
+        }
+      },
+      "schedule": {
+        "title": "Configurazione Orario",
+        "subtitle": "Imposta l'orario settimanale del lavoratore",
+        "sections": {
+          "weeklyHours": "Ore Settimanali",
+          "dailySchedule": "Orario Giornaliero",
+          "breaks": "Pause",
+          "nightShift": "Turno Notturno",
+          "holidays": "Lavoro Festivo"
+        },
+        "fields": {
+          "totalWeeklyHours": "Totale Ore Settimanali",
+          "startTime": "Ora Inizio",
+          "endTime": "Ora Fine",
+          "breakStart": "Inizio Pausa",
+          "breakDuration": "Durata Pausa (minuti)",
+          "nightShift": "Lavoro Notturno",
+          "nightShiftStart": "Inizio Turno Notturno",
+          "nightShiftEnd": "Fine Turno Notturno",
+          "holidayWork": "Lavoro Festivo",
+          "holidayCompensation": "Compensazione Festivi",
+          "hours": "Orario"
+        },
+        "days": {
+          "monday": "Lunedì",
+          "tuesday": "Martedì",
+          "wednesday": "Mercoledì",
+          "thursday": "Giovedì",
+          "friday": "Venerdì",
+          "saturday": "Sabato",
+          "sunday": "Domenica"
+        },
+        "options": {
+          "holidayCompensation": {
+            "paid": "Pagamento Extra",
+            "timeoff": "Riposo Compensativo",
+            "both": "Entrambi"
+          }
+        },
+        "actions": {
+          "addBreak": "Aggiungi Pausa",
+          "removeBreak": "Rimuovi Pausa"
+        }
+      },
+      "salary": {
+        "title": "Configurazione Retribuzione",
+        "subtitle": "Configura la retribuzione del lavoratore",
+        "sections": {
+          "base": "Retribuzione Base",
+          "allowances": "Indennità",
+          "benefits": "Benefici",
+          "summary": "Riepilogo Costi",
+          "employeeCosts": "Costi Dipendente",
+          "employerCosts": "Costi Datore di Lavoro"
+        },
+        "fields": {
+          "basePay": "Paga Base",
+          "functionAllowance": "Indennità di Funzione",
+          "overtimeAllowance": "Indennità Straordinari",
+          "nonAutomaticAllowance": "Indennità Non Automatica",
+          "futureIncrements": "Incrementi Futuri",
+          "childrenAllowance": "Assegni Familiari",
+          "includeHolidayPay": "Includi Paga Festività",
+          "include13thMonth": "Includi Tredicesima",
+          "includeSeverancePay": "Includi TFR",
+          "mealAllowance": {
+            "breakfast": "Indennità Colazione",
+            "lunch": "Indennità Pranzo",
+            "dinner": "Indennità Cena"
+          },
+          "accommodationAllowance": "Indennità Alloggio",
+          "inKindBenefits": "Benefici in Natura"
+        }
+      },
+      "advanced": {
+        "title": "Impostazioni Avanzate",
+        "subtitle": "Configura le impostazioni avanzate del contratto",
+        "sections": {
+          "paymentConfig": "Configurazione Pagamenti",
+          "contributions": "Contributi"
+        },
+        "fields": {
+          "payHolidaysMonthly": "Paga Festività Mensilmente",
+          "pay13thMonthly": "Paga Tredicesima Mensilmente",
+          "payTFRMonthly": "Paga TFR Mensilmente",
+          "monthlyPayment": "Pagamento Mensile",
+          "monthlyBonus": "Premio Mensile",
+          "noWorkerContributions": "No Contributi Lavoratore",
+          "noCassaColf": "No CassaColf"
+        },
+        "descriptions": {
+          "payHolidaysMonthly": "Includi la paga per le festività nel salario mensile",
+          "pay13thMonthly": "Distribuisci la tredicesima nei pagamenti mensili",
+          "payTFRMonthly": "Includi il TFR nel salario mensile",
+          "monthlyPayment": "Paga lo stipendio su base mensile",
+          "monthlyBonus": "Includi premio di produzione mensile",
+          "noWorkerContributions": "Escludi i contributi del lavoratore",
+          "noCassaColf": "Escludi i contributi CassaColf"
+        },
+        "warnings": {
+          "title": "Avviso Importante",
+          "message": "Queste impostazioni influenzano i calcoli della busta paga e la conformità legale"
+        }
+      },
+      "review": {
+        "title": "Revisione Contratto",
+        "subtitle": "Rivedi e conferma i dettagli del contratto",
+        "sections": {
+          "contract": "Dettagli Contratto",
+          "schedule": "Orario",
+          "salary": "Retribuzione",
+          "advanced": "Impostazioni Avanzate"
+        },
+        "warnings": {
+          "title": "Si prega di Rivedere Attentamente",
+          "reviewMessage": "Si prega di rivedere tutti i dettagli del contratto prima di inviare",
+          "message": "Assicurati che tutte le informazioni siano corrette"
+        },
+        "actions": {
+          "editInfo": "Modifica Informazioni",
+          "submitContract": "Invia Contratto"
+        }
+      }
+    },
+    "common": {
+      "save": "Salva",
+      "cancel": "Annulla",
+      "next": "Avanti",
+      "previous": "Indietro",
+      "submit": "Invia",
+      "status": "Stato",
+      "view": "Visualizza",
+      "manage": "Gestisci",
+      "export": "Esporta",
+      "yes": "Sì",
+      "no": "No",
+      "change": "Cambia",
+      "description": "Descrizione",
+      "hourly": "Orario",
+      "monthly": "Mensile"
+    }
+  }

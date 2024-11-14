@@ -1,0 +1,134 @@
+{
+    "app": {
+      "title": "Gestión de Trabajadores Domésticos"
+    },
+    "navigation": {
+      "title": "Gestión de Trabajadores Domésticos",
+      "employers": {
+        "title": "Empleadores",
+        "list": "Lista de Empleadores",
+        "new": "Nuevo Empleador"
+      },
+      "workers": {
+        "title": "Trabajadores",
+        "list": "Lista de Trabajadores",
+        "new": "Nuevo Trabajador"
+      },
+      "contracts": {
+        "title": "Contratos",
+        "list": "Lista de Contratos",
+        "new": "Nuevo Contrato"
+      },
+      "payroll": {
+        "title": "Nómina",
+        "attendance": "Asistencia",
+        "payslips": "Recibos de Sueldo",
+        "payments": "Pagos"
+      },
+      "documents": {
+        "title": "Documentos"
+      },
+      "leave": {
+        "title": "Gestión de Ausencias"
+      },
+      "settings": {
+        "title": "Configuración"
+      }
+    },
+    "employers": {
+      "title": "Empleadores",
+      "subtitle": "Gestiona tus empleadores y sus trabajadores",
+      "addEmployer": "Añadir Empleador",
+      "searchPlaceholder": "Buscar empleadores...",
+      "filters": {
+        "allStatus": "Todos los Estados",
+        "active": "Activo",
+        "inactive": "Inactivo"
+      },
+      "fields": {
+        "profile": "Perfil",
+        "workersCount": "Trabajadores",
+        "firstName": "Nombre",
+        "lastName": "Apellidos",
+        "sex": "Sexo",
+        "dateOfBirth": "Fecha de Nacimiento",
+        "placeOfBirth": "Lugar de Nacimiento",
+        "nationality": "Nacionalidad",
+        "taxNumber": "Número Fiscal",
+        "job": "Puesto de Trabajo",
+        "documentType": "Tipo de Documento",
+        "documentNumber": "Número de Documento",
+        "documentIssuer": "Emisor del Documento",
+        "documentExpiration": "Fecha de Caducidad",
+        "email": "Correo Electrónico",
+        "phone": "Teléfono",
+        "address": "Dirección",
+        "city": "Ciudad",
+        "state": "Estado",
+        "province": "Provincia",
+        "zipCode": "Código Postal",
+        "preferredContact": "Método de Contacto Preferido",
+        "employmentType": "Tipo de Empleo",
+        "notes": "Notas"
+      },
+      "create": {
+        "title": "Nuevo Empleador",
+        "subtitle": "Añade un nuevo empleador al sistema",
+        "sections": {
+          "personal": "Información Personal",
+          "document": "Información del Documento",
+          "contact": "Información de Contacto",
+          "address": "Dirección",
+          "preferences": "Preferencias"
+        },
+        "placeholders": {
+          "notes": "Añade notas adicionales sobre el empleador..."
+        },
+        "submit": "Crear Empleador",
+        "validation": {
+          "required": "Este campo es obligatorio",
+          "email": "Por favor, introduce un correo electrónico válido",
+          "phone": "Por favor, introduce un número de teléfono válido",
+          "zipCode": "Por favor, introduce un código postal válido"
+        }
+      },
+      "noResults": "No se encontraron empleadores"
+    },
+    "common": {
+      "save": "Guardar",
+      "cancel": "Cancelar",
+      "next": "Siguiente",
+      "previous": "Anterior",
+      "submit": "Enviar",
+      "status": "Estado",
+      "view": "Ver",
+      "manage": "Gestionar",
+      "export": "Exportar",
+      "yes": "Sí",
+      "no": "No",
+      "change": "Cambiar",
+      "description": "Descripción",
+      "hourly": "Por Hora",
+      "monthly": "Mensual",
+      "gender": {
+        "male": "Masculino",
+        "female": "Femenino",
+        "other": "Otro"
+      },
+      "contact": {
+        "email": "Correo Electrónico",
+        "phone": "Teléfono"
+      },
+      "employment": {
+        "fullTime": "Tiempo Completo",
+        "partTime": "Tiempo Parcial",
+        "temporary": "Temporal"
+      },
+      "documents": {
+        "passport": "Pasaporte",
+        "nationalId": "DNI",
+        "driversLicense": "Permiso de Conducir",
+        "residencePermit": "Permiso de Residencia"
+      }
+    }
+  }
