@@ -6,6 +6,7 @@ export default createMiddleware({
   locales: ['en', 'es', 'it'], // Supported languages
   defaultLocale: 'it', // Default language
   localePrefix: 'never', // Disable locale prefixing
+  
 });
 
 export const config = {

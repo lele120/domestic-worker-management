@@ -1,15 +1,18 @@
-import {notFound} from 'next/navigation';
-import { getRequestConfig } from 'next-intl/server';
-
-export const dynamic = 'force-dynamic';
-
-const locales = ['en', 'es', 'it'];
-
+import {getRequestConfig} from 'next-intl/server';
+ 
 export default getRequestConfig(async ({requestLocale}) => {
-    const locale = await requestLocale;
-    if (!locale || !locales.includes(locale)) notFound();
+  // Provide a static locale, fetch a user setting,
+  // read from `cookies()`, `headers()`, etc.
+  const locales = ['en', 'es', 'it'];
+  let locale = await requestLocale;
+  
+  if (!locale || !locales.includes(locale)) {
+    locale = 'it';
+  }
+   
   return {
-    locale: await Promise.resolve(locale),
-    messages: (await import(`../../messages/${locale}.json`)).default,
+    locale,
+    messages: (await import(`../../messages/${locale}.json`)).default
   };
+
 });
