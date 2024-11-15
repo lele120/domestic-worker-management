@@ -12,8 +12,3 @@ export default function Home() {
      </Suspense>
    );
  }
-
-// export default function HomePage() {
-//   const t = useTranslations('app');
-//   return <h1>{t('title')}</h1>;
-// }
