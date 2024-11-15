@@ -1,6 +1,13 @@
-import {useTranslations} from 'next-intl';
- 
-export default function HomePage() {
-  const t = useTranslations('app');
-  return <h1>{t('title')}</h1>;
+import { Suspense } from 'react';
+import Loading from '@/components/shared/Loading';
+import PageContent from '@/components/PageContent';
+
+
+
+export default function Home() {
+  return (
+    <Suspense fallback={<Loading />}>
+      <PageContent />
+    </Suspense>
+  );
 }

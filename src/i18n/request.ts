@@ -1,17 +1,15 @@
-import {getRequestConfig} from 'next-intl/server';
-import { cookies } from 'next/headers';
- 
-export default getRequestConfig(async () => {
-  // Provide a static locale, fetch a user setting,
-  // read from `cookies()`, `headers()`, etc.
-  //read from `cookies()`, `headers()`, etc.
+import {notFound} from 'next/navigation';
+import { getRequestConfig } from 'next-intl/server';
 
-const cookieStore = await cookies();
-const localeCookie = cookieStore.get('NEXT_LOCALE');
-const locale = localeCookie ? localeCookie.value : 'it';
- 
+export const dynamic = 'force-dynamic';
+
+const locales = ['en', 'es', 'it'];
+
+export default getRequestConfig(async ({requestLocale}) => {
+    const locale = await requestLocale;
+    if (!locale || !locales.includes(locale)) notFound();
   return {
-    locale,
-    messages: (await import(`../../messages/${locale}.json`)).default
+    locale: await Promise.resolve(locale),
+    messages: (await import(`../../messages/${locale}.json`)).default,
   };
 });
