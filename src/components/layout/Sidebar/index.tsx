@@ -35,11 +35,11 @@ const Sidebar = ({ onNavigate, currentPage }: SidebarProps) => {
       ],
     },
     {
-      title: t('navigation.workers.title'),
+      title: t('navigation.worker.title'),
       icon: Users,
       items: [
-        { title: t('navigation.workers.list'), link: 'workers-list' },
-        { title: t('navigation.workers.new'), link: 'new-worker' },
+        { title: t('navigation.worker.list'), link: 'workers-list' },
+        { title: t('navigation.worker.new'), link: 'new-worker' },
       ],
     },
     {
