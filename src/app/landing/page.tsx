@@ -1,4 +1,5 @@
 import { Suspense } from 'react';
+import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 import {  Shield, Clock, Users } from 'lucide-react';
@@ -66,9 +67,11 @@ function LandingPage() {
           </div>
           <div className="mx-auto mt-16 flex max-w-2xl sm:mt-24 lg:ml-10 lg:mt-0 lg:mr-0 lg:max-w-none lg:flex-none xl:ml-32">
             <div className="max-w-3xl flex-none sm:max-w-5xl lg:max-w-none">
-              <img
+              <Image
                 src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80"
                 alt="App screenshot"
+                width={1000}
+                height={667}
                 className="w-[76rem] rounded-md bg-white/5 shadow-2xl ring-1 ring-white/10"
               />
             </div>

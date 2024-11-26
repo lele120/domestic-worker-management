@@ -32,7 +32,7 @@ const AboutTimeline = () => {
             Our Journey
           </h2>
           <p className="mt-6 text-lg leading-8 text-gray-600">
-            From our founding to today, we've been committed to innovation and excellence.
+            From our founding to today, we&apos;ve been committed to innovation and excellence.
           </p>
         </div>
         <div className="mx-auto mt-16 max-w-2xl lg:max-w-4xl">

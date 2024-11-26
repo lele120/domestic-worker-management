@@ -7,7 +7,7 @@ const AboutHero = () => {
         <div className="mx-auto max-w-2xl lg:mx-0">
           <h2 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">About Us</h2>
           <p className="mt-6 text-lg leading-8 text-gray-600">
-            We're building the future of domestic worker management, making it easier for employers 
+            We&apos;re building the future of domestic worker management, making it easier for employers 
             to manage their workforce while ensuring fair and transparent working conditions for all.
           </p>
         </div>

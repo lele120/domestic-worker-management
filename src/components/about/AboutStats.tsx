@@ -17,7 +17,7 @@ const AboutStats = () => {
               Trusted by employers worldwide
             </h2>
             <p className="mt-4 text-lg leading-8 text-gray-600">
-              We've helped thousands of employers manage their domestic workers effectively
+              We&apos;ve helped thousands of employers manage their domestic workers effectively
             </p>
           </div>
           <dl className="mt-16 grid grid-cols-1 gap-0.5 overflow-hidden rounded-2xl text-center sm:grid-cols-2 lg:grid-cols-4">
