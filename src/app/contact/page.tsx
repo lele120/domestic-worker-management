@@ -1,10 +1,11 @@
 import { Suspense } from 'react';
-import { useTranslations } from 'next-intl';
+//import { useTranslations } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 //import { Building, Mail, Phone } from 'lucide-react';
 import Loading from '@/components/shared/Loading';
-import ContactForm from '@/components/contact/ContactForm';
-import ContactInfo from '@/components/contact/ContactInfo';
+import Link from 'next/link';
+import ContactForm from '../../components/contact/ContactForm';
+import ContactInfo from '../../components/contact/ContactInfo';
 
 export async function generateMetadata() {
   const t = await getTranslations();
@@ -22,7 +23,7 @@ export default function Contact() {
 }
 
 function ContactPage() {
-  const t = useTranslations();
+  //const t = useTranslations();
 
   return (
     <div className="bg-white">
@@ -32,7 +33,7 @@ function ContactPage() {
             <div>
               <h2 className="text-3xl font-bold tracking-tight text-gray-900">Get in touch</h2>
               <p className="mt-4 leading-7 text-gray-600">
-                We'd love to hear from you. Choose the best way to reach out.
+                We&apos;d love to hear from you. Choose the best way to reach out.
               </p>
             </div>
 
@@ -44,14 +45,11 @@ function ContactPage() {
       </div>
 
       {/* Return Home */}
-      <div className="mx-auto max-w-7xl px-6 lg:px-8 py-12">
-        <a 
+        <Link 
           href="/" 
           className="text-blue-600 hover:text-blue-500 font-semibold flex items-center"
         >
-          ← Back to home
-        </a>
-      </div>
+        </Link>
     </div>
   );
 }
