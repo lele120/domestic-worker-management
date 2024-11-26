@@ -2,10 +2,11 @@
 
 import React, { useState } from 'react';
 import { ChevronDown, LucideIcon } from 'lucide-react';
-import { useTranslations } from 'next-intl';
+//import { useTranslations } from 'next-intl';
 
 import SubMenuItem from './SubMenuItem';
 import MenuItem from './MenuItem';
+
 
 interface NavigationItem {
   title: string;
@@ -32,7 +33,7 @@ const NavigationSection = ({
   currentPage,
 }: NavigationSectionProps) => {
   const [isOpen, setIsOpen] = useState(true);
-  const  t  = useTranslations();
+  //const  t  = useTranslations();
 
   if (standalone && link) {
     return (
