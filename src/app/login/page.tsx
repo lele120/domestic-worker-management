@@ -1,11 +1,14 @@
 // app/auth/login.tsx
-"use client"
+
+  "use client";
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-//import { auth, provider, signInWithPopup } from '../../firebaseConfig';
-//import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+import { signIn } from 'next-auth/react';
+
+
 
 const Login: React.FC = () => {
+
   const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -15,7 +18,9 @@ const Login: React.FC = () => {
     try {
       //const result = await signInWithPopup(auth, provider);
       // User signed in
-      router.push('/pageContent');
+      console.log("calling google sign in")
+      const result = await signIn('google', {redirectTo: '/dashboard'});
+      console.log("result", result)
     } catch (error) {
       console.error('Error signing in with Google:', error);
     }
@@ -35,7 +40,7 @@ const Login: React.FC = () => {
     try {
       //await createUserWithEmailAndPassword(auth, email, password);
       // User registered and signed in
-      router.push('/pageContent');
+      //router.push('/pageContent');
     } catch (error) {
       console.error('Error registering with email:', error);
     }

@@ -1,6 +1,7 @@
 'use client';
-
-import { useState } from 'react';
+import { useSession } from 'next-auth/react';
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import Sidebar from '@/components/layout/Sidebar';
 import WorkersList from '@/components/features/workers/WorkersList';
 import NewWorker from '@/components/features/workers/NewWorker';
@@ -8,9 +9,24 @@ import EmployersList from '@/components/features/employers/EmployersList';
 import CreateEmployer from '@/components/features/employers/CreateEmployer';
 import CreateContract from '@/components/features/contracts/CreateContract';
 
-
 export default function PageContent() {
+  const { data: session, status } = useSession();
+  const router = useRouter();
   const [currentPage, setCurrentPage] = useState('workers-list');
+
+  useEffect(() => {
+    if (status === 'unauthenticated') {
+      router.push('/login');
+    }
+  }, [status, router]);
+
+  if (status === 'loading') {
+    return <div>Loading...</div>;
+  }
+
+  if (!session?.user) {
+    return null;
+  }
 
   const renderPage = () => {
     switch (currentPage) {

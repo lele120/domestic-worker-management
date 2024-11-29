@@ -2,6 +2,8 @@
 
 import createMiddleware from 'next-intl/middleware';
 
+export { auth as middleware } from "@/app/auth";
+
 export default createMiddleware({
   locales: ['en', 'es', 'it'], // Supported languages
   defaultLocale: 'it', // Default language
