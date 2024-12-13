@@ -36,13 +36,11 @@ export default function LoginPage() {
         router.push('/dashboard');
       } else {
         const result = await AuthService.loginWithEmail({
-          email: state.email,
+          username: state.email,
           password: state.password
         });
 
-        if (result?.error) {
-          setError(result.error);
-        } else {
+        if (result) {
           router.push('/dashboard');
         }
       }

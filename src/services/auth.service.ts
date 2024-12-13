@@ -5,11 +5,15 @@ import { LoginCredentials,RegisterCredentials } from '@/types/auth.types';
 export class AuthService {
   static async loginWithEmail(credentials: LoginCredentials) {
     try {
-      return await signIn('email', {
-        ...credentials,
-        redirectTo: '/dashboard',
-        redirect: false
+      const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}auth/login/`;
+      console.log("logging in user")
+      
+      const response = await axios.post(url, credentials, {
+        headers: { 'Content-Type': 'application/json' },
       });
+
+      console.log("Response:",response.data)
+      return response.data; // Return the response data directly
     } catch (error) {
       console.error('Email login error:', error);
       throw error;
@@ -35,6 +39,7 @@ export class AuthService {
         headers: { 'Content-Type': 'application/json' },
       });
       
+      console.log("Response:",response.data)
       return response.data; // Return the response data directly
     } catch (error) {
       console.error('Registration error:', error);
