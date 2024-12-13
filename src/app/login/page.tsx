@@ -1,99 +1,76 @@
-// app/auth/login.tsx
+"use client";
 
-  "use client";
-import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { signIn } from 'next-auth/react';
+import { useAuthState } from '@/hooks/useAuthState';
+import { useAuthRedirect } from '@/hooks/useAuthRedirect';
+import { AuthService } from '@/services/auth.service';
+import { AuthForm } from '@/components/auth/authForm';
 
-
-
-const Login: React.FC = () => {
-
+export default function LoginPage() {
   const router = useRouter();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [isRegistering, setIsRegistering] = useState(false);
+  const { state, updateField, setError, toggleMode } = useAuthState();
+  const { isLoading, isAuthenticated } = useAuthRedirect('/dashboard');
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (isAuthenticated) {
+    return null;
+  }
+
+  const handleSubmit = async () => {
+    try {
+      updateField('isLoading', true);
+      setError(null);
+
+      if (state.isRegistering) {
+        await AuthService.register({
+          username: state.email,
+          email: state.email,
+          password1: state.password,
+          password2: state.password,
+          first_name: state.first_name,
+          last_name: state.last_name
+        });
+        router.push('/dashboard');
+      } else {
+        const result = await AuthService.loginWithEmail({
+          email: state.email,
+          password: state.password
+        });
+
+        if (result?.error) {
+          setError(result.error);
+        } else {
+          router.push('/dashboard');
+        }
+      }
+    } catch (error) {
+      setError(error instanceof Error ? error.message : 'Authentication failed');
+    }
+  };
 
   const handleGoogleLogin = async () => {
     try {
-      //const result = await signInWithPopup(auth, provider);
-      // User signed in
-      console.log("calling google sign in")
-      const result = await signIn('google', {redirectTo: '/dashboard'});
-      console.log("result", result)
+      updateField('isLoading', true);
+      setError(null);
+      await AuthService.loginWithGoogle();
     } catch (error) {
-      console.error('Error signing in with Google:', error);
+      setError(error instanceof Error ? error.message : 'Google authentication failed');
     }
   };
-
-  const handleEmailLogin = async () => {
-    try {
-      //await signInWithEmailAndPassword(auth, email, password);
-      // User signed in
-      router.push('/pageContent');
-    } catch (error) {
-      console.error('Error signing in with email:', error);
-    }
-  };
-
-  const handleRegister = async () => {
-    try {
-      //await createUserWithEmailAndPassword(auth, email, password);
-      // User registered and signed in
-      //router.push('/pageContent');
-    } catch (error) {
-      console.error('Error registering with email:', error);
-    }
-  };
-
-  //useEffect(() => {
-  //  // Check if user is already logged in
-  //  auth.onAuthStateChanged((user) => {
-  //    if (user) {
-  //      router.push('/pageContent');
-  //    }
-  //  });
-  //}, [router]);
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="p-6 bg-white rounded shadow-md">
-        <h2 className="mb-4 text-xl font-bold">{isRegistering ? 'Register' : 'Login'}</h2>
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="w-full p-2 mb-4 border rounded"
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          className="w-full p-2 mb-4 border rounded"
-        />
-        <button
-          onClick={isRegistering ? handleRegister : handleEmailLogin}
-          className="w-full px-4 py-2 mb-4 text-white bg-blue-500 rounded"
-        >
-          {isRegistering ? 'Register' : 'Login'}
-        </button>
-        <button
-          onClick={handleGoogleLogin}
-          className="w-full px-4 py-2 mb-4 text-white bg-red-500 rounded"
-        >
-          Sign in with Google
-        </button>
-        <button
-          onClick={() => setIsRegistering(!isRegistering)}
-          className="w-full px-4 py-2 text-blue-500 border border-blue-500 rounded"
-        >
-          {isRegistering ? 'Already have an account? Login' : 'Don’t have an account? Register'}
-        </button>
-      </div>
-    </div>
+    <AuthForm
+      state={state}
+      onFirstNameChange={(firstName: string) => updateField('first_name', firstName)}
+      onLastNameChange={(lastName: string) => updateField('last_name', lastName)}
+      onEmailChange={(email: string) => updateField('email', email)}
+      onPasswordChange={(password: string) => updateField('password', password)}
+      onSubmit={handleSubmit}
+      onGoogleLogin={handleGoogleLogin}
+      onToggleMode={toggleMode}
+    />
   );
-};
-
-export default Login;
+}
