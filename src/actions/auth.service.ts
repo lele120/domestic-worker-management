@@ -1,7 +1,7 @@
 import { signIn } from 'next-auth/react';
 import axios from 'axios';
 import { LoginCredentials,RegisterCredentials } from '@/types/auth.types';
-
+ 
 export class AuthService {
   static async loginWithEmail(credentials: LoginCredentials) {
     try {
@@ -22,7 +22,7 @@ export class AuthService {
 
   static async loginWithGoogle() {
     try {
-      return await signIn('google', { redirectTo: '/dashboard' });
+      return await signIn('google');
     } catch (error) {
       console.error('Google login error:', error);
       throw error;

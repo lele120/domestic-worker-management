@@ -1,12 +1,11 @@
 import NextAuth from "next-auth"
 import GoogleProvider from "next-auth/providers/google"
-import Credentials, { CredentialInput } from "next-auth/providers/credentials";
+import Credentials from "next-auth/providers/credentials";
 import { CredentialsConfig } from "next-auth/providers/credentials";
 import { saltAndHashPassword } from '@/utils/password';
 import { signInSchema, ZodError } from "./lib/zod"
 import axios from "axios";
-import { Account, Profile, User } from 'next-auth';
-import {  AdapterUser } from "next-auth/adapters";
+import { User } from 'next-auth';
 
 
 // These two values should be a bit less than actual token lifetimes
@@ -17,18 +16,6 @@ const getCurrentEpochTime = () => {
   return Math.floor(new Date().getTime() / 1000);
 };
 
-const SIGN_IN_HANDLERS: Record<string, (
-  user:   AdapterUser| User,
-  account: Account,
-  email:  {
-    verificationRequest?: boolean;
-  } | undefined,
-  profile?: Profile,
-  credentials?: Record<string, CredentialInput>
-) => Promise<boolean>> = {
-  'credentials': async () => true,
-};
-const SIGN_IN_PROVIDERS = Object.keys(SIGN_IN_HANDLERS);
 
 const credential: CredentialsConfig = Credentials({
   // You can specify which fields should be submitted, by adding keys to the `credentials` object.
@@ -92,12 +79,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     maxAge: BACKEND_REFRESH_TOKEN_LIFETIME
   },
   callbacks: {
-    async signIn({user, account, profile, email, credentials}) {
-      if (!account || !SIGN_IN_PROVIDERS.includes(account.provider)) return false;
-      return SIGN_IN_HANDLERS[account.provider](
-        user, account, email,profile, credentials
-      );
-    },
     async jwt({user, token, account}) {
       // If `user` and `account` are set that means it is a login event
       if (user && account) {

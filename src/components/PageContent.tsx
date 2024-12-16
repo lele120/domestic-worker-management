@@ -15,6 +15,7 @@ export default function PageContent() {
   const [currentPage, setCurrentPage] = useState('workers-list');
 
   useEffect(() => {
+    console.log("status", status)
     if (status === 'unauthenticated') {
       router.push('/login');
     }
@@ -26,6 +27,8 @@ export default function PageContent() {
 
   if (!session?.user) {
     return null;
+  }else {
+    console.log("session", session)
   }
 
   const renderPage = () => {

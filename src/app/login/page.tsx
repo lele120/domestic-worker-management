@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation';
 import { useAuthState } from '@/hooks/useAuthState';
 import { useAuthRedirect } from '@/hooks/useAuthRedirect';
-import { AuthService } from '@/services/auth.service';
+import { AuthService } from '@/actions/auth.service';
 import { AuthForm } from '@/components/auth/authForm';
 
 export default function LoginPage() {
