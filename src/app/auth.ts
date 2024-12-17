@@ -2,7 +2,7 @@ import NextAuth from "next-auth"
 import GoogleProvider from "next-auth/providers/google"
 import Credentials from "next-auth/providers/credentials";
 import { CredentialsConfig } from "next-auth/providers/credentials";
-import { saltAndHashPassword } from '@/utils/password';
+//import { saltAndHashPassword } from '@/utils/password';
 import { signInSchema, ZodError } from "./lib/zod"
 import axios from "axios";
 import { User } from 'next-auth';
@@ -39,10 +39,10 @@ const credential: CredentialsConfig = Credentials({
     }
     let user = null
     // logic to salt and hash password
-    const pwHash = await saltAndHashPassword(_password)
+    //const pwHash = await saltAndHashPassword(_password)
 
     // logic to verify if the user exists
-    user = await getUserFromDb(_email, pwHash)
+    user = await getUserFromDb(_email, _password)
 
     if (!user) {
       // return msg error if user not found
@@ -128,11 +128,11 @@ async function getUserFromDb(_email: string, pwHash: string): Promise<User | nul
     }
 
     const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}auth/login/`;
-    console.log("registering user")
+    console.log("log in user")
     console.log(url, credentials)
 
-    const response = await axios.post(url, credentials, {
-      headers: { 'Content-Type': 'application/json' },
+    const response = await axios.post(url, {
+      ...credentials
     });
 
     if (response.status === 200 && response.data) {
@@ -164,23 +164,5 @@ export const getUserDetails = async (accessToken: string ) => {
   }
 };
 
-export const register = async (email: string, password: string) => {
-  console.log("registering user")
-  try {
-    const response = await axios.post(`${process.env.NEXTAUTH_BACKEND_URL}/auth/register`, {
-      email: email,
-      password: password,
-    });
-
-    if (response.status === 200 && response.data) {
-      return response.data.user;
-    } else {
-      return null;
-    }
-  } catch (error) {
-    console.error("Error registering user:", error);
-    return null;
-  }
-}
 
 

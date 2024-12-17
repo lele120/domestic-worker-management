@@ -1,5 +1,7 @@
 'use client';
 
+
+import { signOut } from 'next-auth/react';
 import React from 'react';
 import {
   Building,
@@ -9,6 +11,7 @@ import {
   Calendar,
   Settings,
   File,
+  LogOut
 } from 'lucide-react';
 import {useTranslations} from 'next-intl';
 
@@ -92,6 +95,15 @@ const Sidebar = ({ onNavigate, currentPage }: SidebarProps) => {
           />
         ))}
       </div>
+      <div className="mt-4">
+          <button
+            onClick={() => signOut({ callbackUrl: '/login' })}
+            className="w-full flex items-center justify-center px-4 py-2 text-white bg-red-500 rounded hover:bg-red-600 transition-colors"
+          >
+            <LogOut className="mr-2" />
+            {t('navigation.logout')}
+          </button>
+        </div>
     </div>
   );
 };

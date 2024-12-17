@@ -1,7 +1,7 @@
 'use server'
 import axios from 'axios';
 import {  RegisterCredentials } from '@/types/auth.types';
-import bcrypt from 'bcrypt';
+//import { saltAndHashPassword } from '@/utils/password';
 
 
 export async function register(credentials: RegisterCredentials) {
@@ -11,15 +11,16 @@ export async function register(credentials: RegisterCredentials) {
     console.log(url, credentials);
 
     // Hash the password
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(credentials.password1, salt);
+   
+    /*
+    const hashedPassword = await saltAndHashPassword(credentials.password1);
     credentials.password1 = hashedPassword;
     credentials.password2 = hashedPassword;
+    */
 
     // Send the registration request to the backend
     const response = await axios.post(url, {
-      ...credentials,
-      password: hashedPassword,
+      ...credentials
     });
 
     return response.data;
