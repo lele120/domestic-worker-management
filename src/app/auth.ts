@@ -39,15 +39,14 @@ const credential: CredentialsConfig = Credentials({
     }
     let user = null
     // logic to salt and hash password
-    const pwHash = saltAndHashPassword(_password)
+    const pwHash = await saltAndHashPassword(_password)
 
     // logic to verify if the user exists
     user = await getUserFromDb(_email, pwHash)
 
     if (!user) {
-      // No user found, so this is their first attempt to login
-      // Optionally, this is also the place you could do a user registration
-      throw new Error("Invalid credentials.")
+      // return msg error if user not found
+      return null;
     }
 
     // return user object with their profile data
@@ -79,7 +78,12 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     maxAge: BACKEND_REFRESH_TOKEN_LIFETIME
   },
   callbacks: {
+    async signIn({ user, account, profile }) {
+      console.log("sign-in-user", user, account, profile)
+      return true
+    },
     async jwt({user, token, account}) {
+      console.log("jwt-token-user", user, token, account)
       // If `user` and `account` are set that means it is a login event
       if (user && account) {
       
@@ -114,23 +118,35 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   },
 });
 
-async function getUserFromDb(_email: string, pwHash: Promise<string>): Promise<User | null> {
+
+async function getUserFromDb(_email: string, pwHash: string): Promise<User | null> {
   try {
-    const response = await axios.post(`${process.env.NEXTAUTH_BACKEND_URL}/auth/login`, {
-      email: _email,
-      password: await pwHash,
+
+    const credentials = {
+      username: _email,
+      password: pwHash
+    }
+
+    const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}auth/login/`;
+    console.log("registering user")
+    console.log(url, credentials)
+
+    const response = await axios.post(url, credentials, {
+      headers: { 'Content-Type': 'application/json' },
     });
 
     if (response.status === 200 && response.data) {
+      console.log("response.data", response.data)
       return response.data.user;
     } else {
       return null;
     }
   } catch (error) {
-    console.error("Error fetching user from DB:", error);
+    console.log("Error fetching user from DB:", error);
     return null;
   }
 }
+
 
 export const getUserDetails = async (accessToken: string ) => {
   try {

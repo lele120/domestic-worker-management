@@ -3,7 +3,8 @@
 import { useRouter } from 'next/navigation';
 import { useAuthState } from '@/hooks/useAuthState';
 import { useAuthRedirect } from '@/hooks/useAuthRedirect';
-import { AuthService } from '@/actions/auth.service';
+import { register } from '@/app/api/auth/auth.service';
+import { loginWithEmail, loginWithGoogle} from '@/actions/auth.service'; 
 import { AuthForm } from '@/components/auth/authForm';
 
 export default function LoginPage() {
@@ -25,7 +26,7 @@ export default function LoginPage() {
       setError(null);
 
       if (state.isRegistering) {
-        await AuthService.register({
+        await register({
           username: state.email,
           email: state.email,
           password1: state.password,
@@ -35,7 +36,7 @@ export default function LoginPage() {
         });
         router.push('/dashboard');
       } else {
-        const result = await AuthService.loginWithEmail({
+        const result = await loginWithEmail({
           username: state.email,
           password: state.password
         });
@@ -53,7 +54,7 @@ export default function LoginPage() {
     try {
       updateField('isLoading', true);
       setError(null);
-      await AuthService.loginWithGoogle();
+      await loginWithGoogle();
     } catch (error) {
       setError(error instanceof Error ? error.message : 'Google authentication failed');
     }
