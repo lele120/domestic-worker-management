@@ -113,6 +113,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     async session({ session, token, user }) {
       // Send properties to the client, like an access_token from a provider.
       console.log("session-token-user", session, token, user)
+      if (token.sub && session.user){
+        session.user.id = token.sub;
+      }
+      console.log("session-user", session)
       return session
     }
   },
