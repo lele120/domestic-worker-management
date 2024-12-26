@@ -44,6 +44,7 @@ const credential: CredentialsConfig = Credentials({
     // logic to verify if the user exists
     user = await getUserFromDb(_email, _password)
 
+    console.log("authorize-user", user)
     if (!user) {
       // return msg error if user not found
       return null;
@@ -77,20 +78,44 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     strategy: 'jwt',
     maxAge: BACKEND_REFRESH_TOKEN_LIFETIME
   },
+  events: {
+    async linkAccount({user}){
+      console.log("link-account", user)
+    }
+  },
   callbacks: {
     async signIn({ user, account, profile }) {
       console.log("sign-in-user", user, account, profile)
+      if (account?.provider === "google") {
+        const {access_token, id_token, } = account;
+        try{
+            const response = await axios({
+              method: "post",
+              url: process.env.NEXTAUTH_BACKEND_URL + "auth/V2/social/google/",
+              data: {
+                access_token,
+                id_token,
+              },
+            });
+            if (response.status === 200 && response.data) {
+              return true
+            }
+        }catch (error) {
+          console.error("Error fetching user details:", error);
+          return false
+        }
+      }
       return true
     },
     async jwt({user, token, account}) {
-      console.log("jwt-token-user", user, token, account)
+      console.log("user-token-account", user, token, account)
       // If `user` and `account` are set that means it is a login event
       if (user && account) {
-      
-        token["user"] = account.user;
-        token["access_token"] = account.access;
-        token["refresh_token"] = account.refresh;
+        token["user"] = account.userId;
+        token["access_token"] = account.access_token;
+        token["refresh_token"] = account.refresh_token;
         token["ref"] = getCurrentEpochTime() + BACKEND_ACCESS_TOKEN_LIFETIME;
+        console.log("token", token)
         return token;
       }
       // Refresh the backend token if necessary
@@ -103,7 +128,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           },
         });
         token["access_token"] = response.data.access;
-        token["refresh_token"] = response.data.refresh;
+        token["refresh_token"] = response.data.access_expiration;
         token["ref"] = getCurrentEpochTime() + BACKEND_ACCESS_TOKEN_LIFETIME;
       }
       return token;
@@ -115,6 +140,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       console.log("session-token-user", session, token, user)
       if (token.sub && session.user){
         session.user.id = token.sub;
+      }
+      if (token.role && session.user){
+        session.user.role = token.role;
       }
       console.log("session-user", session)
       return session
