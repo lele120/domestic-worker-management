@@ -4,8 +4,7 @@ import Credentials from "next-auth/providers/credentials";
 import { CredentialsConfig } from "next-auth/providers/credentials";
 //import { saltAndHashPassword } from '@/utils/password';
 import { signInSchema, ZodError } from "./lib/zod"
-import axios from "axios";
-import { User } from 'next-auth';
+import { getUserFromDb, googleAuth, refreshToken } from "./api/auth/auth.service";
 
 
 // These two values should be a bit less than actual token lifetimes
@@ -86,49 +85,34 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   callbacks: {
     async signIn({ user, account, profile }) {
       console.log("sign-in-user", user, account, profile)
-      if (account?.provider === "google") {
-        const {access_token, id_token, } = account;
-        try{
-            const response = await axios({
-              method: "post",
-              url: process.env.NEXTAUTH_BACKEND_URL + "auth/V2/social/google/",
-              data: {
-                access_token,
-                id_token,
-              },
-            });
-            if (response.status === 200 && response.data) {
-              return true
-            }
-        }catch (error) {
-          console.error("Error fetching user details:", error);
-          return false
-        }
-      }
       return true
     },
-    async jwt({user, token, account}) {
-      console.log("user-token-account", user, token, account)
+    async jwt({user, token, account, profile, session,trigger}) {
+      console.log("user-token-account", user, token, account, profile,session, trigger)
       // If `user` and `account` are set that means it is a login event
       if (user && account) {
-        token["user"] = account.userId;
-        token["access_token"] = account.access_token;
-        token["refresh_token"] = account.refresh_token;
-        token["ref"] = getCurrentEpochTime() + BACKEND_ACCESS_TOKEN_LIFETIME;
-        console.log("token", token)
+        if (account?.provider === "google") {
+          const {access_token, id_token, } = account;
+          try{
+              const response = await googleAuth(access_token, id_token);
+              if (response.status === 200 && response.data) {
+                token["user"] = response.data.user;
+                token["access_token"] = response.data.access;
+                token["refresh_token"] = response.data.refresh;
+                token["ref"] = getCurrentEpochTime() + BACKEND_ACCESS_TOKEN_LIFETIME;
+                console.log("token", token)
+              }
+          }catch (error) {
+            console.error("Error fetching user details:", error);
+          }
+        }
         return token;
       }
       // Refresh the backend token if necessary
       if (token.exp && getCurrentEpochTime() > token.exp) {
-        const response = await axios({
-          method: "post",
-          url: process.env.NEXTAUTH_BACKEND_URL + "auth/token/refresh/",
-          data: {
-            refresh: token["refresh_token"],
-          },
-        });
-        token["access_token"] = response.data.access;
-        token["refresh_token"] = response.data.access_expiration;
+        const response = await refreshToken(token["refresh_token"] as string);
+        token["access_token"] = response.access;
+        token["refresh_token"] = response.access_expiration;
         token["ref"] = getCurrentEpochTime() + BACKEND_ACCESS_TOKEN_LIFETIME;
       }
       return token;
@@ -151,50 +135,12 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 });
 
 
-async function getUserFromDb(_email: string, pwHash: string): Promise<User | null> {
-  try {
-
-    const credentials = {
-      username: _email,
-      password: pwHash
-    }
-
-    const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}auth/login/`;
-    console.log("log in user")
-    console.log(url, credentials)
-
-    const response = await axios.post(url, {
-      ...credentials
-    });
-
-    if (response.status === 200 && response.data) {
-      console.log("response.data", response.data)
-      return response.data.user;
-    } else {
-      return null;
-    }
-  } catch (error) {
-    console.log("Error fetching user from DB:", error);
-    return null;
-  }
-}
 
 
-export const getUserDetails = async (accessToken: string ) => {
-  try {
-    const response = await axios({
-      method: "get",
-      url: process.env.NEXT_PUBLIC_BACKEND_URL + "auth/user/",
-      headers: {
-        Authorization:  `Bearer ${accessToken}`,
-      },
-    });
-    return response.data;
-  } catch (error) {
-    console.error("Error fetching user details:", error);
-    return null;
-  }
-};
+
+
+
+
 
 
 

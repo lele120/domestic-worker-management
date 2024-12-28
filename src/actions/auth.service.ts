@@ -1,8 +1,5 @@
-
 import { signIn } from 'next-auth/react';
-
 import { LoginCredentials } from '@/types/auth.types';
-
 
 export async function loginWithEmail(credentials: LoginCredentials) {
   try {
