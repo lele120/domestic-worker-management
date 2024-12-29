@@ -10,6 +10,7 @@ interface InputFieldProps {
   value: string
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
   error?: string
+  placeholder?: string
 }
 
 const InputField: React.FC<InputFieldProps> = ({
@@ -19,7 +20,8 @@ const InputField: React.FC<InputFieldProps> = ({
   required = true,
   value,
   onChange,
-  error
+  error, 
+  placeholder
 }) => (
   <div>
     <label htmlFor={name} className="block text-sm font-medium text-gray-700">
@@ -34,6 +36,7 @@ const InputField: React.FC<InputFieldProps> = ({
       className={`mt-1 block w-full rounded-md shadow-sm ${
         error ? 'border-red-300 focus:border-red-500 focus:ring-red-500' : 'border-gray-300 focus:border-blue-500 focus:ring-blue-500'
       } sm:text-sm`}
+      placeholder={placeholder}
     />
     {error && <p className="mt-1 text-sm text-red-600">{error}</p>}
   </div>
