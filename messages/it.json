@@ -36,6 +36,57 @@
         "title": "Impostazioni"
       }
     },
+    "employers": {
+      "addEmployer": "Aggiungi Datore di Lavoro",
+      "searchPlaceholder": "Cerca Datore di Lavoro",
+      "title": "Datori di Lavoro",
+      "subtitle": "Gestisci i tuoi datori di lavoro",
+      "filters": {
+        "allStatus": "Tutti",
+        "active": "Attivi",
+        "inactive": "Inattivi"
+      },
+      "create": {
+        "placeholders": {
+          "notes": "Aggiungi note o informazioni aggiuntive"
+        },
+        "submit": "Crea Datore di Lavoro",
+        "title": "Nuovo Datore di Lavoro",
+        "subtitle": "Aggiungi un nuovo datore di lavoro al sistema",
+        "sections": {
+          "personal": "Informazioni Personali",
+          "document": "Informazioni documento",
+          "contact": "Informazioni di Contatto",
+          "address": "Indirizzo",
+          "preferences": "Preferenze"
+        }
+      },
+      "fields" :{
+        "firstName": "Nome",
+        "lastName": "Cognome",
+        "taxNumber": "Codice Fiscale",
+        "dateOfBirth": "Data di Nascita",
+        "placeOfBirth": "Luogo di Nascita",
+        "nationality": "Nazionalità",
+        "job": "Professione",
+        "documentType": "Tipo Documento",
+        "documentNumber": "Numero Documento",
+        "documentIssuer": "Ente Rilasciante",
+        "documentExpiration": "Data Scadenza",
+        "email": "Email",
+        "phone": "Telefono",
+        "address":"Indirizzo",
+        "city": "Città",
+        "province": "Provincia",
+        "zipCode": "CAP",
+        "state": "Stato",
+        "preferredContact": "Contatto Preferito",
+        "employmentType": "Tipo di Impiego",
+        "notes" : "Note",
+        "profile": "Profilo",
+        "workersCount": "Lavoratori"
+      }
+    }, 
     "worker": {
       "title": "Nuovo Lavoratore",
       "subtitle": "Aggiungi un nuovo lavoratore al sistema",
@@ -314,6 +365,27 @@
       "change": "Cambia",
       "description": "Descrizione",
       "hourly": "Orario",
-      "monthly": "Mensile"
+      "monthly": "Mensile",
+      "gender": {
+        "male" : "Maschio",
+        "female" : "Femmina",
+        "other" : "Altro"
+      },
+      "employment": {
+        "fullTime" : "Tempo Pieno",
+        "partTime" : "Part-time",
+        "temporary" : "Tempo Determinato"
+      },
+      "contact" : {
+        "email" : "Email",
+        "phone" : "Telefono",
+        "mobile" : "Cellulare"
+      },
+      "documents" : {
+        "nationalId" : "Carta d'Identità",
+        "passport" : "Passaporto",
+        "driversLicense" : "Patente di Guida",
+        "residencePermit" : "Permesso di Soggiorno"
+      }
     }
   }
