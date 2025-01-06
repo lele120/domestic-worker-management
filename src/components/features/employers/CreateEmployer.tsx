@@ -5,39 +5,18 @@ import { useTranslations } from 'next-intl';
 import { Save, X } from 'lucide-react';
 import InputField from '@/components/shared/forms/InputField';
 import SelectField from '@/components/shared/forms/SelectField';
+import type { CreateEmployer } from '@/types/employer.types';
+import { createEmployer } from '@/app/api/auth/susbscription.service';
+import { useSession } from 'next-auth/react';
 
 interface CreateEmployerProps {
   onNavigate?: (page: string) => void;
 }
 
-interface FormData {
-  firstName: string;
-  lastName: string;
-  sex: 'male' | 'female' | 'other';
-  dateOfBirth: string;
-  placeOfBirth: string;
-  nationality: string;
-  taxNumber: string;
-  job: string;
-  documentType: string;
-  documentNumber: string;
-  documentIssuer: string;
-  documentExpiration: string;
-  email: string;
-  phone: string;
-  address: string;
-  city: string;
-  state: string;
-  province: string;
-  zipCode: string;
-  preferredContact: 'email' | 'phone';
-  employmentType: 'full-time' | 'part-time' | 'temporary';
-  notes: string;
-}
-
 const CreateEmployer: React.FC<CreateEmployerProps> = ({ onNavigate }) => {
+  const {data} = useSession()
   const  t  = useTranslations();
-  const [formData, setFormData] = useState<FormData>({
+  const [formData, setFormData] = useState<CreateEmployer>({
     firstName: '',
     lastName: '',
     sex: 'male',
@@ -62,10 +41,10 @@ const CreateEmployer: React.FC<CreateEmployerProps> = ({ onNavigate }) => {
     notes: ''
   });
 
-  const [errors, setErrors] = useState<Partial<FormData>>({});
+  const [errors, setErrors] = useState<Partial<CreateEmployer>>({});
 
   const validateForm = () => {
-    const newErrors: Partial<FormData> = {};
+    const newErrors: Partial<CreateEmployer> = {};
     
     if (!formData.firstName.trim()) newErrors.firstName = t('employers.create.validation.required');
     if (!formData.lastName.trim()) newErrors.lastName = t('employers.create.validation.required');
@@ -105,9 +84,14 @@ const CreateEmployer: React.FC<CreateEmployerProps> = ({ onNavigate }) => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (validateForm()) {
+      if (data?.user.accessToken) {
+        await createEmployer(formData, data.user.accessToken);
+      } else {
+        console.error('Access token is missing');
+      }
       console.log('Form submitted:', formData);
       onNavigate?.('employers-list');
     }
@@ -116,7 +100,7 @@ const CreateEmployer: React.FC<CreateEmployerProps> = ({ onNavigate }) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
-    if (errors[name as keyof FormData]) {
+    if (errors[name as keyof CreateEmployer]) {
       setErrors(prev => ({ ...prev, [name]: undefined }));
     }
   };
