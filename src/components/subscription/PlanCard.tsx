@@ -7,8 +7,10 @@ interface PlanFeature {
 }
 
 interface PlanCardProps {
+  id : number;
   name: string;
-  price: number;
+  monthly_price: number;
+  yearly_price: number;
   interval: 'month' | 'year';
   features: PlanFeature[];
   isPopular?: boolean;
@@ -19,7 +21,8 @@ interface PlanCardProps {
 
 const PlanCard: React.FC<PlanCardProps> = ({
   name,
-  price,
+  monthly_price,
+  yearly_price,
   interval,
   features,
   isPopular,
@@ -50,7 +53,7 @@ const PlanCard: React.FC<PlanCardProps> = ({
       <div className="text-center">
         <h3 className="text-xl font-semibold text-gray-900">{name}</h3>
         <div className="mt-4">
-          <span className="text-4xl font-bold text-gray-900">${price}</span>
+          <span className="text-4xl font-bold text-gray-900">{ interval == "month" ? monthly_price : yearly_price }</span>
           {!isTrial && <span className="text-gray-500">/{interval}</span>}
         </div>
       </div>
