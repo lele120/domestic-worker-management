@@ -1,4 +1,3 @@
-
 import * as bcrypt from 'bcrypt';
 
 export function saltAndHashPassword(password: string): Promise<string> {
@@ -15,6 +14,4 @@ export function saltAndHashPassword(password: string): Promise<string> {
         });
         });
     });
-    }
-
-    
+}

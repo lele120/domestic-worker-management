@@ -5,8 +5,13 @@ import PlanCard from '@/components/subscription/PlanCard';
 import BillingForm, { BillingFormData } from '@/components/subscription/BillingForm';
 import IntervalToggle from '@/components/subscription/IntervalToggle';
 import axios from 'axios';
+import { createSubscription } from '../api/auth/susbscription.service';
+import { addDaysToDate } from '@/utils/generic';
+import { useSession } from 'next-auth/react';
+
 
 const SubscriptionPage = () => {
+  const {data} = useSession()
   const router = useRouter();
   const [interval, setInterval] = useState<'month' | 'year'>('month');
   const [selectedPlan, setSelectedPlan] = useState<number | null>(null);
@@ -32,7 +37,7 @@ const SubscriptionPage = () => {
   
         const response =  await axios({
           method: "get",
-          url: process.env.NEXT_PUBLIC_BACKEND_URL + "plans/",
+          url: process.env.NEXT_PUBLIC_BACKEND_URL + "plan/",
           });
         setPlans(response.data);
       } catch (error) {
@@ -52,7 +57,15 @@ const SubscriptionPage = () => {
     console.log('Selected plan:', plans[index]);
     // If free trial is selected, skip billing and go straight to dashboard
     if (index === 0) {
-      
+      const today = new Date();
+      const end_date = addDaysToDate(today,7)
+      const accessToken = data?.user.accessToken;
+      if (accessToken) {
+        createSubscription(plans[index].id, today.toISOString(), end_date.toISOString(), 'true', accessToken);
+        router.push('/dashboard');
+      } else {
+        console.error('Access token is missing');
+      }
       router.push('/dashboard');
     } else {
       setShowBilling(true);

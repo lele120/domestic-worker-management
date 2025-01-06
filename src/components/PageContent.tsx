@@ -28,7 +28,7 @@ export default function PageContent() {
   if (!session?.user) {
     return null;
   }else {
-    console.log("session", session)
+    console.log("Dsession", session)
   }
 
   const renderPage = () => {

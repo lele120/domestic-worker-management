@@ -66,6 +66,12 @@ const googleProvider = GoogleProvider({
   }
 })
  
+declare module "next-auth" {
+  interface Session {
+    access_token?: string;
+  }
+}
+
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [credential, googleProvider,
   ],
@@ -122,9 +128,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     async session({ session, token, user }) {
       // Send properties to the client, like an access_token from a provider.
       console.log("session-token-user", session, token, user)
-      if (token.sub && session.user){
-        session.user.id = token.sub;
-      }
+      session.user.accessToken = token.access_token as string;
       if (token.role && session.user){
         session.user.role = token.role;
       }
