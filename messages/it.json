@@ -47,6 +47,11 @@
         "inactive": "Inattivi"
       },
       "create": {
+        "validation": {
+          "required": "Questo campo è obbligatorio",
+          "email": "Inserisci un indirizzo email valido",
+          "phone": "Inserisci un numero di telefono valido"
+        },
         "placeholders": {
           "notes": "Aggiungi note o informazioni aggiuntive"
         },
@@ -62,6 +67,7 @@
         }
       },
       "fields" :{
+        "sex" : "Sesso",
         "firstName": "Nome",
         "lastName": "Cognome",
         "taxNumber": "Codice Fiscale",
