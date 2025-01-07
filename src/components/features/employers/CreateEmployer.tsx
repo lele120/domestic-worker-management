@@ -39,7 +39,7 @@ const CreateEmployer: React.FC<CreateEmployerProps> = ({ onNavigate }) => {
     preferredContact: 'email',
     employmentType: 'full-time',
     notes: '',
-    status: 'Active',
+    status: 'active',
     company: '',
     image: '',
     workersCount: 0

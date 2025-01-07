@@ -21,7 +21,7 @@ export interface CreateEmployer {
     preferredContact: 'email' | 'phone';
     employmentType: 'full-time' | 'part-time' | 'temporary';
     notes: string;
-    status: 'Active' | 'Inactive' | 'Terminated';
+    status: 'active' | 'inactive' | 'terminated';
     image?: string;
     workersCount: number;
     id?: number;
