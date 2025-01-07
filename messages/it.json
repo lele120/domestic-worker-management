@@ -3,6 +3,7 @@
       "title": "Gestione Lavoratori Domestici"
     },
     "navigation": {
+      "logout": "Esci",
       "title": "Gestione Lavoratori Domestici",
       "employers": {
         "title": "Datori di Lavoro",
@@ -37,6 +38,7 @@
       }
     },
     "employers": {
+      "noResults": "Nessun datore di lavoro trovato",
       "addEmployer": "Aggiungi Datore di Lavoro",
       "searchPlaceholder": "Cerca Datore di Lavoro",
       "title": "Datori di Lavoro",

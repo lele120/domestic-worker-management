@@ -1,45 +1,13 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { Search, Filter, MoreVertical, UserPlus, Download, Briefcase, Mail, Phone } from 'lucide-react'
+import { getEmployers } from '@/app/api/auth/employer.service'
+import { useSession } from 'next-auth/react'
+import { _CreateEmployer } from '@/types/employer.types'
+import Image from 'next/image'
 
-// Mock data for demonstration
-const mockEmployers = [
-  {
-    id: 1,
-    name: "Robert Anderson",
-    status: "Active",
-    company: "Anderson Enterprises",
-    employmentType: "Full-time",
-    phone: "+1 (555) 123-4567",
-    email: "r.anderson@example.com",
-    workersCount: 3,
-    image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=150&h=150"
-  },
-  {
-    id: 2,
-    name: "Elena Martinez",
-    status: "Active",
-    company: "Martinez Family Office",
-    employmentType: "Part-time",
-    phone: "+1 (555) 234-5678",
-    email: "e.martinez@example.com",
-    workersCount: 2,
-    image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80&w=150&h=150"
-  },
-  {
-    id: 3,
-    name: "James Wilson",
-    status: "Inactive",
-    company: "Wilson Holdings",
-    employmentType: "Temporary",
-    phone: "+1 (555) 345-6789",
-    email: "j.wilson@example.com",
-    workersCount: 1,
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=150&h=150"
-  }
-]
 
 interface EmployersListProps {
   onNavigate?: (page: string) => void
@@ -49,10 +17,28 @@ const EmployersList: React.FC<EmployersListProps> = ({ onNavigate }) => {
   const  t  = useTranslations()
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedStatus, setSelectedStatus] = useState('all')
+  const {data} = useSession()
+  const defaultEmployer: _CreateEmployer[] = [] 
+  const [employers, setEmployers] = useState(defaultEmployer)
 
-  const filteredEmployers = mockEmployers.filter(employer => {
-    const matchesSearch = employer.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         employer.company.toLowerCase().includes(searchTerm.toLowerCase())
+  useEffect(() => {
+    const fetchEmployers = async () => {
+      try {
+        const response = await getEmployers(data?.user.accessToken as string) 
+        if (response != undefined) {
+          setEmployers(response)
+        }
+      } catch (error) {
+        console.error('Error fetching employers:', error)
+      }
+    }
+
+    fetchEmployers()
+  }, [data?.user.accessToken])
+
+  const filteredEmployers = employers.filter(employer => {
+    const matchesSearch = employer.first_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         employer.last_name.toLowerCase().includes(searchTerm.toLowerCase())
     const matchesStatus = selectedStatus === 'all' || employer.status.toLowerCase() === selectedStatus.toLowerCase()
     return matchesSearch && matchesStatus
   })
@@ -113,13 +99,14 @@ const EmployersList: React.FC<EmployersListProps> = ({ onNavigate }) => {
             <div className="p-6">
               <div className="flex items-start justify-between">
                 <div className="flex items-center">
-                  <img
-                    src={employer.image}
-                    alt={employer.name}
-                    className="w-12 h-12 rounded-full object-cover"
+                  <Image className="w-12 h-12 rounded-full object-cover" 
+                    alt={employer.first_name + ' ' + employer.last_name}
+                    src={employer.image || '/default-avatar-512.png'}
+                    width={150}
+                    height={150}
                   />
                   <div className="ml-4">
-                    <h3 className="text-lg font-semibold text-gray-900">{employer.name}</h3>
+                    <h3 className="text-lg font-semibold text-gray-900">{employer.first_name} {employer.last_name}</h3>
                     <p className="text-sm text-gray-500">{employer.company}</p>
                   </div>
                 </div>
@@ -132,14 +119,14 @@ const EmployersList: React.FC<EmployersListProps> = ({ onNavigate }) => {
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-sm text-gray-500">{t('common.status')}</span>
                   <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
-                    ${employer.status === 'Active' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'}`}>
+                    ${employer.status === 'active' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'}`}>
                     {employer.status}
                   </span>
                 </div>
                 <div className="space-y-2 text-sm text-gray-500">
                   <div className="flex items-center">
                     <Briefcase className="w-4 h-4 mr-2" />
-                    <span>{employer.employmentType}</span>
+                    <span>{employer.employment_type}</span>
                   </div>
                   <div className="flex items-center">
                     <Mail className="w-4 h-4 mr-2" />
@@ -157,7 +144,7 @@ const EmployersList: React.FC<EmployersListProps> = ({ onNavigate }) => {
                   {t('common.view')} {t('employers.fields.profile')}
                 </button>
                 <button className="flex-1 px-4 py-2 bg-gray-50 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-100">
-                  {t('common.manage')} {t('employers.fields.workersCount')} ({employer.workersCount})
+                  {t('common.manage')} {t('employers.fields.workersCount')} (QUI i lavoratori (TODO))
                 </button>
               </div>
             </div>

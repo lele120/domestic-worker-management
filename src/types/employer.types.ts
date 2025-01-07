@@ -21,9 +21,15 @@ export interface CreateEmployer {
     preferredContact: 'email' | 'phone';
     employmentType: 'full-time' | 'part-time' | 'temporary';
     notes: string;
+    status: 'Active' | 'Inactive' | 'Terminated';
+    image?: string;
+    workersCount: number;
+    id?: number;
+    company?: string;
   }
 
   export interface _CreateEmployer {
+    id?: number;
     first_name: string;
     last_name: string;
     sex: 'male' | 'female' | 'other';
@@ -46,4 +52,8 @@ export interface CreateEmployer {
     preferred_contact: 'email' | 'phone';
     employment_type: 'full-time' | 'part-time' | 'temporary';
     notes: string;
+    status: 'active' | 'inactive' | 'terminated';
+    image?: string;
+    workers_count: number;
+    company?: string;
     }

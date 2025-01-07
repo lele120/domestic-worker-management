@@ -6,7 +6,7 @@ import { Save, X } from 'lucide-react';
 import InputField from '@/components/shared/forms/InputField';
 import SelectField from '@/components/shared/forms/SelectField';
 import type { CreateEmployer } from '@/types/employer.types';
-import { createEmployer } from '@/app/api/auth/susbscription.service';
+import { createEmployer } from '@/app/api/auth/employer.service';
 import { useSession } from 'next-auth/react';
 
 interface CreateEmployerProps {
@@ -38,7 +38,12 @@ const CreateEmployer: React.FC<CreateEmployerProps> = ({ onNavigate }) => {
     zipCode: '',
     preferredContact: 'email',
     employmentType: 'full-time',
-    notes: ''
+    notes: '',
+    status: 'Active',
+    company: '',
+    image: '',
+    workersCount: 0
+
   });
 
   const [errors, setErrors] = useState<Partial<CreateEmployer>>({});
