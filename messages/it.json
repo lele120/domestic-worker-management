@@ -96,6 +96,20 @@
       }
     }, 
     "worker": {
+      "list": {
+        "searchPlaceholder" : "Cerca Lavoratore",
+        "filters": {
+          "allStatus": "Tutti",
+          "active": "Attivi",
+          "inactive": "Inattivi",
+          "onLeave" : "In ferie"
+        },
+        "fields": {
+          "started" : "Inizio",
+          "profile" : "Profilo",
+          "schedule" : "Orario"
+        }
+      },
       "title": "Nuovo Lavoratore",
       "subtitle": "Aggiungi un nuovo lavoratore al sistema",
       "validation": {
