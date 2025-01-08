@@ -8,11 +8,13 @@ import NewWorker from '@/components/features/workers/NewWorker';
 import EmployersList from '@/components/features/employers/EmployersList';
 import CreateEmployer from '@/components/features/employers/CreateEmployer';
 import CreateContract from '@/components/features/contracts/CreateContract';
+//import EmployerProfile from '@/components/features/employers/EmployerProfile';
 
 export default function PageContent() {
   const { data: session, status } = useSession();
   const router = useRouter();
   const [currentPage, setCurrentPage] = useState('workers-list');
+  //const [selectedEmployerId, setSelectedEmployerId] = useState<string | null>(null);
 
   useEffect(() => {
     console.log("status", status)
@@ -31,6 +33,12 @@ export default function PageContent() {
     console.log("Dsession", session)
   }
 
+  const handleEmployerSelect = (id: string) => {
+    //setSelectedEmployerId(id);
+    //setCurrentPage('employer-profile');
+    router.push(`dashboard/employer/${id}`);
+  };
+
   const renderPage = () => {
     switch (currentPage) {
       case 'workers-list':
@@ -38,7 +46,7 @@ export default function PageContent() {
       case 'new-worker':
         return <NewWorker onNavigate={setCurrentPage} />;
       case 'employers-list':
-        return <EmployersList onNavigate={setCurrentPage} />;
+        return <EmployersList onNavigate={setCurrentPage} onSelectEmployer={handleEmployerSelect}  />;
       case 'create-employer':
         return <CreateEmployer onNavigate={setCurrentPage} />;
       case 'create-contract':

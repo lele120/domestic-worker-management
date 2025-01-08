@@ -11,9 +11,10 @@ import Image from 'next/image'
 
 interface EmployersListProps {
   onNavigate?: (page: string) => void
+  onSelectEmployer: (id: string) => void;
 }
 
-const EmployersList: React.FC<EmployersListProps> = ({ onNavigate }) => {
+const EmployersList: React.FC<EmployersListProps> = ({ onNavigate, onSelectEmployer }) => {
   const  t  = useTranslations()
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedStatus, setSelectedStatus] = useState('all')
@@ -140,7 +141,8 @@ const EmployersList: React.FC<EmployersListProps> = ({ onNavigate }) => {
               </div>
 
               <div className="mt-6 flex gap-2">
-                <button className="flex-1 px-4 py-2 bg-blue-50 rounded-lg text-sm font-medium text-blue-600 hover:bg-blue-100">
+                <button onClick={() => onSelectEmployer(employer.id?.toString() || '')} 
+                  className="flex-1 px-4 py-2 bg-blue-50 rounded-lg text-sm font-medium text-blue-600 hover:bg-blue-100">
                   {t('common.view')} {t('employers.fields.profile')}
                 </button>
                 <button className="flex-1 px-4 py-2 bg-gray-50 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-100">
