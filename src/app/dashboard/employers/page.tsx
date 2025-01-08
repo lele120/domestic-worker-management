@@ -7,20 +7,21 @@ import { getEmployers } from '@/app/api/auth/employer.service'
 import { useSession } from 'next-auth/react'
 import { _CreateEmployer } from '@/types/employer.types'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 
 
 interface EmployersListProps {
   onNavigate?: (page: string) => void
-  onSelectEmployer: (id: string) => void;
 }
 
-const EmployersList: React.FC<EmployersListProps> = ({ onNavigate, onSelectEmployer }) => {
-  const  t  = useTranslations()
-  const [searchTerm, setSearchTerm] = useState('')
-  const [selectedStatus, setSelectedStatus] = useState('all')
-  const {data} = useSession()
-  const defaultEmployer: _CreateEmployer[] = [] 
-  const [employers, setEmployers] = useState(defaultEmployer)
+export default function EmployersList({ onNavigate }: EmployersListProps) {
+    const  t  = useTranslations()
+    const [searchTerm, setSearchTerm] = useState('')
+    const [selectedStatus, setSelectedStatus] = useState('all')
+    const {data} = useSession()
+    const defaultEmployer: _CreateEmployer[] = [] 
+    const [employers, setEmployers] = useState(defaultEmployer)
+    const router = useRouter()
 
   useEffect(() => {
     const fetchEmployers = async () => {
@@ -141,7 +142,7 @@ const EmployersList: React.FC<EmployersListProps> = ({ onNavigate, onSelectEmplo
               </div>
 
               <div className="mt-6 flex gap-2">
-                <button onClick={() => onSelectEmployer(employer.id?.toString() || '')} 
+                <button onClick={() => router.push(`/dashboard/employers/${employer.id}`)}
                   className="flex-1 px-4 py-2 bg-blue-50 rounded-lg text-sm font-medium text-blue-600 hover:bg-blue-100">
                   {t('common.view')} {t('employers.fields.profile')}
                 </button>
@@ -162,5 +163,3 @@ const EmployersList: React.FC<EmployersListProps> = ({ onNavigate, onSelectEmplo
     </div>
   )
 }
-
-export default EmployersList

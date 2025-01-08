@@ -1,6 +1,6 @@
 'use client';
 
-
+import { useRouter } from 'next/navigation';
 import { signOut } from 'next-auth/react';
 import React from 'react';
 import {
@@ -27,14 +27,20 @@ interface SidebarProps {
 
 const Sidebar = ({ onNavigate, currentPage }: SidebarProps) => {
   const  t  = useTranslations();
+  const router = useRouter();
+
+  const sendToPage = (link: string) => {
+    onNavigate(link);
+    router.push(`/${link}`);
+  };
 
   const navigationSections = [
     {
       title: t('navigation.employers.title'),
       icon: Building,
       items: [
-        { title: t('navigation.employers.list'), link: 'employers-list' },
-        { title: t('navigation.employers.new'), link: 'create-employer' },
+        { title: t('navigation.employers.list'), link: 'dashboard/employers' },
+        { title: t('navigation.employers.new'), link: 'dashboard/employers/create' },
       ],
     },
     {
@@ -90,8 +96,9 @@ const Sidebar = ({ onNavigate, currentPage }: SidebarProps) => {
           <NavigationSection
             key={index}
             {...section}
-            onNavigate={onNavigate}
+            //onNavigate={onNavigate}
             currentPage={currentPage}
+            sendToPage={sendToPage}
           />
         ))}
       </div>

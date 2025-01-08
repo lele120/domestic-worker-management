@@ -3,20 +3,13 @@ import { useSession } from 'next-auth/react';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Sidebar from '@/components/layout/Sidebar';
-import WorkersList from '@/components/features/workers/WorkersList';
-import NewWorker from '@/components/features/workers/NewWorker';
-import EmployersList from '@/components/features/employers/EmployersList';
-import CreateEmployer from '@/components/features/employers/CreateEmployer';
-import CreateContract from '@/components/features/contracts/CreateContract';
-import {ContractList} from '@/components/features/contracts/ContractList';
-//import EmployerProfile from '@/components/features/employers/EmployerProfile';
+import { ReactNode } from 'react';
 
-export default function PageContent() {
+export default function RootLayout({ children }: { children: ReactNode }) {
   const { data: session, status } = useSession();
   const router = useRouter();
-  const [currentPage, setCurrentPage] = useState('workers-list');
-  //const [selectedEmployerId, setSelectedEmployerId] = useState<string | null>(null);
-
+  const [currentPage, setCurrentPage] = useState('dashboard/employers');
+  
   useEffect(() => {
     console.log("status", status)
     if (status === 'unauthenticated') {
@@ -34,36 +27,15 @@ export default function PageContent() {
     console.log("Session", session)
   }
 
-  const handleEmployerSelect = (id: string) => {
-    //setSelectedEmployerId(id);
-    setCurrentPage('employer-profile');
-    router.push(`dashboard/employer/${id}`);
-  };
-
-  const renderPage = () => {
-    switch (currentPage) {
-      case 'workers-list':
-        return <WorkersList onNavigate={setCurrentPage} />;
-      case 'new-worker':
-        return <NewWorker onNavigate={setCurrentPage} />;
-      case 'employers-list':
-        return <EmployersList onNavigate={setCurrentPage} onSelectEmployer={handleEmployerSelect}  />;
-      case 'create-employer':
-        return <CreateEmployer onNavigate={setCurrentPage} />;
-      case 'create-contract':
-        return <CreateContract onNavigate={setCurrentPage} />;
-      case 'contracts-list':
-        return <ContractList onNavigate={setCurrentPage} />;
-      default:
-        return <WorkersList onNavigate={setCurrentPage} />;
-    }
-  };
+  const handleNavigate = (page: string) => {
+    setCurrentPage(page);
+  }
 
   return (
     <div className="flex min-h-screen bg-gray-50">
-      <Sidebar onNavigate={setCurrentPage} currentPage={currentPage} />
+      <Sidebar onNavigate={handleNavigate} currentPage={currentPage} />
       <main className="flex-1 ml-64 p-8">
-        {renderPage()}
+        {children}
       </main>
     </div>
   );

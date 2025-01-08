@@ -3,10 +3,9 @@
 import React, { useState } from 'react';
 import { ChevronDown, LucideIcon } from 'lucide-react';
 //import { useTranslations } from 'next-intl';
-
+//import { useRouter } from 'next/navigation'
 import SubMenuItem from './SubMenuItem';
-import MenuItem from './MenuItem';
-
+//import MenuItem from './MenuItem';
 
 interface NavigationItem {
   title: string;
@@ -19,23 +18,33 @@ interface NavigationSectionProps {
   items?: NavigationItem[];
   link?: string;
   standalone?: boolean;
-  onNavigate: (page: string) => void;
+  //onNavigate: (page: string) => void;
+  sendToPage: (link: string) => void;
   currentPage: string;
 }
+
 
 const NavigationSection = ({
   title,
   icon: Icon,
   items = [],
-  link,
-  standalone,
-  onNavigate,
+  //link,
+  //standalone,
+  //onNavigate,
+  sendToPage,
   currentPage,
 }: NavigationSectionProps) => {
   const [isOpen, setIsOpen] = useState(true);
   //const  t  = useTranslations();
+  //const router = useRouter()
 
-  if (standalone && link) {
+
+/* const sendToPage = (page: string) => {
+  router.push(`/${page}`)
+  
+} */
+
+  /* if (standalone && link) {
     return (
       <MenuItem
         href="#"
@@ -45,7 +54,7 @@ const NavigationSection = ({
         onClick={() => onNavigate(link)}
       />
     );
-  }
+  } */
 
   return (
     <div className="mb-2">
@@ -72,7 +81,7 @@ const NavigationSection = ({
               href="#"
               text={item.title}
               active={currentPage === item.link}
-              onClick={() => onNavigate(item.link)}
+              onClick={() => {sendToPage(item.link)}}
             />
           ))}
         </div>
