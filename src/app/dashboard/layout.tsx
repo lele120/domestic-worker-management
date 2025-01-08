@@ -8,6 +8,7 @@ import NewWorker from '@/components/features/workers/NewWorker';
 import EmployersList from '@/components/features/employers/EmployersList';
 import CreateEmployer from '@/components/features/employers/CreateEmployer';
 import CreateContract from '@/components/features/contracts/CreateContract';
+import {ContractList} from '@/components/features/contracts/ContractList';
 //import EmployerProfile from '@/components/features/employers/EmployerProfile';
 
 export default function PageContent() {
@@ -30,12 +31,12 @@ export default function PageContent() {
   if (!session?.user) {
     return null;
   }else {
-    console.log("Dsession", session)
+    console.log("Session", session)
   }
 
   const handleEmployerSelect = (id: string) => {
     //setSelectedEmployerId(id);
-    //setCurrentPage('employer-profile');
+    setCurrentPage('employer-profile');
     router.push(`dashboard/employer/${id}`);
   };
 
@@ -51,6 +52,8 @@ export default function PageContent() {
         return <CreateEmployer onNavigate={setCurrentPage} />;
       case 'create-contract':
         return <CreateContract onNavigate={setCurrentPage} />;
+      case 'contracts-list':
+        return <ContractList onNavigate={setCurrentPage} />;
       default:
         return <WorkersList onNavigate={setCurrentPage} />;
     }

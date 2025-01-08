@@ -9,7 +9,7 @@ interface SubMenuItemProps {
   onClick: () => void
 }
 
-const SubMenuItem = ({ href, text, active, onClick }: SubMenuItemProps) => (
+const SubMenuItem = ({ text, active, onClick }: SubMenuItemProps) => (
   <button
     onClick={onClick}
     className={`w-full flex items-center px-4 py-2 text-sm rounded-lg mb-1 hover:bg-blue-50 pl-12
