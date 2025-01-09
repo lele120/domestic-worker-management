@@ -9,42 +9,42 @@ interface PersonalInfoFormProps {
   formData: {
     firstName: string;
     lastName: string;
-    birthDate: string;
-    birthPlace: string;
+    dateOfBirth: string;
+    placeOfBirth: string;
     nationality: string;
-    gender: string;
-    fiscalCode: string;
+    sex: string;
+    taxNumber: string;
     email: string;
     phone: string;
     mobile: string;
     address: string;
     city: string;
     province: string;
-    postalCode: string;
+    zipCode: string;
     documentType: string;
     documentNumber: string;
     documentIssuer: string;
-    documentExpiry: string;
+    documentExpiration: string;
   };
   errors: Partial<{
     firstName: string;
     lastName: string;
-    birthDate: string;
-    birthPlace: string;
+    dateOfBirth: string;
+    placeOfBirth: string;
     nationality: string;
-    gender: string;
-    fiscalCode: string;
+    sex: string;
+    taxNumber: string;
     email: string;
     phone: string;
     mobile: string;
     address: string;
     city: string;
     province: string;
-    postalCode: string;
+    zipCode: string;
     documentType: string;
     documentNumber: string;
     documentIssuer: string;
-    documentExpiry: string;
+    documentExpiration: string;
   }>;
   onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
 }
@@ -80,18 +80,18 @@ const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
           />
           <InputField
             label={t('worker.fields.birthDate')}
-            name="birthDate"
+            name="dateOfBirth"
             type="date"
-            value={formData.birthDate}
+            value={formData.dateOfBirth}
             onChange={onChange}
-            error={errors.birthDate}
+            error={errors.dateOfBirth}
           />
           <InputField
             label={t('worker.fields.birthPlace')}
-            name="birthPlace"
-            value={formData.birthPlace}
+            name="placeOfBirth"
+            value={formData.placeOfBirth}
             onChange={onChange}
-            error={errors.birthPlace}
+            error={errors.placeOfBirth}
           />
           <SelectField
             label={t('worker.fields.nationality')}
@@ -108,8 +108,8 @@ const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
           />
           <SelectField
             label={t('worker.fields.gender')}
-            name="gender"
-            value={formData.gender}
+            name="sex"
+            value={formData.sex}
             onChange={onChange}
             options={[
               { value: '', label: t('worker.options.selectGender') },
@@ -117,14 +117,14 @@ const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
               { value: 'F', label: t('worker.options.female') },
               { value: 'O', label: t('worker.options.other') }
             ]}
-            error={errors.gender}
+            error={errors.sex}
           />
           <InputField
             label={t('worker.fields.fiscalCode')}
-            name="fiscalCode"
-            value={formData.fiscalCode}
+            name="taxNumber"
+            value={formData.taxNumber}
             onChange={onChange}
-            error={errors.fiscalCode}
+            error={errors.taxNumber}
           />
         </div>
       </div>
@@ -194,10 +194,10 @@ const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
           />
           <InputField
             label={t('worker.fields.postalCode')}
-            name="postalCode"
-            value={formData.postalCode}
+            name="zipCode"
+            value={formData.zipCode}
             onChange={onChange}
-            error={errors.postalCode}
+            error={errors.zipCode}
           />
         </div>
       </div>
@@ -237,11 +237,11 @@ const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
           />
           <InputField
             label={t('worker.fields.documentExpiry')}
-            name="documentExpiry"
+            name="documentExpiration"
             type="date"
-            value={formData.documentExpiry}
+            value={formData.documentExpiration}
             onChange={onChange}
-            error={errors.documentExpiry}
+            error={errors.documentExpiration}
           />
         </div>
       </div>

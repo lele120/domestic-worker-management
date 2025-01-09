@@ -4,29 +4,29 @@ import React, { useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { Save, X } from 'lucide-react';
 
-import EmployerSelector from './EmployerSelector';
-import PersonalInfoForm from './PersonalInfoForm';
+import EmployerSelector from '@/components/features/workers/EmployerSelector';
+import PersonalInfoForm from '@/components/features/workers/PersonalInfoForm';
 
-interface WorkerFormData {
+interface WorkerForm {
   employerId: number | null;
   firstName: string;
   lastName: string;
-  birthDate: string;
-  birthPlace: string;
+  dateOfBirth: string;
+  placeOfBirth: string;
   nationality: string;
-  gender: string;
-  fiscalCode: string;
+  sex: string;
+  taxNumber: string;
   email: string;
   phone: string;
   mobile: string;
   address: string;
   city: string;
   province: string;
-  postalCode: string;
+  zipCode: string;
   documentType: string;
   documentNumber: string;
   documentIssuer: string;
-  documentExpiry: string;
+  documentExpiration: string;
 }
 
 interface NewWorkerProps {
@@ -35,54 +35,54 @@ interface NewWorkerProps {
 
 const NewWorker: React.FC<NewWorkerProps> = ({ onNavigate }) => {
   const  t  = useTranslations();
-  const [formData, setFormData] = useState<WorkerFormData>({
+  const [workerForm, setworkerForm] = useState<WorkerForm>({
     employerId: null,
     firstName: '',
     lastName: '',
-    birthDate: '',
-    birthPlace: '',
+    dateOfBirth: '',
+    placeOfBirth: '',
     nationality: '',
-    gender: '',
-    fiscalCode: '',
+    sex: '',
+    taxNumber: '',
     email: '',
     phone: '',
     mobile: '',
     address: '',
     city: '',
     province: '',
-    postalCode: '',
+    zipCode: '',
     documentType: '',
     documentNumber: '',
     documentIssuer: '',
-    documentExpiry: ''
+    documentExpiration: ''
   });
 
-  const [errors, setErrors] = useState<Partial<WorkerFormData>>({});
+  const [errors, setErrors] = useState<Partial<WorkerForm>>({});
 
   const validateForm = () => {
-    const newErrors: Partial<WorkerFormData> = {};
+    const newErrors: Partial<WorkerForm> = {};
 
-    if (!formData.employerId) newErrors.employerId = t('worker.validation.employerRequired') as unknown as number;
-    if (!formData.firstName.trim()) newErrors.firstName = t('worker.validation.required');
-    if (!formData.lastName.trim()) newErrors.lastName = t('worker.validation.required');
-    if (!formData.birthDate) newErrors.birthDate = t('worker.validation.required');
-    if (!formData.birthPlace.trim()) newErrors.birthPlace = t('worker.validation.required');
-    if (!formData.nationality) newErrors.nationality = t('worker.validation.required');
-    if (!formData.gender) newErrors.gender = t('worker.validation.required');
-    if (!formData.fiscalCode.trim()) newErrors.fiscalCode = t('worker.validation.required');
+    if (!workerForm.employerId) newErrors.employerId = t('worker.validation.employerRequired') as unknown as number;
+    if (!workerForm.firstName.trim()) newErrors.firstName = t('worker.validation.required');
+    if (!workerForm.lastName.trim()) newErrors.lastName = t('worker.validation.required');
+    if (!workerForm.dateOfBirth) newErrors.dateOfBirth = t('worker.validation.required');
+    if (!workerForm.placeOfBirth.trim()) newErrors.placeOfBirth = t('worker.validation.required');
+    if (!workerForm.nationality) newErrors.nationality = t('worker.validation.required');
+    if (!workerForm.sex) newErrors.sex = t('worker.validation.required');
+    if (!workerForm.taxNumber.trim()) newErrors.taxNumber = t('worker.validation.required');
 
-    if (formData.email && !/\S+@\S+\.\S+/.test(formData.email)) {
+    if (workerForm.email && !/\S+@\S+\.\S+/.test(workerForm.email)) {
       newErrors.email = t('worker.validation.invalidEmail');
     }
 
-    if (formData.phone && !/^\+?[\d\s-()]+$/.test(formData.phone)) {
+    if (workerForm.phone && !/^\+?[\d\s-()]+$/.test(workerForm.phone)) {
       newErrors.phone = t('worker.validation.invalidPhone');
     }
 
-    if (!formData.documentType) newErrors.documentType = t('worker.validation.required');
-    if (!formData.documentNumber.trim()) newErrors.documentNumber = t('worker.validation.required');
-    if (!formData.documentIssuer.trim()) newErrors.documentIssuer = t('worker.validation.required');
-    if (!formData.documentExpiry) newErrors.documentExpiry = t('worker.validation.required');
+    if (!workerForm.documentType) newErrors.documentType = t('worker.validation.required');
+    if (!workerForm.documentNumber.trim()) newErrors.documentNumber = t('worker.validation.required');
+    if (!workerForm.documentIssuer.trim()) newErrors.documentIssuer = t('worker.validation.required');
+    if (!workerForm.documentExpiration) newErrors.documentExpiration = t('worker.validation.required');
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -90,17 +90,17 @@ const NewWorker: React.FC<NewWorkerProps> = ({ onNavigate }) => {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setworkerForm(prev => ({
       ...prev,
       [name]: value
     }));
-    if (errors[name as keyof WorkerFormData]) {
+    if (errors[name as keyof WorkerForm]) {
       setErrors(prev => ({ ...prev, [name]: undefined }));
     }
   };
 
   const handleEmployerSelect = (employerId: number) => {
-    setFormData(prev => ({
+    setworkerForm(prev => ({
       ...prev,
       employerId
     }));
@@ -112,7 +112,7 @@ const NewWorker: React.FC<NewWorkerProps> = ({ onNavigate }) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (validateForm()) {
-      console.log('Form submitted:', formData);
+      console.log('Form submitted:', workerForm);
       onNavigate?.('workers-list');
     }
   };
@@ -131,14 +131,14 @@ const NewWorker: React.FC<NewWorkerProps> = ({ onNavigate }) => {
       <form onSubmit={handleSubmit} className="bg-white shadow-sm rounded-lg border border-gray-200">
         <div className="p-6">
           <EmployerSelector
-            selectedEmployerId={formData.employerId}
+            selectedEmployerId={workerForm.employerId}
             onSelect={handleEmployerSelect}
           />
           {errors.employerId && (
             <p className="mt-1 text-sm text-red-600">{errors.employerId}</p>
           )}
           <PersonalInfoForm
-            formData={formData}
+            formData={workerForm}
             errors={errors}
             onChange={handleInputChange}
           />

@@ -48,8 +48,23 @@ interface CreateContractProps {
 const CreateContract: React.FC<CreateContractProps> = ({ onNavigate }) => {
   const  t  = useTranslations();
   const [currentStep, setCurrentStep] = useState(0);
-  const [selectedEmployer, setSelectedEmployer] = useState<any>(null);
-  const [selectedWorker, setSelectedWorker] = useState<any>(null);
+  interface Employer {
+    id: number;
+    name: string;
+    company: string;
+    image: string;
+    workers: Worker[];
+  }
+
+  interface Worker {
+    id: number;
+    firstName: string;
+    lastName: string;
+    image: string;
+  }
+
+  const [selectedEmployer, setSelectedEmployer] = useState<Employer | null>(null);
+  const [selectedWorker, setSelectedWorker] = useState<Worker | null>(null);
   const [showSelector, setShowSelector] = useState(false);
   
   const [formData, setFormData] = useState({
@@ -117,7 +132,7 @@ const CreateContract: React.FC<CreateContractProps> = ({ onNavigate }) => {
     }
   });
 
-  const handleChange = (name: string, value: any) => {
+  const handleChange = (name: string, value: string | number | boolean | object) => {
     setFormData(prev => ({
       ...prev,
       [name]: value
@@ -136,14 +151,18 @@ const CreateContract: React.FC<CreateContractProps> = ({ onNavigate }) => {
 
   const handleEmployerSelection = (employerId: number) => {
     const employer = mockEmployers.find(emp => emp.id === employerId);
-    setSelectedEmployer(employer);
+    if (employer) {
+      setSelectedEmployer(employer);
+    }
     setSelectedWorker(null);
   };
 
   const handleWorkerSelection = (workerId: number) => {
     if (selectedEmployer) {
-      const worker = selectedEmployer.workers.find((w: any) => w.id === workerId);
-      setSelectedWorker(worker);
+      const worker = selectedEmployer.workers.find((w: Worker) => w.id === workerId);
+      if (worker) {
+        setSelectedWorker(worker);
+      }
     }
   };
 
@@ -161,8 +180,8 @@ const CreateContract: React.FC<CreateContractProps> = ({ onNavigate }) => {
       return (
         <EmployerWorkerSelector
           employers={mockEmployers}
-          selectedEmployerId={selectedEmployer?.id}
-          selectedWorkerId={selectedWorker?.id}
+          selectedEmployerId={selectedEmployer ? selectedEmployer.id : null}
+          selectedWorkerId={selectedWorker ? selectedWorker.id : null}
           onEmployerSelect={handleEmployerSelection}
           onWorkerSelect={handleWorkerSelection}
           onClose={() => setShowSelector(false)}
@@ -204,14 +223,14 @@ const CreateContract: React.FC<CreateContractProps> = ({ onNavigate }) => {
         return (
           <SalaryForm
             formData={formData.salary}
-            onChange={(name: string, value: any) => handleChange(`salary.${name}`, value)}
+            onChange={(name: string, value: string | number | boolean | object) => handleChange(`salary.${name}`, value)}
           />
         );
       case 4:
         return (
           <AdvancedSettingsForm
             formData={formData.advancedSettings}
-            onChange={(name: string, value: any) => handleChange(`advancedSettings.${name}`, value)}
+            onChange={(name: string, value: string | number | boolean) => handleChange(`advancedSettings.${name}`, value)}
           />
         );
       case 5:

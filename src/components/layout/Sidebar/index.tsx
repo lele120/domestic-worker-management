@@ -47,8 +47,8 @@ const Sidebar = ({ onNavigate, currentPage }: SidebarProps) => {
       title: t('navigation.worker.title'),
       icon: Users,
       items: [
-        { title: t('navigation.worker.list'), link: 'workers-list' },
-        { title: t('navigation.worker.new'), link: 'new-worker' },
+        { title: t('navigation.worker.list'), link: 'dashboard/workers' },
+        { title: t('navigation.worker.new'), link: 'dashboard/workers/create' },
       ],
     },
     {
