@@ -29,7 +29,7 @@ export interface CreateEmployer {
   }
 
   export interface _CreateEmployer {
-    id?: number;
+    id?: number | null;
     first_name: string;
     last_name: string;
     sex: 'male' | 'female' | 'other';

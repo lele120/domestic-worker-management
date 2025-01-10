@@ -28,7 +28,41 @@ const EmployerSelector: React.FC<EmployerSelectorProps> = ({
       try {
         const response = await getEmployers(data?.user.accessToken as string) 
         if (response != undefined) {
-          setEmployers(response)
+          // Add a null option to the employers array
+          const nullOption = {
+            id: null,
+            first_name: 'No',
+            last_name: 'Employer',
+            sex: 'other' as 'male' |'female' | 'other',
+            date_of_birth: '',
+            nationality: '',
+            address: '',
+            phone_number: '',
+            email: '',
+            company: '',
+            created_at: '',
+            updated_at: '',
+            image: '/default-avatar-512.png',
+            place_of_birth: '',
+            tax_number: '',
+            job: '',
+            document_type: '',
+            document_number: '',
+            document_issuer: '',
+            document_expiration: '',
+            city: '',
+            state: '',
+            province: '',
+            zip_code: '',
+            preferred_contact: 'email' as 'email' | 'phone',
+            employment_type: "full-time" as "full-time" | "part-time" | "temporary",
+            phone: '',
+            notes: '',
+            status: 'active' as 'active' | 'inactive' | 'terminated',
+            workers_count: 0,
+            
+          };
+          setEmployers([nullOption, ...response]);
         }
       } catch (error) {
         console.error('Error fetching employers:', error)

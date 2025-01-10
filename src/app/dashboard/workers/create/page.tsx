@@ -3,40 +3,19 @@
 import React, { useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { Save, X } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 import EmployerSelector from '@/components/features/workers/EmployerSelector';
 import PersonalInfoForm from '@/components/features/workers/PersonalInfoForm';
+import { useSession } from 'next-auth/react';
+import { createWorker } from '@/app/api/auth/worker.service';
+import { createWorkerInput } from '@/types/worker.types';
 
-interface WorkerForm {
-  employerId: number | null;
-  firstName: string;
-  lastName: string;
-  dateOfBirth: string;
-  placeOfBirth: string;
-  nationality: string;
-  sex: string;
-  taxNumber: string;
-  email: string;
-  phone: string;
-  mobile: string;
-  address: string;
-  city: string;
-  province: string;
-  state: string;
-  zipCode: string;
-  documentType: string;
-  documentNumber: string;
-  documentIssuer: string;
-  documentExpiration: string;
-}
-
-interface NewWorkerProps {
-  onNavigate?: (page: string) => void;
-}
-
-const NewWorker: React.FC<NewWorkerProps> = ({ onNavigate }) => {
+const NewWorker: React.FC = () => {
   const  t  = useTranslations();
-  const [workerForm, setworkerForm] = useState<WorkerForm>({
+  const router = useRouter();
+  const { data: session } = useSession();
+  const [workerForm, setworkerForm] = useState<createWorkerInput>({
     employerId: null,
     firstName: '',
     lastName: '',
@@ -56,13 +35,14 @@ const NewWorker: React.FC<NewWorkerProps> = ({ onNavigate }) => {
     documentType: '',
     documentNumber: '',
     documentIssuer: '',
-    documentExpiration: ''
+    documentExpiration: '',
+    status: 'active'
   });
 
-  const [errors, setErrors] = useState<Partial<WorkerForm>>({});
+  const [errors, setErrors] = useState<Partial<createWorkerInput>>({});
 
   const validateForm = () => {
-    const newErrors: Partial<WorkerForm> = {};
+    const newErrors: Partial<createWorkerInput> = {};
 
     if (!workerForm.employerId) newErrors.employerId = t('worker.validation.employerRequired') as unknown as number;
     if (!workerForm.firstName.trim()) newErrors.firstName = t('worker.validation.required');
@@ -96,7 +76,7 @@ const NewWorker: React.FC<NewWorkerProps> = ({ onNavigate }) => {
       ...prev,
       [name]: value
     }));
-    if (errors[name as keyof WorkerForm]) {
+    if (errors[name as keyof createWorkerInput]) {
       setErrors(prev => ({ ...prev, [name]: undefined }));
     }
   };
@@ -112,16 +92,23 @@ const NewWorker: React.FC<NewWorkerProps> = ({ onNavigate }) => {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (validateForm()) {
-      console.log('Form submitted:', workerForm);
-      onNavigate?.('workers-list');
+      const accessToken = session?.user.accessToken as string;
+      const response = await createWorker(workerForm,accessToken);
+      if (response !== null) {
+        console.log('Form submitted:', workerForm);
+        router.push('/dashboard/workers');
+      }else {
+        console.log('Error creating worker:', response);
+      }
+     
     }
   };
 
   const handleCancel = () => {
-    onNavigate?.('workers-list');
+    router.push('/dashboard/workers');
   };
 
   return (
