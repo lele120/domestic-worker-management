@@ -21,16 +21,15 @@ import NavigationSection from './NavigationSection';
 
 
 interface SidebarProps {
-  onNavigate: (page: string) => void;
-  currentPage: string;
+  setCurrentPage: (page: string) => void;
 }
 
-const Sidebar = ({ onNavigate, currentPage }: SidebarProps) => {
+const Sidebar = ({ setCurrentPage}: SidebarProps) => {
   const  t  = useTranslations();
   const router = useRouter();
 
   const sendToPage = (link: string) => {
-    onNavigate(link);
+    setCurrentPage(link);
     router.push(`/${link}`);
   };
 
@@ -96,8 +95,6 @@ const Sidebar = ({ onNavigate, currentPage }: SidebarProps) => {
           <NavigationSection
             key={index}
             {...section}
-            //onNavigate={onNavigate}
-            currentPage={currentPage}
             sendToPage={sendToPage}
           />
         ))}

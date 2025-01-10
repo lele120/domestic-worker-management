@@ -22,6 +22,7 @@ interface WorkerForm {
   address: string;
   city: string;
   province: string;
+  state: string;
   zipCode: string;
   documentType: string;
   documentNumber: string;
@@ -50,6 +51,7 @@ const NewWorker: React.FC<NewWorkerProps> = ({ onNavigate }) => {
     address: '',
     city: '',
     province: '',
+    state: '',
     zipCode: '',
     documentType: '',
     documentNumber: '',
@@ -100,6 +102,7 @@ const NewWorker: React.FC<NewWorkerProps> = ({ onNavigate }) => {
   };
 
   const handleEmployerSelect = (employerId: number) => {
+    console.log('Employer selected:', employerId);
     setworkerForm(prev => ({
       ...prev,
       employerId

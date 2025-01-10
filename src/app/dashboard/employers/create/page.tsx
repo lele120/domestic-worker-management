@@ -8,14 +8,12 @@ import SelectField from '@/components/shared/forms/SelectField';
 import type { CreateEmployer } from '@/types/employer.types';
 import { createEmployer } from '@/app/api/auth/employer.service';
 import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 
-interface CreateEmployerProps {
-  onNavigate?: (page: string) => void;
-}
-
-const CreateEmployer: React.FC<CreateEmployerProps> = ({ onNavigate }) => {
+const CreateEmployer: React.FC = () => {
   const {data} = useSession()
   const  t  = useTranslations();
+  const router = useRouter();
   const [formData, setFormData] = useState<CreateEmployer>({
     firstName: '',
     lastName: '',
@@ -98,7 +96,7 @@ const CreateEmployer: React.FC<CreateEmployerProps> = ({ onNavigate }) => {
         console.error('Access token is missing');
       }
       console.log('Form submitted:', formData);
-      onNavigate?.('employers-list');
+      router.push('/dashboard/employers');
     }
   };
 
@@ -358,7 +356,7 @@ const CreateEmployer: React.FC<CreateEmployerProps> = ({ onNavigate }) => {
         <div className="px-6 py-4 bg-gray-50 border-t border-gray-200 rounded-b-lg flex justify-end space-x-3">
           <button
             type="button"
-            onClick={() => onNavigate?.('employers-list')}
+            onClick={() => router.push('/dashboard/employers')}
             className="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
           >
             <X className="w-4 h-4 mr-2" />

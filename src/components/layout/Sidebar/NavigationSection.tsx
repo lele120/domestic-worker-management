@@ -6,6 +6,7 @@ import { ChevronDown, LucideIcon } from 'lucide-react';
 //import { useRouter } from 'next/navigation'
 import SubMenuItem from './SubMenuItem';
 //import MenuItem from './MenuItem';
+import { usePathname } from 'next/navigation';
 
 interface NavigationItem {
   title: string;
@@ -16,11 +17,7 @@ interface NavigationSectionProps {
   title: string;
   icon: LucideIcon;
   items?: NavigationItem[];
-  link?: string;
-  standalone?: boolean;
-  //onNavigate: (page: string) => void;
   sendToPage: (link: string) => void;
-  currentPage: string;
 }
 
 
@@ -28,34 +25,12 @@ const NavigationSection = ({
   title,
   icon: Icon,
   items = [],
-  //link,
-  //standalone,
-  //onNavigate,
   sendToPage,
-  currentPage,
 }: NavigationSectionProps) => {
   const [isOpen, setIsOpen] = useState(true);
   //const  t  = useTranslations();
   //const router = useRouter()
-
-
-/* const sendToPage = (page: string) => {
-  router.push(`/${page}`)
-  
-} */
-
-  /* if (standalone && link) {
-    return (
-      <MenuItem
-        href="#"
-        icon={Icon}
-        text={title}
-        active={currentPage === link}
-        onClick={() => onNavigate(link)}
-      />
-    );
-  } */
-
+  const pathName = usePathname();
   return (
     <div className="mb-2">
       <button
@@ -72,7 +47,6 @@ const NavigationSection = ({
           }`}
         />
       </button>
-
       {isOpen && items && items.length > 0 && (
         <div className="mt-2">
           {items.map((item, index) => (
@@ -80,7 +54,7 @@ const NavigationSection = ({
               key={index}
               href="#"
               text={item.title}
-              active={currentPage === item.link}
+              active={pathName == `/${item.link}`}
               onClick={() => {sendToPage(item.link)}}
             />
           ))}

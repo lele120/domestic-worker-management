@@ -8,7 +8,7 @@ import { ReactNode } from 'react';
 export default function RootLayout({ children }: { children: ReactNode }) {
   const { data: session, status } = useSession();
   const router = useRouter();
-  const [currentPage, setCurrentPage] = useState('dashboard/employers');
+  const [currentPage,setCurrentPage] = useState('dashboard/employers');
   
   useEffect(() => {
     console.log("status", status)
@@ -22,18 +22,19 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   }
 
   if (!session?.user) {
+    console.log(currentPage)
     return null;
   }else {
     console.log("Session", session)
   }
 
-  const handleNavigate = (page: string) => {
+  const handleCurrentPage = (page: string) => {
     setCurrentPage(page);
   }
 
   return (
     <div className="flex min-h-screen bg-gray-50">
-      <Sidebar onNavigate={handleNavigate} currentPage={currentPage} />
+      <Sidebar setCurrentPage={handleCurrentPage} />
       <main className="flex-1 ml-64 p-8">
         {children}
       </main>

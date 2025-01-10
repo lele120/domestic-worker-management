@@ -3,40 +3,16 @@
 import React, { useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { ChevronDown, ChevronUp, Check } from 'lucide-react';
-
-interface Employer {
-  id: number;
-  name: string;
-  company: string;
-  image: string;
-}
+import Image from 'next/image';
+import { getEmployers } from '@/app/api/auth/employer.service';
+import { useSession } from 'next-auth/react';
+import { useEffect } from 'react';
+import { _CreateEmployer } from '@/types/employer.types';
 
 interface EmployerSelectorProps {
   selectedEmployerId: number | null;
   onSelect: (employerId: number) => void;
 }
-
-// Mock data - in a real app, this would come from an API
-const mockEmployers: Employer[] = [
-  {
-    id: 1,
-    name: "Robert Anderson",
-    company: "Anderson Enterprises",
-    image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=150&h=150"
-  },
-  {
-    id: 2,
-    name: "Elena Martinez",
-    company: "Martinez Family Office",
-    image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80&w=150&h=150"
-  },
-  {
-    id: 3,
-    name: "James Wilson",
-    company: "Wilson Holdings",
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=150&h=150"
-  }
-];
 
 const EmployerSelector: React.FC<EmployerSelectorProps> = ({
   selectedEmployerId,
@@ -44,8 +20,25 @@ const EmployerSelector: React.FC<EmployerSelectorProps> = ({
 }) => {
   const  t  = useTranslations();
   const [isOpen, setIsOpen] = useState(false);
+  const {data} = useSession()
+  const [employers, setEmployers] = useState<_CreateEmployer[]>([])
 
-  const selectedEmployer = mockEmployers.find(emp => emp.id === selectedEmployerId);
+  useEffect(() => {
+    const fetchEmployers = async () => {
+      try {
+        const response = await getEmployers(data?.user.accessToken as string) 
+        if (response != undefined) {
+          setEmployers(response)
+        }
+      } catch (error) {
+        console.error('Error fetching employers:', error)
+      }
+    }
+
+    fetchEmployers()
+  }, [data?.user.accessToken])
+
+  const selectedEmployer = employers.find(emp => emp.id === selectedEmployerId);
 
   return (
     <div className="mb-6">
@@ -60,13 +53,15 @@ const EmployerSelector: React.FC<EmployerSelectorProps> = ({
         >
           {selectedEmployer ? (
             <div className="flex items-center">
-              <img
-                src={selectedEmployer.image}
-                alt={selectedEmployer.name}
-                className="w-8 h-8 rounded-full object-cover"
+              <Image 
+                src={selectedEmployer.image || '/default-avatar-512.png'} 
+                alt={`${selectedEmployer.first_name} ${selectedEmployer.last_name}`} 
+                width={32} 
+                height={32} 
+                className="rounded-full" 
               />
               <div className="ml-3">
-                <div className="text-sm font-medium text-gray-900">{selectedEmployer.name}</div>
+                <div className="text-sm font-medium text-gray-900">{`${selectedEmployer.first_name} ${selectedEmployer.last_name}`} </div>
                 <div className="text-sm text-gray-500">{selectedEmployer.company}</div>
               </div>
             </div>
@@ -83,23 +78,27 @@ const EmployerSelector: React.FC<EmployerSelectorProps> = ({
         {isOpen && (
           <div className="absolute z-10 mt-1 w-full bg-white rounded-lg border border-gray-200 shadow-lg">
             <div className="py-1 max-h-60 overflow-auto">
-              {mockEmployers.map((employer) => (
+              {employers.map((employer) => (
                 <button
                   key={employer.id}
                   type="button"
                   onClick={() => {
-                    onSelect(employer.id);
+                    if (employer.id !== undefined) {
+                      onSelect(employer.id);
+                    }
                     setIsOpen(false);
                   }}
                   className="w-full px-4 py-2 flex items-center hover:bg-gray-50"
                 >
-                  <img
-                    src={employer.image}
-                    alt={employer.name}
-                    className="w-8 h-8 rounded-full object-cover"
+                  <Image 
+                    src={employer.image || '/default-avatar-512.png'} 
+                    alt={`${employer.first_name} ${employer.last_name}`} 
+                    width={32} 
+                    height={32} 
+                    className="rounded-full"
                   />
                   <div className="ml-3">
-                    <div className="text-sm font-medium text-gray-900">{employer.name}</div>
+                    <div className="text-sm font-medium text-gray-900">{employer.first_name} {employer.last_name} </div>
                     <div className="text-sm text-gray-500">{employer.company}</div>
                   </div>
                   {selectedEmployerId === employer.id && (

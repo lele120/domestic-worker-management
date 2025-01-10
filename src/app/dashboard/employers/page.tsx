@@ -9,12 +9,7 @@ import { _CreateEmployer } from '@/types/employer.types'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 
-
-interface EmployersListProps {
-  onNavigate?: (page: string) => void
-}
-
-export default function EmployersList({ onNavigate }: EmployersListProps) {
+export default function EmployersList() {
     const  t  = useTranslations()
     const [searchTerm, setSearchTerm] = useState('')
     const [selectedStatus, setSelectedStatus] = useState('all')
@@ -59,7 +54,7 @@ export default function EmployersList({ onNavigate }: EmployersListProps) {
             {t('common.export')}
           </button>
           <button 
-            onClick={() => onNavigate?.('create-employer')}
+            onClick={() => router.push('/dashboard/employers/create')}
             className="flex items-center px-4 py-2 bg-blue-600 rounded-lg text-sm font-medium text-white hover:bg-blue-700"
           >
             <UserPlus className="w-4 h-4 mr-2" />

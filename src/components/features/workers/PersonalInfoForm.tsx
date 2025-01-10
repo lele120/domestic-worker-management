@@ -20,6 +20,7 @@ interface PersonalInfoFormProps {
     address: string;
     city: string;
     province: string;
+    state: string;
     zipCode: string;
     documentType: string;
     documentNumber: string;
@@ -40,6 +41,7 @@ interface PersonalInfoFormProps {
     address: string;
     city: string;
     province: string;
+    state: string;
     zipCode: string;
     documentType: string;
     documentNumber: string;
@@ -185,6 +187,13 @@ const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
             onChange={onChange}
             error={errors.city}
           />
+           <InputField 
+                label={t('employers.fields.state')}
+                name="state"
+                value={formData.state}
+                onChange={onChange}
+                error={errors.state}
+              />
           <InputField
             label={t('worker.fields.province')}
             name="province"
