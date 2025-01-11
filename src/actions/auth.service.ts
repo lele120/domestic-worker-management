@@ -6,6 +6,7 @@ export async function loginWithEmail(credentials: LoginCredentials) {
     return await signIn('credentials', {
       email: credentials.username,
       password: credentials.password,
+      redirect: false
     });
   } catch (error) {
     console.error('Email login error:', error);

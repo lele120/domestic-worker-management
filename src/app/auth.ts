@@ -5,10 +5,11 @@ import { CredentialsConfig } from "next-auth/providers/credentials";
 //import { saltAndHashPassword } from '@/utils/password';
 import { signInSchema, ZodError } from "./lib/zod"
 import { getUserFromDb, googleAuth, refreshToken } from "./api/auth/auth.service";
+import { ExtendedUser } from "../../next-auth";
 
 
 // These two values should be a bit less than actual token lifetimes
-const BACKEND_ACCESS_TOKEN_LIFETIME = 45 * 60;            // 45 minutes
+const BACKEND_ACCESS_TOKEN_LIFETIME = 60 * 60;            // 60 minutes
 const BACKEND_REFRESH_TOKEN_LIFETIME = 6 * 24 * 60 * 60;  // 6 days
 
 const getCurrentEpochTime = () => {
@@ -20,7 +21,7 @@ const credential: CredentialsConfig = Credentials({
   // You can specify which fields should be submitted, by adding keys to the `credentials` object.
   // e.g. domain, username, password, 2FA token, etc.
   
-  authorize: async (credentials: Partial<Record<"email" | "password", unknown>>, request: Request) => {
+  authorize: async (credentials: Partial<Record<"email" | "password", unknown>>, request: Request): Promise<ExtendedUser | null> => {
     let _email: string = '', _password: string = ''
     try {
       console.log(credentials,request)
@@ -36,21 +37,27 @@ const credential: CredentialsConfig = Credentials({
         return null
       }
     }
-    let user = null
+    let response = null
     // logic to salt and hash password
     //const pwHash = await saltAndHashPassword(_password)
 
     // logic to verify if the user exists
-    user = await getUserFromDb(_email, _password)
+    response = await getUserFromDb(_email, _password)
 
-    console.log("authorize-user", user)
-    if (!user) {
+    console.log("authorize-user", response)
+    if (!response) {
       // return msg error if user not found
       return null;
     }
+    const extendedUser: ExtendedUser = {
+      id: response.user.pk.toString(),
+      email: response.user.email,
+      accessToken: response.access,
+      name: response.user.first_name + " " + response.user.last_name,
 
+    }
     // return user object with their profile data
-    return user
+    return extendedUser
   },
 })
 
@@ -97,6 +104,13 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       console.log("user-token-account", user, token, account, profile,session, trigger)
       // If `user` and `account` are set that means it is a login event
       if (user && account) {
+        if (account.provider === "credentials") {
+          token["user"] = user;
+          token["access_token"] = (user as ExtendedUser).accessToken;
+          token["exp"] = getCurrentEpochTime() + BACKEND_ACCESS_TOKEN_LIFETIME;
+          token["ref"] = getCurrentEpochTime() + BACKEND_ACCESS_TOKEN_LIFETIME;
+          console.log("token after Credentials", token)
+        }
         if (account?.provider === "google") {
           const {access_token, id_token, } = account;
           try{
@@ -106,7 +120,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
                 token["access_token"] = response.data.access;
                 token["refresh_token"] = response.data.refresh;
                 token["ref"] = getCurrentEpochTime() + BACKEND_ACCESS_TOKEN_LIFETIME;
-                console.log("token", token)
+                console.log("token after Google", token)
               }
           }catch (error) {
             console.error("Error fetching user details:", error);

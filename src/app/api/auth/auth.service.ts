@@ -1,9 +1,18 @@
 'use server'
 import axios from 'axios';
 import {  RegisterCredentials } from '@/types/auth.types';
-import { User } from 'next-auth';
 //import { saltAndHashPassword } from '@/utils/password';
 
+interface logInResponse {
+  access: string;
+  refresh: string;
+  user: {
+    pk: number;
+    email: string;
+    first_name: string;
+    last_name: string;
+  };
+}
 
 export async function register(credentials: RegisterCredentials) {
   try {
@@ -47,7 +56,7 @@ export const getUserDetails = async (accessToken: string ) => {
   }
 };
 
-export async function getUserFromDb(_email: string, pwHash: string): Promise<User | null> {
+export async function getUserFromDb(_email: string, pwHash: string): Promise<logInResponse | null> {
   try {
 
     const credentials = {
@@ -57,12 +66,12 @@ export async function getUserFromDb(_email: string, pwHash: string): Promise<Use
 
     const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}auth/login/`;
 
-    const response = await axios.post(url, {
+    const response = await axios.post<logInResponse>(url, {
       ...credentials
     });
 
     if (response.status === 200 && response.data) {
-      return response.data.user;
+      return response.data;
     } else {
       return null;
     }
