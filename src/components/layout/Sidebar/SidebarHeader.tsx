@@ -29,6 +29,8 @@ const SidebarHeader = () => {
           width={200} // Adjust the width as needed
           height={200} // Adjust the height as needed
           className="rounded-full"
+          style={{ width: 'auto', height: 'auto' }} 
+          priority={true}
         />
       </div>
       <div className="pl-8">
