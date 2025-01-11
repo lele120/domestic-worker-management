@@ -50,11 +50,8 @@ const SubscriptionPage = () => {
     fetchPlans();
   }, []);
 
-  console.log('Plans:', plans);
-
   const handlePlanSelect = (index: number) => {
     setSelectedPlan(index);
-    console.log('Selected plan:', plans[index]);
     // If free trial is selected, skip billing and go straight to dashboard
     if (index === 0) {
       const today = new Date();

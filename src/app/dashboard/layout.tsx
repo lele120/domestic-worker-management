@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Sidebar from '@/components/layout/Sidebar';
 import { ReactNode } from 'react';
+import { TokenExpirationProvider } from '@/components/provider/TokenExpirationProvider';
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   const { data: session, status } = useSession();
@@ -11,7 +12,6 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   const [currentPage,setCurrentPage] = useState('dashboard/employers');
   
   useEffect(() => {
-    console.log("status", status)
     if (status === 'unauthenticated') {
       router.push('/login');
     }
@@ -36,7 +36,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <div className="flex min-h-screen bg-gray-50">
       <Sidebar setCurrentPage={handleCurrentPage} />
       <main className="flex-1 ml-64 p-8">
-        {children}
+      <TokenExpirationProvider>
+          {children}
+        </TokenExpirationProvider>
       </main>
     </div>
   );

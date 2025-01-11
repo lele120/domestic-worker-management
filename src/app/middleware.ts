@@ -1,8 +1,9 @@
 // src/middleware.ts
 
+import { isTokenExpired } from '@/utils/generic';
+import { getToken } from 'next-auth/jwt';
 import createMiddleware from 'next-intl/middleware';
-
-export { auth as middleware } from "@/app/auth";
+import { NextRequest, NextResponse } from 'next/server';
 
 export default createMiddleware({
   locales: ['en', 'es', 'it'], // Supported languages
@@ -12,5 +13,23 @@ export default createMiddleware({
 });
 
 export const config = {
-  matcher: ['/','/(en|es|it)/:path*'], // Match all routes
+  matcher: ['/dashboard/:path*'], // Match all routes
 };
+
+
+export async function middleware(request: NextRequest) {
+  // Check protected routes
+  if (request.nextUrl.pathname.startsWith('/dashboard')) {
+    const token = await getToken({ req: request });
+
+    if (!token || isTokenExpired(token.accessToken as string)) {
+      const loginUrl = new URL('/login', request.url);
+      loginUrl.searchParams.set('callbackUrl', request.url);
+      return NextResponse.redirect(loginUrl);
+    }
+  }
+
+  return NextResponse.next();
+}
+
+

@@ -82,7 +82,6 @@ const NewWorker: React.FC = () => {
   };
 
   const handleEmployerSelect = (employerId: number) => {
-    console.log('Employer selected:', employerId);
     setworkerForm(prev => ({
       ...prev,
       employerId
@@ -98,7 +97,6 @@ const NewWorker: React.FC = () => {
       const accessToken = session?.user.accessToken as string;
       const response = await createWorker(workerForm,accessToken);
       if (response !== null) {
-        console.log('Form submitted:', workerForm);
         router.push('/dashboard/workers');
       }else {
         console.log('Error creating worker:', response);

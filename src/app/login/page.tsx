@@ -41,7 +41,6 @@ export default function LoginPage() {
           password: state.password
         });
 
-        console.log(result)
         if (result) {
           router.push('/dashboard');
         }

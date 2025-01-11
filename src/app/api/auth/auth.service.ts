@@ -17,9 +17,6 @@ interface logInResponse {
 export async function register(credentials: RegisterCredentials) {
   try {
     const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}auth/register/`;
-    console.log('registering user');
-    console.log(url, credentials);
-
     // Hash the password
    
     /*

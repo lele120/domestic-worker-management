@@ -95,7 +95,6 @@ const CreateEmployer: React.FC = () => {
       } else {
         console.error('Access token is missing');
       }
-      console.log('Form submitted:', formData);
       router.push('/dashboard/employers');
     }
   };
