@@ -14,7 +14,7 @@ interface AdvancedSettingsFormProps {
     noWorkerContributions: boolean
     noCassaColf: boolean
   }
-  onChange: (name: string, value: any) => void
+  onChange: (name: string, value: boolean) => void
 }
 
 const AdvancedSettingsForm: React.FC<AdvancedSettingsFormProps> = ({ formData, onChange }) => {

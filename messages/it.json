@@ -315,6 +315,7 @@
           "include13thMonth": "Includi Tredicesima",
           "includeSeverancePay": "Includi TFR",
           "mealAllowance": {
+            "title": "Indennità",
             "breakfast": "Indennità Colazione",
             "lunch": "Indennità Pranzo",
             "dinner": "Indennità Cena"

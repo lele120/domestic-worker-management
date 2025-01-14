@@ -1,13 +1,15 @@
+'use client';
+
 import React, { useState } from 'react';
 import { useTranslations } from 'next-intl';
 import WorkflowSteps from '@/components/shared/WorkflowSteps';
-import ContractForm from './ContractForm';
-import ScheduleForm from './ScheduleForm';
-import SalaryForm from './SalaryForm';
-import AdvancedSettingsForm from './AdvancedSettingsForm';
-import ReviewForm from './ReviewForm';
-import EmployerWorkerSelector from './EmployerWorkerSelector';
-import SelectedEmployerWorker from './SelectedEmployerWorker';
+import ContractForm from '@/components/features/contracts/ContractForm';
+import ScheduleForm from '@/components/features/contracts/ScheduleForm';
+import SalaryForm from '@/components/features/contracts/SalaryForm';
+import AdvancedSettingsForm from '@/components/features/contracts/AdvancedSettingsForm';
+import ReviewForm from '@/components/features/contracts/ReviewForm';
+import EmployerWorkerSelector from '@/components/features/contracts/EmployerWorkerSelector';
+import SelectedEmployerWorker from '@/components/features/contracts/SelectedEmployerWorker';
 
 // Mock data for demonstration
 const mockEmployers = [

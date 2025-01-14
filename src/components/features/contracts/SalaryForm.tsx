@@ -3,7 +3,6 @@
 import React from 'react'
 import { useTranslations } from 'next-intl'
 import InputField from '@/components/shared/forms/InputField'
-import SelectField from '@/components/shared/forms/SelectField'
 
 interface SalaryFormProps {
   formData: {
@@ -27,7 +26,7 @@ interface SalaryFormProps {
     accommodationAllowance: number
     inKindBenefits: boolean
   }
-  onChange: (name: string, value: any) => void
+  onChange: (name: string, value: string | number | boolean) => void
 }
 
 const SalaryForm: React.FC<SalaryFormProps> = ({ formData, onChange }) => {

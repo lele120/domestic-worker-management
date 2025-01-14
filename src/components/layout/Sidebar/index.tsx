@@ -54,8 +54,8 @@ const Sidebar = ({ setCurrentPage}: SidebarProps) => {
       title: t('navigation.contracts.title'),
       icon: File,
       items: [
-        { title: t('navigation.contracts.list'), link: 'contracts-list' },
-        { title: t('navigation.contracts.new'), link: 'create-contract' },
+        { title: t('navigation.contracts.list'), link: 'dashboard/contracts' },
+        { title: t('navigation.contracts.new'), link: 'dashboard/contracts/create' },
       ],
     },
     {
