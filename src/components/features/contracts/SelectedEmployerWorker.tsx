@@ -3,34 +3,26 @@
 import React from 'react';
 import { useTranslations } from 'next-intl';
 import { Plus, UserPlus } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { _CreateEmployer } from '@/types/employer.types';
+import { CreateWorkerResponse } from '@/types/worker.types';
+import Image from 'next/image';
 
 interface SelectedEmployerWorkerProps {
-  employer: {
-    id: number;
-    name: string;
-    image: string;
-  } | null;
-  worker: {
-    id: number;
-    firstName: string;
-    lastName: string;
-    image: string;
-  } | null;
+  employer: _CreateEmployer | null;
+  worker: CreateWorkerResponse | null;
   onSelectEmployer: () => void;
   onSelectWorker: () => void;
-  onAddEmployer: () => void;
-  onAddWorker: () => void;
 }
 
 const SelectedEmployerWorker: React.FC<SelectedEmployerWorkerProps> = ({
   employer,
   worker,
   onSelectEmployer,
-  onSelectWorker,
-  onAddEmployer,
-  onAddWorker
+  onSelectWorker
 }) => {
   const  t  = useTranslations();
+  const router = useRouter();
 
   return (
     <div className="mb-8 grid grid-cols-2 gap-6">
@@ -39,7 +31,7 @@ const SelectedEmployerWorker: React.FC<SelectedEmployerWorkerProps> = ({
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-lg font-medium text-gray-900">{t('contract.association.employer')}</h2>
           <button
-            onClick={onAddEmployer}
+            onClick={() => router.push('/dashboard/employers/create')}
             className="inline-flex items-center px-3 py-1.5 text-sm font-medium text-blue-600 hover:text-blue-700"
           >
             <UserPlus className="w-4 h-4 mr-1" />
@@ -50,13 +42,15 @@ const SelectedEmployerWorker: React.FC<SelectedEmployerWorkerProps> = ({
           <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center">
-                <img
-                  src={employer.image}
-                  alt={employer.name}
+                <Image
+                  src={employer.image || '/default-avatar-512.png'}
+                  alt={employer.first_name + ' ' + employer.last_name}
+                  width={32}
+                  height={32}
                   className="w-12 h-12 rounded-full object-cover"
-                />
+                  />
                 <div className="ml-4">
-                  <h3 className="text-sm font-medium text-gray-900">{employer.name}</h3>
+                  <h3 className="text-sm font-medium text-gray-900">{employer.first_name + " " + employer.last_name}</h3>
                 </div>
               </div>
               <button
@@ -83,7 +77,7 @@ const SelectedEmployerWorker: React.FC<SelectedEmployerWorkerProps> = ({
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-lg font-medium text-gray-900">{t('contract.association.worker')}</h2>
           <button
-            onClick={onAddWorker}
+            onClick={() => router.push('/dashboard/workers/create')}
             className="inline-flex items-center px-3 py-1.5 text-sm font-medium text-blue-600 hover:text-blue-700"
           >
             <UserPlus className="w-4 h-4 mr-1" />
@@ -94,9 +88,11 @@ const SelectedEmployerWorker: React.FC<SelectedEmployerWorkerProps> = ({
           <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center">
-                <img
-                  src={worker.image}
+                <Image
+                  src={worker.image || '/default-avatar-512.png'}
                   alt={`${worker.firstName} ${worker.lastName}`}
+                  width={32}
+                  height={32}
                   className="w-12 h-12 rounded-full object-cover"
                 />
                 <div className="ml-4">

@@ -1,24 +1,14 @@
 import React, { useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { Check, ChevronDown, ChevronUp, X } from 'lucide-react';
+import Image from 'next/image';
+import { _CreateEmployer } from '@/types/employer.types';
+import {CreateWorkerResponse} from '@/types/worker.types';
 
-interface Worker {
-  id: number;
-  firstName: string;
-  lastName: string;
-  image: string;
-}
-
-interface Employer {
-  id: number;
-  name: string;
-  company: string;
-  image: string;
-  workers: Worker[];
-}
 
 interface EmployerWorkerSelectorProps {
-  employers: Employer[];
+  workers: CreateWorkerResponse[];
+  employers: _CreateEmployer[];
   selectedEmployerId: number | null;
   selectedWorkerId: number | null;
   onEmployerSelect: (id: number) => void;
@@ -27,6 +17,7 @@ interface EmployerWorkerSelectorProps {
 }
 
 const EmployerWorkerSelector: React.FC<EmployerWorkerSelectorProps> = ({
+  workers,
   employers,
   selectedEmployerId,
   selectedWorkerId,
@@ -39,7 +30,7 @@ const EmployerWorkerSelector: React.FC<EmployerWorkerSelectorProps> = ({
   const [isWorkerDropdownOpen, setIsWorkerDropdownOpen] = useState(false);
 
   const selectedEmployer = employers.find(emp => emp.id === selectedEmployerId);
-  const selectedWorker = selectedEmployer?.workers.find(w => w.id === selectedWorkerId);
+  const selectedWorker = workers.find(w => w.id === selectedWorkerId);
 
   return (
     <div className="space-y-6">
@@ -69,13 +60,15 @@ const EmployerWorkerSelector: React.FC<EmployerWorkerSelectorProps> = ({
             >
               {selectedEmployer ? (
                 <div className="flex items-center">
-                  <img
-                    src={selectedEmployer.image}
-                    alt={selectedEmployer.name}
-                    className="w-8 h-8 rounded-full object-cover"
-                  />
+                  <Image 
+                    src={selectedEmployer.image || '/default-avatar-512.png'} 
+                    alt={selectedEmployer.first_name + ' ' + selectedEmployer.last_name} 
+                    width={32} 
+                    height={32} 
+                    className="rounded-full"
+                  /> 
                   <div className="ml-3">
-                    <div className="text-sm font-medium text-gray-900">{selectedEmployer.name}</div>
+                    <div className="text-sm font-medium text-gray-900">{selectedEmployer.first_name + " " + selectedEmployer.last_name}</div>
                     <div className="text-sm text-gray-500">{selectedEmployer.company}</div>
                   </div>
                 </div>
@@ -97,18 +90,22 @@ const EmployerWorkerSelector: React.FC<EmployerWorkerSelectorProps> = ({
                       key={employer.id}
                       type="button"
                       onClick={() => {
-                        onEmployerSelect(employer.id);
+                        if (employer.id !== undefined && employer.id !== null) {
+                          onEmployerSelect(employer.id);
+                        }
                         setIsEmployerDropdownOpen(false);
                       }}
                       className="w-full px-4 py-2 flex items-center hover:bg-gray-50"
                     >
-                      <img
-                        src={employer.image}
-                        alt={employer.name}
-                        className="w-8 h-8 rounded-full object-cover"
+                      <Image
+                        src={employer.image || '/default-avatar-512.png'}
+                        alt={employer.first_name + ' ' + employer.last_name}
+                        width={32}
+                        height={32}
+                        className="rounded-full"
                       />
                       <div className="ml-3">
-                        <div className="text-sm font-medium text-gray-900">{employer.name}</div>
+                        <div className="text-sm font-medium text-gray-900">{employer.first_name + " " + employer.last_name}</div>
                         <div className="text-sm text-gray-500">{employer.company}</div>
                       </div>
                       {selectedEmployerId === employer.id && (
@@ -139,10 +136,12 @@ const EmployerWorkerSelector: React.FC<EmployerWorkerSelectorProps> = ({
             >
               {selectedWorker ? (
                 <div className="flex items-center">
-                  <img
-                    src={selectedWorker.image}
+                  <Image
+                    src={selectedWorker.image || '/default-avatar-512.png'}
                     alt={`${selectedWorker.firstName} ${selectedWorker.lastName}`}
-                    className="w-8 h-8 rounded-full object-cover"
+                    width={32}
+                    height={32}
+                    className="rounded-full"
                   />
                   <div className="ml-3">
                     <div className="text-sm font-medium text-gray-900">
@@ -167,7 +166,7 @@ const EmployerWorkerSelector: React.FC<EmployerWorkerSelectorProps> = ({
             {isWorkerDropdownOpen && selectedEmployer && (
               <div className="absolute z-10 mt-1 w-full bg-white rounded-lg border border-gray-200 shadow-lg">
                 <div className="py-1 max-h-60 overflow-auto">
-                  {selectedEmployer.workers.map((worker) => (
+                  {workers.map((worker) => (
                     <button
                       key={worker.id}
                       type="button"
@@ -178,9 +177,11 @@ const EmployerWorkerSelector: React.FC<EmployerWorkerSelectorProps> = ({
                       }}
                       className="w-full px-4 py-2 flex items-center hover:bg-gray-50"
                     >
-                      <img
-                        src={worker.image}
-                        alt={`${worker.firstName} ${worker.lastName}`}
+                      <Image 
+                        src={worker.image || '/default-avatar-512.png'} 
+                        alt={`${worker.firstName} ${worker.lastName}`} 
+                        width={32} 
+                        height={32} 
                         className="w-8 h-8 rounded-full object-cover"
                       />
                       <div className="ml-3">

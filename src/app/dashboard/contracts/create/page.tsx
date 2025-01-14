@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import WorkflowSteps from '@/components/shared/WorkflowSteps';
 import ContractForm from '@/components/features/contracts/ContractForm';
@@ -10,64 +10,45 @@ import AdvancedSettingsForm from '@/components/features/contracts/AdvancedSettin
 import ReviewForm from '@/components/features/contracts/ReviewForm';
 import EmployerWorkerSelector from '@/components/features/contracts/EmployerWorkerSelector';
 import SelectedEmployerWorker from '@/components/features/contracts/SelectedEmployerWorker';
+import { getWorkers } from '@/app/api/auth/worker.service';
+import { getEmployers } from '@/app/api/auth/employer.service';
+import { useSession } from 'next-auth/react';
+import { _CreateEmployer } from '@/types/employer.types';
+import {CreateWorkerResponse} from '@/types/worker.types';
 
-// Mock data for demonstration
-const mockEmployers = [
-  {
-    id: 1,
-    name: "Robert Anderson",
-    company: "Anderson Enterprises",
-    image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=150&h=150",
-    workers: [
-      {
-        id: 1,
-        firstName: "Sarah",
-        lastName: "Johnson",
-        image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=150&h=150"
-      }
-    ]
-  },
-  {
-    id: 2,
-    name: "Elena Martinez",
-    company: "Martinez Family Office",
-    image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80&w=150&h=150",
-    workers: [
-      {
-        id: 2,
-        firstName: "Michael",
-        lastName: "Chen",
-        image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=150&h=150"
-      }
-    ]
-  }
-];
 
-interface CreateContractProps {
-  onNavigate?: (page: string) => void;
-}
-
-const CreateContract: React.FC<CreateContractProps> = ({ onNavigate }) => {
+const CreateContract: React.FC = () => {
   const  t  = useTranslations();
   const [currentStep, setCurrentStep] = useState(0);
-  interface Employer {
-    id: number;
-    name: string;
-    company: string;
-    image: string;
-    workers: Worker[];
-  }
-
-  interface Worker {
-    id: number;
-    firstName: string;
-    lastName: string;
-    image: string;
-  }
-
-  const [selectedEmployer, setSelectedEmployer] = useState<Employer | null>(null);
-  const [selectedWorker, setSelectedWorker] = useState<Worker | null>(null);
+  const { data: session } = useSession();
+  const [selectedEmployer, setSelectedEmployer] = useState<_CreateEmployer | null>(null);
+  const [selectedWorker, setSelectedWorker] = useState<CreateWorkerResponse | null>(null);
   const [showSelector, setShowSelector] = useState(false);
+  const [employers, setEmployers] = useState<_CreateEmployer[]>([]);
+  const [workers, setWorkers] = useState<CreateWorkerResponse[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const token = session?.user.accessToken as string;
+      const result  = await getEmployers(token);
+      if (result != undefined) {
+        setEmployers(result);
+      }
+      const workers = await getWorkers(token);
+      if (workers != undefined) {
+        setWorkers(workers);
+      }
+    };
+
+    if (session) {
+      fetchData();
+    }
+  }, [session]);
+
+ 
+
+
+
   
   const [formData, setFormData] = useState({
     // Contract Information
@@ -152,7 +133,7 @@ const CreateContract: React.FC<CreateContractProps> = ({ onNavigate }) => {
   };
 
   const handleEmployerSelection = (employerId: number) => {
-    const employer = mockEmployers.find(emp => emp.id === employerId);
+    const employer = employers.find(emp => emp.id === employerId);
     if (employer) {
       setSelectedEmployer(employer);
     }
@@ -161,7 +142,7 @@ const CreateContract: React.FC<CreateContractProps> = ({ onNavigate }) => {
 
   const handleWorkerSelection = (workerId: number) => {
     if (selectedEmployer) {
-      const worker = selectedEmployer.workers.find((w: Worker) => w.id === workerId);
+      const worker = workers.find((w) => w.id === workerId);
       if (worker) {
         setSelectedWorker(worker);
       }
@@ -181,8 +162,9 @@ const CreateContract: React.FC<CreateContractProps> = ({ onNavigate }) => {
     if (showSelector) {
       return (
         <EmployerWorkerSelector
-          employers={mockEmployers}
-          selectedEmployerId={selectedEmployer ? selectedEmployer.id : null}
+          employers={employers}
+          workers={workers}
+          selectedEmployerId={selectedEmployer?.id ?? null}
           selectedWorkerId={selectedWorker ? selectedWorker.id : null}
           onEmployerSelect={handleEmployerSelection}
           onWorkerSelect={handleWorkerSelection}
@@ -202,8 +184,6 @@ const CreateContract: React.FC<CreateContractProps> = ({ onNavigate }) => {
               worker={selectedWorker}
               onSelectEmployer={handleSelectEmployer}
               onSelectWorker={handleSelectWorker}
-              onAddEmployer={() => onNavigate?.('create-employer')}
-              onAddWorker={() => onNavigate?.('new-worker')}
             />
           </div>
         );
