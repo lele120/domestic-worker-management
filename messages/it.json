@@ -97,6 +97,7 @@
     }, 
     "worker": {
       "list": {
+        "noResults": "Nessun lavoratore trovato",
         "searchPlaceholder" : "Cerca Lavoratore",
         "filters": {
           "allStatus": "Tutti",

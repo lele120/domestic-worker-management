@@ -9,13 +9,13 @@ import EmployerSelector from '@/components/features/workers/EmployerSelector';
 import PersonalInfoForm from '@/components/features/workers/PersonalInfoForm';
 import { useSession } from 'next-auth/react';
 import { createWorker } from '@/app/api/auth/worker.service';
-import { createWorkerInput } from '@/types/worker.types';
+import { CreateWorkerInput } from '@/types/worker.types';
 
 const NewWorker: React.FC = () => {
   const  t  = useTranslations();
   const router = useRouter();
   const { data: session } = useSession();
-  const [workerForm, setworkerForm] = useState<createWorkerInput>({
+  const [workerForm, setworkerForm] = useState<CreateWorkerInput>({
     employerId: null,
     firstName: '',
     lastName: '',
@@ -39,10 +39,10 @@ const NewWorker: React.FC = () => {
     status: 'active'
   });
 
-  const [errors, setErrors] = useState<Partial<createWorkerInput>>({});
+  const [errors, setErrors] = useState<Partial<CreateWorkerInput>>({});
 
   const validateForm = () => {
-    const newErrors: Partial<createWorkerInput> = {};
+    const newErrors: Partial<CreateWorkerInput> = {};
 
     if (!workerForm.employerId) newErrors.employerId = t('worker.validation.employerRequired') as unknown as number;
     if (!workerForm.firstName.trim()) newErrors.firstName = t('worker.validation.required');
@@ -76,12 +76,12 @@ const NewWorker: React.FC = () => {
       ...prev,
       [name]: value
     }));
-    if (errors[name as keyof createWorkerInput]) {
+    if (errors[name as keyof CreateWorkerInput]) {
       setErrors(prev => ({ ...prev, [name]: undefined }));
     }
   };
 
-  const handleEmployerSelect = (employerId: number) => {
+  const handleEmployerSelect = (employerId: number | null |undefined) => {
     setworkerForm(prev => ({
       ...prev,
       employerId

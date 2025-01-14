@@ -10,8 +10,8 @@ import { useEffect } from 'react';
 import { _CreateEmployer } from '@/types/employer.types';
 
 interface EmployerSelectorProps {
-  selectedEmployerId: number | null;
-  onSelect: (employerId: number) => void;
+  selectedEmployerId: number | null | undefined;
+  onSelect: (employerId: number | null | undefined) => void;
 }
 
 const EmployerSelector: React.FC<EmployerSelectorProps> = ({
@@ -117,9 +117,7 @@ const EmployerSelector: React.FC<EmployerSelectorProps> = ({
                   key={employer.id}
                   type="button"
                   onClick={() => {
-                    if (employer.id !== undefined) {
-                      onSelect(employer.id);
-                    }
+                    onSelect(employer.id);  
                     setIsOpen(false);
                   }}
                   className="w-full px-4 py-2 flex items-center hover:bg-gray-50"

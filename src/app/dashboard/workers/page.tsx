@@ -1,64 +1,48 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {useTranslations} from 'next-intl';
 import { Search, Filter, MoreVertical, UserPlus, Download } from 'lucide-react';
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import { useSession } from 'next-auth/react';
+import { CreateWorkerResponse } from '@/types/worker.types';
+import { getWorkers } from '@/app/api/auth/worker.service';
 
-// Mock data for demonstration
-const mockWorkers = [
-  {
-    id: 1,
-    name: "Sarah Johnson",
-    status: "Active",
-    position: "Full-time Nanny",
-    startDate: "2023-01-15",
-    phone: "+1 (555) 123-4567",
-    email: "sarah.j@example.com",
-    image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=150&h=150"
-  },
-  {
-    id: 2,
-    name: "Michael Chen",
-    status: "Active",
-    position: "House Keeper",
-    startDate: "2023-03-20",
-    phone: "+1 (555) 234-5678",
-    email: "michael.c@example.com",
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=150&h=150"
-  },
-  {
-    id: 3,
-    name: "Emma Rodriguez",
-    status: "On Leave",
-    position: "Elder Care",
-    startDate: "2023-02-01",
-    phone: "+1 (555) 345-6789",
-    email: "emma.r@example.com",
-    image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80&w=150&h=150"
-  }
-];
-
-interface WorkersListProps {
-  onNavigate?: (page: string) => void;
-}
-
-const WorkersList: React.FC<WorkersListProps> = ({ onNavigate }) => {
+const WorkersList: React.FC = () => {
   const  t  = useTranslations();
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedStatus, setSelectedStatus] = useState('all');
+  const router = useRouter();
+  const defaultWorkers: CreateWorkerResponse[] = [];
+  const [workers, setWorkers] = useState(defaultWorkers);
+  const {data} = useSession();
 
-  const filteredWorkers = mockWorkers.filter(worker => {
-    const matchesSearch = worker.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         worker.position.toLowerCase().includes(searchTerm.toLowerCase());
+
+  const filteredWorkers = workers.filter(worker => {
+    const matchesSearch = worker.firstName.toLowerCase().includes(searchTerm.toLowerCase()) || worker.lastName.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesStatus = selectedStatus === 'all' || worker.status.toLowerCase() === selectedStatus.toLowerCase();
     return matchesSearch && matchesStatus;
   });
 
   const handleAddWorker = () => {
-    if (onNavigate) {
-      onNavigate('new-worker');
-    }
+    router.push('/dashboard/workers/create');
   };
+
+  useEffect(() => {
+      const fetchWorkers = async () => {
+        try {
+          const response = await getWorkers(data?.user.accessToken as string) 
+          if (response != undefined) {
+            setWorkers(response)
+          }
+        } catch (error) {
+          console.error('Error fetching employers:', error)
+        }
+      }
+  
+      fetchWorkers()
+    }, [data?.user.accessToken])
 
   return (
     <div className="max-w-7xl mx-auto">
@@ -117,14 +101,16 @@ const WorkersList: React.FC<WorkersListProps> = ({ onNavigate }) => {
             <div className="p-6">
               <div className="flex items-start justify-between">
                 <div className="flex items-center">
-                  <img
-                    src={worker.image}
-                    alt={worker.name}
-                    className="w-12 h-12 rounded-full object-cover"
-                  />
+                <Image
+                  src={worker.image || '/default-avatar-512.png'}
+                  alt={worker.firstName}
+                  className="w-12 h-12 rounded-full object-cover"
+                  width={48}
+                  height={48}
+                />
                   <div className="ml-4">
-                    <h3 className="text-lg font-semibold text-gray-900">{worker.name}</h3>
-                    <p className="text-sm text-gray-500">{worker.position}</p>
+                    <h3 className="text-lg font-semibold text-gray-900">{worker.firstName} {worker.lastName}</h3>
+                    <p className="text-sm text-gray-500">TODO Position</p>
                   </div>
                 </div>
                 <button className="text-gray-400 hover:text-gray-600">
@@ -136,21 +122,24 @@ const WorkersList: React.FC<WorkersListProps> = ({ onNavigate }) => {
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-sm text-gray-500">{t('common.status')}</span>
                   <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
-                    ${worker.status === 'Active' ? 'bg-green-100 text-green-800' : 
-                      worker.status === 'On Leave' ? 'bg-yellow-100 text-yellow-800' : 
+                    ${worker.status === 'active' ? 'bg-green-100 text-green-800' : 
+                      worker.status === 'terminated' ? 'bg-yellow-100 text-yellow-800' : 
+                      worker.status === 'inactive' ? 'bg-blue-100 text-blue-800' :
                       'bg-gray-100 text-gray-800'}`}>
                     {worker.status}
                   </span>
                 </div>
                 <div className="space-y-2 text-sm text-gray-500">
-                  <p>{t('worker.list.fields.started')}: {new Date(worker.startDate).toLocaleDateString()}</p>
+                  <p>{t('worker.list.fields.started')}: TODO Future StartDaate</p>
                   <p>{worker.phone}</p>
                   <p className="truncate">{worker.email}</p>
                 </div>
               </div>
 
               <div className="mt-6 flex gap-2">
-                <button className="flex-1 px-4 py-2 bg-blue-50 rounded-lg text-sm font-medium text-blue-600 hover:bg-blue-100">
+                <button
+                onClick={() => router.push(`/dashboard/workers/${worker.id}`)} 
+                className="flex-1 px-4 py-2 bg-blue-50 rounded-lg text-sm font-medium text-blue-600 hover:bg-blue-100">
                   {t('common.view')} {t('worker.list.fields.profile')}
                 </button>
                 <button className="flex-1 px-4 py-2 bg-gray-50 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-100">

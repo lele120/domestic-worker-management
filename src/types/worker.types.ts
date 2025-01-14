@@ -1,5 +1,5 @@
-export interface createWorkerInput {
-    employerId: number | null;
+export interface CreateWorkerInput {
+    employerId: number | null | undefined;
     firstName: string;
     lastName: string
     dateOfBirth: string;    
@@ -22,7 +22,7 @@ export interface createWorkerInput {
     province : string; 
 }
 
-export interface createWorkerResponse {
+export interface CreateWorkerResponse {
     id: number;
     employerId: number;
     firstName: string;
@@ -45,5 +45,6 @@ export interface createWorkerResponse {
     city : string;
     state : string; 
     province : string; 
+    image?: string;
 }
 
