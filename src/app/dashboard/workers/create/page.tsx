@@ -36,7 +36,8 @@ const NewWorker: React.FC = () => {
     documentNumber: '',
     documentIssuer: '',
     documentExpiration: '',
-    status: 'active'
+    status: 'active',
+    image: null
   });
 
   const [errors, setErrors] = useState<Partial<CreateWorkerInput>>({});
@@ -44,7 +45,6 @@ const NewWorker: React.FC = () => {
   const validateForm = () => {
     const newErrors: Partial<CreateWorkerInput> = {};
 
-    if (!workerForm.employerId) newErrors.employerId = t('worker.validation.employerRequired') as unknown as number;
     if (!workerForm.firstName.trim()) newErrors.firstName = t('worker.validation.required');
     if (!workerForm.lastName.trim()) newErrors.lastName = t('worker.validation.required');
     if (!workerForm.dateOfBirth) newErrors.dateOfBirth = t('worker.validation.required');

@@ -20,6 +20,7 @@ export interface CreateWorkerInput {
     city : string;
     state : string; 
     province : string; 
+    image: string | null;
 }
 
 export interface CreateWorkerResponse {
