@@ -54,6 +54,7 @@ const CreateContract: React.FC = () => {
     // Contract Information
     startDate: '',
     endDate: '',
+    isTerminated: false,
     terminationReason: '',
     contractType: '',
     level: '',

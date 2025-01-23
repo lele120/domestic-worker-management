@@ -18,6 +18,7 @@ interface ContractFormProps {
     contractType: string
     level: string
     qualityCertification: boolean
+    isTerminated: boolean
   }
   onChange: (name: string, value: string | boolean) => void
 }
@@ -45,16 +46,30 @@ const ContractForm: React.FC<ContractFormProps> = ({ formData, onChange }) => {
             value={formData.startDate}
             onChange={handleInputChange}
           />
-          <InputField
-            label={t('contract.contract.fields.endDate')}
-            name="endDate"
-            type="date"
-            value={formData.endDate}
-            onChange={handleInputChange}
-            required={false}
-          />
-
-          {formData.endDate && (
+          <label className="flex items-center">
+            <input
+              type="checkbox"
+              name="isTerminated"
+              checked={formData.isTerminated}
+              onChange={handleInputChange}
+              className="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
+            />
+            <span className="ml-2 text-sm text-gray-600">{t('contract.contract.fields.isTerminated')}</span>
+          </label>
+          
+          {
+            formData.isTerminated && (
+              <InputField
+              label={t('contract.contract.fields.endDate')}
+              name="endDate"
+              type="date"
+              value={formData.endDate}
+              onChange={handleInputChange}
+              required={false}
+            />
+            )
+          }
+          {formData.isTerminated && (
             <SelectField
               label={t('contract.contract.fields.terminationReason')}
               name="terminationReason"

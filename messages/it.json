@@ -203,7 +203,8 @@
           "qualityCertification": "Certificazione di Qualità",
           "isFixedTerm": "Contratto a Tempo Determinato",
           "fixedTermEndDate": "Data Fine Tempo Determinato",
-          "fixedTermReason": "Motivo Tempo Determinato"
+          "fixedTermReason": "Motivo Tempo Determinato",
+          "isTerminated": "Contratto Terminato"
         },
         "options": {
           "terminationReasons": {
