@@ -5,7 +5,9 @@ import { useTranslations } from 'next-intl'
 import { HelpCircle } from 'lucide-react'
 import InputField from '@/components/shared/forms/InputField'
 import SelectField from '@/components/shared/forms/SelectField'
-import { getSubCategories, SubCategory} from '@/app/api/auth/contract.configuration.service'
+import { getSubCategories, SubCategory, getTerminationReasons, TerminationReason,
+  getContractLevel, ContractLevel, getContractDeterminateReason,ContractDeterminateReason
+} from '@/app/api/auth/contract.configuration.service'
 import { useSession } from 'next-auth/react'
 import { useState } from 'react'
 
@@ -30,15 +32,34 @@ const ContractForm: React.FC<ContractFormProps> = ({ formData, onChange }) => {
   const  t  = useTranslations()
   const { data: session } = useSession();
   const [subCategories, setSubCategories] = useState<SubCategory[]>([]);
+  const [terminationReasons, setTerminationReasons] = useState<TerminationReason[]>([]);
+  const [contractLevels, setContractLevels] = useState<ContractLevel[]>([]);
+  const [contractDeterminateReasons, setContractDeterminateReasons] = useState<ContractDeterminateReason[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
       const token = session?.user.accessToken as string;
-      let result : SubCategory[] = [];
-      result = await getSubCategories('',token);
-      if (result != undefined) {
-        setSubCategories(result);
-        console.log(subCategories)
+      let resSubCategories : SubCategory[] = [];
+      let resTerminationReasons : TerminationReason[] = [];
+      let resContractLevels : ContractLevel[] = [];
+      let resContractDeterminateReasons : ContractDeterminateReason[] = [];
+
+      resContractLevels = await getContractLevel({"category": "COLF"}, token);
+      resSubCategories = await getSubCategories(token);
+      resTerminationReasons = await getTerminationReasons(token);
+      resContractDeterminateReasons = await getContractDeterminateReason({"category": "COLF"}, token);
+
+      if (resContractDeterminateReasons != undefined) {
+        setContractDeterminateReasons(resContractDeterminateReasons);
+      }
+      if (resContractLevels != undefined) {
+        setContractLevels(resContractLevels);
+      }
+      if (resSubCategories != undefined) {
+        setSubCategories(resSubCategories);
+      }
+      if (resTerminationReasons != undefined) {
+        setTerminationReasons(resTerminationReasons);
       }
     };
   
@@ -96,15 +117,11 @@ const ContractForm: React.FC<ContractFormProps> = ({ formData, onChange }) => {
               name="terminationReason"
               value={formData.terminationReason}
               onChange={handleInputChange}
-              options={[
-                { value: 'resignation', label: t('contract.contract.options.terminationReasons.resignation') },
-                { value: 'mutual', label: t('contract.contract.options.terminationReasons.mutual') },
-                { value: 'dismissal', label: t('contract.contract.options.terminationReasons.dismissal') },
-                { value: 'retirement', label: t('contract.contract.options.terminationReasons.retirement') },
-                { value: 'contractEnd', label: t('contract.contract.options.terminationReasons.contractEnd') },
-                { value: 'death', label: t('contract.contract.options.terminationReasons.death') },
-                { value: 'justCause', label: t('contract.contract.options.terminationReasons.justCause') }
-              ]}
+              options={terminationReasons.map((terminationReason) => ({
+                value: terminationReason.value,
+                label: t(`contract.contract.options.terminationReasons.${terminationReason.name}`)
+              }))
+              }
             />
           )}
         </div>
@@ -135,16 +152,11 @@ const ContractForm: React.FC<ContractFormProps> = ({ formData, onChange }) => {
             name="level"
             value={formData.level}
             onChange={handleInputChange}
-            options={[
-              { value: 'dSuper', label: t('contract.contract.options.levels.dSuper') },
-              { value: 'd', label: t('contract.contract.options.levels.d') },
-              { value: 'cSuper', label: t('contract.contract.options.levels.cSuper') },
-              { value: 'c', label: t('contract.contract.options.levels.c') },
-              { value: 'bSuper', label: t('contract.contract.options.levels.bSuper') },
-              { value: 'b', label: t('contract.contract.options.levels.b') },
-              { value: 'aSuper', label: t('contract.contract.options.levels.aSuper') },
-              { value: 'a', label: t('contract.contract.options.levels.a') }
-            ]}
+            options={contractLevels.map((contractLevel) => ({
+              value: contractLevel.subcategory,
+              label: t(`contract.contract.options.levels.${contractLevel.subcategory}`)
+            }))
+            }
           />
           {formData.level && (
             <div className="mt-2 bg-gray-50 p-4 rounded-lg border border-gray-200">
@@ -188,13 +200,12 @@ const ContractForm: React.FC<ContractFormProps> = ({ formData, onChange }) => {
                 name="fixedTermReason"
                 value={formData.fixedTermReason}
                 onChange={handleInputChange}
-                options={[
-                  { value: 'SUBSTITUTE_FAMILY', label: t('contract.contract.options.fixedTermReasons.substituteFamily') },
-                  { value: 'SUBSTITUTE_MEDICAL', label: t('contract.contract.options.fixedTermReasons.substituteMedical') },
-                  { value: 'SUBSTITUTE_VACATION', label: t('contract.contract.options.fixedTermReasons.substituteVacation') },
-                  { value: 'SPECIFIC_PROJECT', label: t('contract.contract.options.fixedTermReasons.specificProject') },
-                  { value: 'OTHER', label: t('contract.contract.options.fixedTermReasons.other') }
-                ]}
+                options={contractDeterminateReasons.map((contractDeterminateReason) => ({
+                  value: contractDeterminateReason.subcategory,
+                  label: t(`contract.contract.options.fixedTermReasons.${contractDeterminateReason.subcategory}`)
+                }
+                ))
+                }
               />
             </div>
           )}
