@@ -199,6 +199,7 @@
           "endDate": "Data di Fine",
           "terminationReason": "Motivo di Cessazione",
           "contractType": "Tipo di Contratto",
+          "subCategory": "Sottocategoria",
           "level": "Livello",
           "qualityCertification": "Certificazione di Qualità",
           "isFixedTerm": "Contratto a Tempo Determinato",
@@ -216,7 +217,7 @@
             "death": "Decesso",
             "justCause": "Giusta Causa"
           },
-          "contractTypes": {
+          "subCategory": {
             "nonLiveIn": "Non Convivente",
             "fullTimeLiveIn": "Convivente Tempo Pieno",
             "nightOnlyLiveIn": "Convivente Solo Notte",

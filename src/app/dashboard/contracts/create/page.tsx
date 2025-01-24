@@ -16,7 +16,6 @@ import { useSession } from 'next-auth/react';
 import { _CreateEmployer } from '@/types/employer.types';
 import {CreateWorkerResponse} from '@/types/worker.types';
 
-
 const CreateContract: React.FC = () => {
   const  t  = useTranslations();
   const [currentStep, setCurrentStep] = useState(0);
@@ -45,11 +44,6 @@ const CreateContract: React.FC = () => {
     }
   }, [session]);
 
- 
-
-
-
-  
   const [formData, setFormData] = useState({
     // Contract Information
     startDate: '',
@@ -57,6 +51,7 @@ const CreateContract: React.FC = () => {
     isTerminated: false,
     terminationReason: '',
     contractType: '',
+    subCategory: '',
     level: '',
     qualityCertification: false,
     isLivingWithEmployer: false,

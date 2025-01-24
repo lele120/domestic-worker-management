@@ -1,10 +1,13 @@
 'use client'
 
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useTranslations } from 'next-intl'
 import { HelpCircle } from 'lucide-react'
 import InputField from '@/components/shared/forms/InputField'
 import SelectField from '@/components/shared/forms/SelectField'
+import { getSubCategories, SubCategory} from '@/app/api/auth/contract.configuration.service'
+import { useSession } from 'next-auth/react'
+import { useState } from 'react'
 
 interface ContractFormProps {
   formData: {
@@ -15,7 +18,7 @@ interface ContractFormProps {
     fixedTermEndDate: string
     fixedTermReason: string
     isLivingWithEmployer: boolean
-    contractType: string
+    subCategory: string
     level: string
     qualityCertification: boolean
     isTerminated: boolean
@@ -25,6 +28,24 @@ interface ContractFormProps {
 
 const ContractForm: React.FC<ContractFormProps> = ({ formData, onChange }) => {
   const  t  = useTranslations()
+  const { data: session } = useSession();
+  const [subCategories, setSubCategories] = useState<SubCategory[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const token = session?.user.accessToken as string;
+      let result : SubCategory[] = [];
+      result = await getSubCategories('',token);
+      if (result != undefined) {
+        setSubCategories(result);
+        console.log(subCategories)
+      }
+    };
+  
+    if (session) {
+      fetchData();
+    }
+  }, []);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value, type } = e.target
@@ -89,21 +110,19 @@ const ContractForm: React.FC<ContractFormProps> = ({ formData, onChange }) => {
         </div>
       </div>
 
-      {/* Contract Type */}
+      {/* SubCategory Type */}
       <div>
         <h2 className="text-lg font-medium text-gray-900 mb-4">{t('contract.contract.sections.type')}</h2>
         <SelectField
-          label={t('contract.contract.fields.contractType')}
-          name="contractType"
-          value={formData.contractType}
+          label={t('contract.contract.fields.subCategory')}
+          name="subCategory"
+          value={formData.subCategory}
           onChange={handleInputChange}
-          options={[
-            { value: 'nonLiveIn', label: t('contract.contract.options.contractTypes.nonLiveIn') },
-            { value: 'fullTimeLiveIn', label: t('contract.contract.options.contractTypes.fullTimeLiveIn') },
-            { value: 'nightOnlyLiveIn', label: t('contract.contract.options.contractTypes.nightOnlyLiveIn') },
-            { value: 'partTimeLiveIn', label: t('contract.contract.options.contractTypes.partTimeLiveIn') },
-            { value: 'substitute', label: t('contract.contract.options.contractTypes.substitute') }
-          ]}
+          options={subCategories.map((subCategory) => ({
+            value: subCategory.value,
+            label: t(`contract.contract.options.subCategory.${subCategory.name}`)
+          }))
+          }
         />
       </div>
 

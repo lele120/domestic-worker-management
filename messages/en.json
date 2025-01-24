@@ -125,6 +125,7 @@
           "endDate": "End Date",
           "terminationReason": "Termination Reason",
           "contractType": "Contract Type",
+          "subCategory": "Sub-Category",
           "level": "Level",
           "qualityCertification": "Quality Certification",
           "isFixedTerm": "Fixed Term Contract",
