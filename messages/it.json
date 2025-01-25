@@ -222,7 +222,8 @@
             "fullTimeLiveIn": "Convivente Tempo Pieno",
             "nightOnlyLiveIn": "Convivente Solo Notte",
             "partTimeLiveIn": "Convivente Part-time",
-            "substitute": "Sostituzione"
+            "substitute": "Sostituzione",
+            "": "-"
           },
           "levels": {
             "dSuper": "Livello D Super",
@@ -240,7 +241,8 @@
             "bSuperDescription": "Assistente per persone autosufficienti",
             "bDescription": "Collaboratore generico polifunzionale",
             "aSuperDescription": "Compagno per persone autosufficienti",
-            "aDescription": "Lavoratori generici non addetti all'assistenza"
+            "aDescription": "Lavoratori generici non addetti all'assistenza",
+            "": "-"
           },
           "fixedTermReasons": {
             "substituteFamily": "Sostituzione Familiare",
