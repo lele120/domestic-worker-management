@@ -14,17 +14,17 @@ import { useState } from 'react'
 interface ContractFormProps {
   formData: {
     contractColf: {
-    startDate: string
-    endDate: string
-    terminationReason: string
-    isFixedTerm: boolean
-    fixedTermEndDate: string
-    fixedTermReason: string
-    isLivingWithEmployer: boolean
-    subCategory: string
-    level: string
-    qualityCertification: boolean
-    isTerminated: boolean
+      startDate: string
+      endDate: string
+      terminationReason: string
+      isFixedTerm: boolean
+      fixedTermEndDate: string
+      fixedTermReason: string
+      isLivingWithEmployer: boolean
+      subCategory: string
+      level: string
+      qualityCertification: boolean
+      isTerminated: boolean
     }
   }
   onChange: (name: string, value: string | boolean | Date) => void
@@ -138,7 +138,7 @@ const ContractForm: React.FC<ContractFormProps> = ({ formData, onChange }) => {
           value={formData.contractColf.subCategory}
           onChange={handleInputChange}
           options={subCategories.map((subCategory) => ({
-            value: subCategory.value,
+            value: subCategory.name,
             label: t(`contract.contract.options.subCategory.${subCategory.name}`)
           }))
           }

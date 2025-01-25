@@ -51,7 +51,6 @@ const CreateContract: React.FC = () => {
       endDate: '',
       isTerminated: false,
       terminationReason: '',
-      contractType: '',
       subCategory: '',
       level: '',
       qualityCertification: false,
@@ -123,7 +122,7 @@ const CreateContract: React.FC = () => {
           return {
             ...prev,
             [parent]: {
-              ...prev[parent],
+              ...prev[parent] as any,
               [child]: {
                 ...prev[parent][child],
                 [third]: value
