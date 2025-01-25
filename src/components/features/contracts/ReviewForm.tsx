@@ -7,31 +7,35 @@ import { Check, AlertCircle } from 'lucide-react'
 interface ReviewFormProps {
   formData: {
     // Contract Information
-    startDate: string
-    endDate: string
-    terminationReason: string
-    contractType: string
-    level: string
-    qualityCertification: boolean
-    isFixedTerm: boolean
-    fixedTermEndDate: string
-    fixedTermReason: string
+      contractColf: {
+      startDate: string
+      endDate: string
+      terminationReason: string
+      contractType: string
+      level: string
+      qualityCertification: boolean
+      isFixedTerm: boolean
+      fixedTermEndDate: string
+      fixedTermReason: string
+    }
 
     // Schedule Information
-    weeklyHours: number
-    schedule: {
-      [key: string]: {
-        enabled: boolean
-        startTime: string
-        endTime: string
-        breaks: Array<{ startTime: string; duration: number }>
+    workSchedule:{
+      weeklyHours: number
+      schedule: {
+        [key: string]: {
+          enabled: boolean
+          startTime: string
+          endTime: string
+          breaks: Array<{ startTime: string; duration: number }>
+        }
       }
+      holidayWork: boolean
+      holidayCompensation: string
+      nightShift: boolean
+      nightShiftStartTime: string
+      nightShiftEndTime: string
     }
-    holidayWork: boolean
-    holidayCompensation: string
-    nightShift: boolean
-    nightShiftStartTime: string
-    nightShiftEndTime: string
 
     // Salary Information
     salary: {
@@ -120,16 +124,16 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ formData }) => {
 
       <Section title={t('contract.review.sections.contract')}>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <Field label={t('contract.contract.fields.startDate')} value={formatDate(formData.startDate)} />
-          <Field label={t('contract.contract.fields.endDate')} value={formatDate(formData.endDate)} />
-          <Field label={t('contract.contract.fields.contractType')} value={formData.contractType} />
-          <Field label={t('contract.contract.fields.level')} value={formData.level} />
-          <Field label={t('contract.contract.fields.qualityCertification')} value={formData.qualityCertification} />
-          <Field label={t('contract.contract.fields.isFixedTerm')} value={formData.isFixedTerm} />
-          {formData.isFixedTerm && (
+          <Field label={t('contract.contract.fields.startDate')} value={formatDate(formData.contractColf.startDate)} />
+          <Field label={t('contract.contract.fields.endDate')} value={formatDate(formData.contractColf.endDate)} />
+          <Field label={t('contract.contract.fields.contractType')} value={formData.contractColf.contractType} />
+          <Field label={t('contract.contract.fields.level')} value={formData.contractColf.level} />
+          <Field label={t('contract.contract.fields.qualityCertification')} value={formData.contractColf.qualityCertification} />
+          <Field label={t('contract.contract.fields.isFixedTerm')} value={formData.contractColf.isFixedTerm} />
+          {formData.contractColf.isFixedTerm && (
             <>
-              <Field label={t('contract.contract.fields.fixedTermEndDate')} value={formatDate(formData.fixedTermEndDate)} />
-              <Field label={t('contract.contract.fields.fixedTermReason')} value={formData.fixedTermReason} />
+              <Field label={t('contract.contract.fields.fixedTermEndDate')} value={formatDate(formData.contractColf.fixedTermEndDate)} />
+              <Field label={t('contract.contract.fields.fixedTermReason')} value={formData.contractColf.fixedTermReason} />
             </>
           )}
         </div>
@@ -137,11 +141,11 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ formData }) => {
 
       <Section title={t('contract.review.sections.schedule')}>
         <div className="space-y-4">
-          <Field label={t('contract.schedule.fields.totalWeeklyHours')} value={formData.weeklyHours} />
+          <Field label={t('contract.schedule.fields.totalWeeklyHours')} value={formData.workSchedule.weeklyHours} />
           
           <div className="border-t border-gray-200 pt-4">
             <h3 className="text-sm font-medium text-gray-900 mb-3">{t('contract.schedule.sections.dailySchedule')}</h3>
-            {Object.entries(formData.schedule).map(([day, schedule]) => (
+            {Object.entries(formData.workSchedule.schedule).map(([day, schedule]) => (
               schedule.enabled && (
                 <div key={day} className="mb-4">
                   <h4 className="text-sm font-medium text-gray-700 capitalize mb-2">{t(`contract.schedule.days.${day}`)}</h4>
@@ -170,18 +174,18 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ formData }) => {
           </div>
 
           <div className="border-t border-gray-200 pt-4">
-            <Field label={t('contract.schedule.fields.holidayWork')} value={formData.holidayWork} />
-            {formData.holidayWork && (
-              <Field label={t('contract.schedule.fields.holidayCompensation')} value={formData.holidayCompensation} />
+            <Field label={t('contract.schedule.fields.holidayWork')} value={formData.workSchedule.holidayWork} />
+            {formData.workSchedule.holidayWork && (
+              <Field label={t('contract.schedule.fields.holidayCompensation')} value={formData.workSchedule.holidayCompensation} />
             )}
           </div>
 
           <div className="border-t border-gray-200 pt-4">
-            <Field label={t('contract.schedule.fields.nightShift')} value={formData.nightShift} />
-            {formData.nightShift && (
+            <Field label={t('contract.schedule.fields.nightShift')} value={formData.workSchedule.nightShift} />
+            {formData.workSchedule.nightShift && (
               <div className="grid grid-cols-2 gap-4">
-                <Field label={t('contract.schedule.fields.nightShiftStart')} value={formData.nightShiftStartTime} />
-                <Field label={t('contract.schedule.fields.nightShiftEnd')} value={formData.nightShiftEndTime} />
+                <Field label={t('contract.schedule.fields.nightShiftStart')} value={formData.workSchedule.nightShiftStartTime} />
+                <Field label={t('contract.schedule.fields.nightShiftEnd')} value={formData.workSchedule.nightShiftEndTime} />
               </div>
             )}
           </div>

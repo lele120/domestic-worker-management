@@ -18,16 +18,19 @@ interface DailySchedule {
 
 interface ScheduleFormProps {
   formData: {
-    weeklyHours: number
-    schedule: {
-      [key: string]: DailySchedule
+    workSchedule: {
+      weeklyHours: number
+      schedule: {
+        [key: string]: DailySchedule
+      }
+      holidayWork: boolean
+      holidayCompensation: string
+      nightShift: boolean
+      nightShiftStartTime: string
+      nightShiftEndTime: string
     }
-    holidayWork: boolean
-    holidayCompensation: string
-    nightShift: boolean
-    nightShiftStartTime: string
-    nightShiftEndTime: string
   }
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onChange: (name: string, value: any) => void
 }
 
@@ -44,52 +47,54 @@ const ScheduleForm: React.FC<ScheduleFormProps> = ({ formData, onChange }) => {
     { value: 'sunday', label: t('contract.schedule.days.sunday') }
   ]
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleDayScheduleChange = (day: string, field: string, value: any) => {
-    onChange('schedule', {
-      ...formData.schedule,
+    console.log(day, field, value)
+    onChange('workSchedule.schedule', {
+      ...formData.workSchedule.schedule,
       [day]: {
-        ...formData.schedule[day],
+        ...formData.workSchedule.schedule[day],
         [field]: value
       }
     })
   }
 
-  const handleBreakChange = (day: string, index: number, field: string, value: any) => {
+  const handleBreakChange = (day: string, index: number, field: string, value: string | number) => {
     const newSchedule = {
-      ...formData.schedule,
+      ...formData.workSchedule.schedule,
       [day]: {
-        ...formData.schedule[day],
-        breaks: formData.schedule[day].breaks.map((breakItem, i) => 
+        ...formData.workSchedule.schedule[day],
+        breaks: formData.workSchedule.schedule[day].breaks.map((breakItem, i) => 
           i === index ? { ...breakItem, [field]: value } : breakItem
         )
       }
     }
-    onChange('schedule', newSchedule)
+    onChange('workSchedule.schedule', newSchedule)
   }
 
   const addBreak = (day: string) => {
     const newSchedule = {
-      ...formData.schedule,
+      ...formData.workSchedule.schedule,
       [day]: {
-        ...formData.schedule[day],
+        ...formData.workSchedule.schedule[day],
         breaks: [
-          ...formData.schedule[day].breaks,
+          ...formData.workSchedule.schedule[day].breaks,
           { startTime: '12:00', duration: 30 }
         ]
       }
     }
-    onChange('schedule', newSchedule)
+    onChange('workSchedule.schedule', newSchedule)
   }
 
   const removeBreak = (day: string, index: number) => {
     const newSchedule = {
-      ...formData.schedule,
+      ...formData.workSchedule.schedule,
       [day]: {
-        ...formData.schedule[day],
-        breaks: formData.schedule[day].breaks.filter((_, i) => i !== index)
+        ...formData.workSchedule.schedule[day],
+        breaks: formData.workSchedule.schedule[day].breaks.filter((_, i) => i !== index)
       }
     }
-    onChange('schedule', newSchedule)
+    onChange('workSchedule.sschedule', newSchedule)
   }
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -97,6 +102,7 @@ const ScheduleForm: React.FC<ScheduleFormProps> = ({ formData, onChange }) => {
     if (type === 'checkbox') {
       onChange(name, (e.target as HTMLInputElement).checked)
     } else if (type === 'number') {
+      console.log(name, value)
       onChange(name, parseFloat(value))
     } else {
       onChange(name, value)
@@ -114,9 +120,9 @@ const ScheduleForm: React.FC<ScheduleFormProps> = ({ formData, onChange }) => {
         <div className="w-1/3">
           <InputField
             label={t('contract.schedule.fields.totalWeeklyHours')}
-            name="weeklyHours"
+            name="workSchedule.weeklyHours"
             type="number"
-            value={formData.weeklyHours.toString()}
+            value={formData.workSchedule.weeklyHours.toString()}
             onChange={handleInputChange}
           />
         </div>
@@ -135,7 +141,7 @@ const ScheduleForm: React.FC<ScheduleFormProps> = ({ formData, onChange }) => {
                 <label className="flex items-center">
                   <input
                     type="checkbox"
-                    checked={formData.schedule[day.value].enabled}
+                    checked={formData.workSchedule.schedule[day.value].enabled}
                     onChange={(e) => handleDayScheduleChange(day.value, 'enabled', e.target.checked)}
                     className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                   />
@@ -143,21 +149,21 @@ const ScheduleForm: React.FC<ScheduleFormProps> = ({ formData, onChange }) => {
                 </label>
               </div>
 
-              {formData.schedule[day.value].enabled && (
+              {formData.workSchedule.schedule[day.value].enabled && (
                 <div className="space-y-4">
                   <div className="grid grid-cols-2 gap-4">
                     <InputField
                       label={t('contract.schedule.fields.startTime')}
-                      name={`${day.value}-start`}
+                      name={`workSchedule.${day.value}-start`}
                       type="time"
-                      value={formData.schedule[day.value].startTime}
+                      value={formData.workSchedule.schedule[day.value].startTime}
                       onChange={(e) => handleDayScheduleChange(day.value, 'startTime', e.target.value)}
                     />
                     <InputField
                       label={t('contract.schedule.fields.endTime')}
-                      name={`${day.value}-end`}
+                      name={`workSchedule.${day.value}-end`}
                       type="time"
-                      value={formData.schedule[day.value].endTime}
+                      value={formData.workSchedule.schedule[day.value].endTime}
                       onChange={(e) => handleDayScheduleChange(day.value, 'endTime', e.target.value)}
                     />
                   </div>
@@ -180,7 +186,7 @@ const ScheduleForm: React.FC<ScheduleFormProps> = ({ formData, onChange }) => {
                     </div>
                     
                     <div className="space-y-3">
-                      {formData.schedule[day.value].breaks.map((breakItem, index) => (
+                      {formData.workSchedule.schedule[day.value].breaks.map((breakItem, index) => (
                         <div key={index} className="flex items-end gap-4">
                           <div className="flex-1">
                             <InputField
@@ -226,28 +232,28 @@ const ScheduleForm: React.FC<ScheduleFormProps> = ({ formData, onChange }) => {
           <label className="flex items-center">
             <input
               type="checkbox"
-              name="nightShift"
-              checked={formData.nightShift}
+              name="workSchedule.nightShift"
+              checked={formData.workSchedule.nightShift}
               onChange={handleInputChange}
               className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
             />
             <span className="ml-2 text-sm text-gray-700">{t('contract.schedule.fields.nightShift')}</span>
           </label>
           
-          {formData.nightShift && (
+          {formData.workSchedule.nightShift && (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
               <InputField
                 label={t('contract.schedule.fields.nightShiftStart')}
-                name="nightShiftStartTime"
+                name="workSchedule.nightShiftStartTime"
                 type="time"
-                value={formData.nightShiftStartTime}
+                value={formData.workSchedule.nightShiftStartTime}
                 onChange={handleInputChange}
               />
               <InputField
                 label={t('contract.schedule.fields.nightShiftEnd')}
-                name="nightShiftEndTime"
+                name="workSchedule.nightShiftEndTime"
                 type="time"
-                value={formData.nightShiftEndTime}
+                value={formData.workSchedule.nightShiftEndTime}
                 onChange={handleInputChange}
               />
             </div>
@@ -262,19 +268,19 @@ const ScheduleForm: React.FC<ScheduleFormProps> = ({ formData, onChange }) => {
           <label className="flex items-center">
             <input
               type="checkbox"
-              name="holidayWork"
-              checked={formData.holidayWork}
+              name="workSchedule.holidayWork"
+              checked={formData.workSchedule.holidayWork}
               onChange={handleInputChange}
               className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
             />
             <span className="ml-2 text-sm text-gray-700">{t('contract.schedule.fields.holidayWork')}</span>
           </label>
           
-          {formData.holidayWork && (
+          {formData.workSchedule.holidayWork && (
             <SelectField
               label={t('contract.schedule.fields.holidayCompensation')}
               name="holidayCompensation"
-              value={formData.holidayCompensation}
+              value={formData.workSchedule.holidayCompensation}
               onChange={handleInputChange}
               options={[
                 { value: 'paid', label: t('contract.schedule.options.holidayCompensation.paid') },

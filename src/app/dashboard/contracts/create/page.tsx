@@ -46,36 +46,38 @@ const CreateContract: React.FC = () => {
 
   const [formData, setFormData] = useState({
     // Contract Information
-    startDate: '',
-    endDate: '',
-    isTerminated: false,
-    terminationReason: '',
-    contractType: '',
-    subCategory: '',
-    level: '',
-    qualityCertification: false,
-    isLivingWithEmployer: false,
-    isFixedTerm: false,
-    fixedTermEndDate: '',
-    fixedTermReason: '',
-
-    // Schedule Information
-    weeklyHours: 40,
-    schedule: {
-      monday: { enabled: true, startTime: '09:00', endTime: '17:00', breaks: [] },
-      tuesday: { enabled: true, startTime: '09:00', endTime: '17:00', breaks: [] },
-      wednesday: { enabled: true, startTime: '09:00', endTime: '17:00', breaks: [] },
-      thursday: { enabled: true, startTime: '09:00', endTime: '17:00', breaks: [] },
-      friday: { enabled: true, startTime: '09:00', endTime: '17:00', breaks: [] },
-      saturday: { enabled: false, startTime: '09:00', endTime: '17:00', breaks: [] },
-      sunday: { enabled: false, startTime: '09:00', endTime: '17:00', breaks: [] }
+    contractColf: {
+      startDate: '',
+      endDate: '',
+      isTerminated: false,
+      terminationReason: '',
+      contractType: '',
+      subCategory: '',
+      level: '',
+      qualityCertification: false,
+      isLivingWithEmployer: false,
+      isFixedTerm: false,
+      fixedTermEndDate: '',
+      fixedTermReason: '',
     },
-    holidayWork: false,
-    holidayCompensation: '',
-    nightShift: false,
-    nightShiftStartTime: '',
-    nightShiftEndTime: '',
-
+    // Schedule Information
+    workSchedule:{
+      weeklyHours: 40,
+      schedule: {
+        monday: { enabled: true, startTime: '09:00', endTime: '17:00', breaks: [] },
+        tuesday: { enabled: true, startTime: '09:00', endTime: '17:00', breaks: [] },
+        wednesday: { enabled: true, startTime: '09:00', endTime: '17:00', breaks: [] },
+        thursday: { enabled: true, startTime: '09:00', endTime: '17:00', breaks: [] },
+        friday: { enabled: true, startTime: '09:00', endTime: '17:00', breaks: [] },
+        saturday: { enabled: false, startTime: '09:00', endTime: '17:00', breaks: [] },
+        sunday: { enabled: false, startTime: '09:00', endTime: '17:00', breaks: [] }
+      },
+      holidayWork: false,
+      holidayCompensation: '',
+      nightShift: false,
+      nightShiftStartTime: '',
+      nightShiftEndTime: '',
+    },
     // Salary Information
     salary: {
       basePay: 0,
@@ -112,10 +114,37 @@ const CreateContract: React.FC = () => {
   });
 
   const handleChange = (name: string, value: string | number | boolean | object) => {
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
+    setFormData(prev => {
+      // If the name includes a dot, it means it's a nested property
+      console.log(name, value);
+      if (name.includes('.')) {
+        const [parent, child, third] = name.split('.');
+        if (third) {
+          return {
+            ...prev,
+            [parent]: {
+              ...prev[parent],
+              [child]: {
+                ...prev[parent][child],
+                [third]: value
+              }
+            }
+          };
+        }
+        return {
+          ...prev,
+          [parent]: {
+            ...prev[parent],
+            [child]: value
+          }
+        };
+      }
+      // For top-level properties
+      return {
+        ...prev,
+        [name]: value
+      };
+    });
   };
 
   const handleSelectEmployer = () => {
@@ -200,15 +229,15 @@ const CreateContract: React.FC = () => {
       case 3:
         return (
           <SalaryForm
-            formData={formData.salary}
-            onChange={(name: string, value: string | number | boolean | object) => handleChange(`salary.${name}`, value)}
+            formData={formData}
+            onChange={handleChange}
           />
         );
       case 4:
         return (
           <AdvancedSettingsForm
-            formData={formData.advancedSettings}
-            onChange={(name: string, value: string | number | boolean) => handleChange(`advancedSettings.${name}`, value)}
+            formData={formData}
+            onChange={handleChange}
           />
         );
       case 5:

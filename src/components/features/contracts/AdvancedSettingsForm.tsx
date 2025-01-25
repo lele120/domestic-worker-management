@@ -6,13 +6,15 @@ import { AlertCircle } from 'lucide-react'
 
 interface AdvancedSettingsFormProps {
   formData: {
-    payHolidaysMonthly: boolean
-    pay13thMonthly: boolean
-    payTFRMonthly: boolean
-    monthlyPayment: boolean
-    monthlyBonus: boolean
-    noWorkerContributions: boolean
-    noCassaColf: boolean
+    advancedSettings: {
+      payHolidaysMonthly: boolean
+      pay13thMonthly: boolean
+      payTFRMonthly: boolean
+      monthlyPayment: boolean
+      monthlyBonus: boolean
+      noWorkerContributions: boolean
+      noCassaColf: boolean
+    }
   }
   onChange: (name: string, value: boolean) => void
 }
@@ -36,8 +38,8 @@ const AdvancedSettingsForm: React.FC<AdvancedSettingsFormProps> = ({ formData, o
             <input
               type="checkbox"
               id="payHolidaysMonthly"
-              name="payHolidaysMonthly"
-              checked={formData.payHolidaysMonthly}
+              name="advancedSettings.payHolidaysMonthly"
+              checked={formData.advancedSettings.payHolidaysMonthly}
               className="mt-1 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
               onChange={handleInputChange}
             />
@@ -55,8 +57,8 @@ const AdvancedSettingsForm: React.FC<AdvancedSettingsFormProps> = ({ formData, o
             <input
               type="checkbox"
               id="pay13thMonthly"
-              name="pay13thMonthly"
-              checked={formData.pay13thMonthly}
+              name="advancedSettings.pay13thMonthly"
+              checked={formData.advancedSettings.pay13thMonthly}
               className="mt-1 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
               onChange={handleInputChange}
             />
@@ -74,8 +76,8 @@ const AdvancedSettingsForm: React.FC<AdvancedSettingsFormProps> = ({ formData, o
             <input
               type="checkbox"
               id="payTFRMonthly"
-              name="payTFRMonthly"
-              checked={formData.payTFRMonthly}
+              name="advancedSettings.payTFRMonthly"
+              checked={formData.advancedSettings.payTFRMonthly}
               className="mt-1 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
               onChange={handleInputChange}
             />
@@ -100,8 +102,8 @@ const AdvancedSettingsForm: React.FC<AdvancedSettingsFormProps> = ({ formData, o
             <input
               type="checkbox"
               id="monthlyPayment"
-              name="monthlyPayment"
-              checked={formData.monthlyPayment}
+              name="advancedSettings.monthlyPayment"
+              checked={formData.advancedSettings.monthlyPayment}
               className="mt-1 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
               onChange={handleInputChange}
             />
@@ -119,8 +121,8 @@ const AdvancedSettingsForm: React.FC<AdvancedSettingsFormProps> = ({ formData, o
             <input
               type="checkbox"
               id="monthlyBonus"
-              name="monthlyBonus"
-              checked={formData.monthlyBonus}
+              name="advancedSettings.monthlyBonus"
+              checked={formData.advancedSettings.monthlyBonus}
               className="mt-1 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
               onChange={handleInputChange}
             />
@@ -145,8 +147,8 @@ const AdvancedSettingsForm: React.FC<AdvancedSettingsFormProps> = ({ formData, o
             <input
               type="checkbox"
               id="noWorkerContributions"
-              name="noWorkerContributions"
-              checked={formData.noWorkerContributions}
+              name="advancedSettings.noWorkerContributions"
+              checked={formData.advancedSettings.noWorkerContributions}
               className="mt-1 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
               onChange={handleInputChange}
             />
@@ -164,8 +166,8 @@ const AdvancedSettingsForm: React.FC<AdvancedSettingsFormProps> = ({ formData, o
             <input
               type="checkbox"
               id="noCassaColf"
-              name="noCassaColf"
-              checked={formData.noCassaColf}
+              name="advancedSettings.noCassaColf"
+              checked={formData.advancedSettings.noCassaColf}
               className="mt-1 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
               onChange={handleInputChange}
             />

@@ -6,27 +6,30 @@ import InputField from '@/components/shared/forms/InputField'
 
 interface SalaryFormProps {
   formData: {
-    basePay: number
-    functionAllowance: number
-    customItems: Array<{ name: string; amount: number }>
-    overtimeAllowance: number
-    nonAutomaticAllowance: number
-    futureIncrements: number
-    nonAutomaticPersonalAllowance: number
-    childrenAllowance: number
-    qualityCertificationAllowance: number
-    includeHolidayPay: boolean
-    include13thMonth: boolean
-    includeSeverancePay: boolean
-    mealAllowance: {
-      breakfast: number
-      lunch: number
-      dinner: number
+    salary:{
+      basePay: number
+      functionAllowance: number
+      customItems: Array<{ name: string; amount: number }>
+      overtimeAllowance: number
+      nonAutomaticAllowance: number
+      futureIncrements: number
+      nonAutomaticPersonalAllowance: number
+      childrenAllowance: number
+      qualityCertificationAllowance: number
+      includeHolidayPay: boolean
+      include13thMonth: boolean
+      includeSeverancePay: boolean
+      mealAllowance: {
+        breakfast: number
+        lunch: number
+        dinner: number
+      }
+      accommodationAllowance: number
+      inKindBenefits: boolean
     }
-    accommodationAllowance: number
-    inKindBenefits: boolean
   }
-  onChange: (name: string, value: string | number | boolean) => void
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  onChange: (name: string, value: any) => void
 }
 
 const SalaryForm: React.FC<SalaryFormProps> = ({ formData, onChange }) => {
@@ -34,6 +37,7 @@ const SalaryForm: React.FC<SalaryFormProps> = ({ formData, onChange }) => {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type } = e.target
+    console.log(name, value, type)
     if (type === 'checkbox') {
       onChange(name, e.target.checked)
     } else if (type === 'number') {
@@ -52,49 +56,49 @@ const SalaryForm: React.FC<SalaryFormProps> = ({ formData, onChange }) => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <InputField
             label={t('contract.salary.fields.basePay')}
-            name="basePay"
+            name="salary.basePay"
             type="number"
-            value={formData.basePay.toString()}
+            value={formData.salary.basePay.toString()}
             onChange={handleInputChange}
           />
 
           <InputField
             label={t('contract.salary.fields.functionAllowance')}
-            name="functionAllowance"
+            name="salary.functionAllowance"
             type="number"
-            value={formData.functionAllowance.toString()}
+            value={formData.salary.functionAllowance.toString()}
             onChange={handleInputChange}
           />
 
           <InputField
             label={t('contract.salary.fields.overtimeAllowance')}
-            name="overtimeAllowance"
+            name="salary.overtimeAllowance"
             type="number"
-            value={formData.overtimeAllowance.toString()}
+            value={formData.salary.overtimeAllowance.toString()}
             onChange={handleInputChange}
           />
 
           <InputField
             label={t('contract.salary.fields.nonAutomaticAllowance')}
-            name="nonAutomaticAllowance"
+            name="salary.nonAutomaticAllowance"
             type="number"
-            value={formData.nonAutomaticAllowance.toString()}
+            value={formData.salary.nonAutomaticAllowance.toString()}
             onChange={handleInputChange}
           />
 
           <InputField
             label={t('contract.salary.fields.futureIncrements')}
-            name="futureIncrements"
+            name="salary.futureIncrements"
             type="number"
-            value={formData.futureIncrements.toString()}
+            value={formData.salary.futureIncrements.toString()}
             onChange={handleInputChange}
           />
 
           <InputField
             label={t('contract.salary.fields.childrenAllowance')}
-            name="childrenAllowance"
+            name="salary.childrenAllowance"
             type="number"
-            value={formData.childrenAllowance.toString()}
+            value={formData.salary.childrenAllowance.toString()}
             onChange={handleInputChange}
           />
         </div>
@@ -103,8 +107,8 @@ const SalaryForm: React.FC<SalaryFormProps> = ({ formData, onChange }) => {
           <label className="flex items-center">
             <input
               type="checkbox"
-              name="includeHolidayPay"
-              checked={formData.includeHolidayPay}
+              name="salary.includeHolidayPay"
+              checked={formData.salary.includeHolidayPay}
               onChange={handleInputChange}
               className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
             />
@@ -114,8 +118,8 @@ const SalaryForm: React.FC<SalaryFormProps> = ({ formData, onChange }) => {
           <label className="flex items-center">
             <input
               type="checkbox"
-              name="include13thMonth"
-              checked={formData.include13thMonth}
+              name="salary.include13thMonth"
+              checked={formData.salary.include13thMonth}
               onChange={handleInputChange}
               className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
             />
@@ -125,8 +129,8 @@ const SalaryForm: React.FC<SalaryFormProps> = ({ formData, onChange }) => {
           <label className="flex items-center">
             <input
               type="checkbox"
-              name="includeSeverancePay"
-              checked={formData.includeSeverancePay}
+              name="salary.includeSeverancePay"
+              checked={formData.salary.includeSeverancePay}
               onChange={handleInputChange}
               className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
             />
@@ -139,23 +143,23 @@ const SalaryForm: React.FC<SalaryFormProps> = ({ formData, onChange }) => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <InputField
               label={t('contract.salary.fields.mealAllowance.breakfast')}
-              name="mealAllowance.breakfast"
+              name="salary.mealAllowance.breakfast"
               type="number"
-              value={formData.mealAllowance.breakfast.toString()}
+              value={formData.salary.mealAllowance.breakfast.toString()}
               onChange={handleInputChange}
             />
             <InputField
               label={t('contract.salary.fields.mealAllowance.lunch')}
-              name="mealAllowance.lunch"
+              name="salary.mealAllowance.lunch"
               type="number"
-              value={formData.mealAllowance.lunch.toString()}
+              value={formData.salary.mealAllowance.lunch.toString()}
               onChange={handleInputChange}
             />
             <InputField
               label={t('contract.salary.fields.mealAllowance.dinner')}
-              name="mealAllowance.dinner"
+              name="salary.mealAllowance.dinner"
               type="number"
-              value={formData.mealAllowance.dinner.toString()}
+              value={formData.salary.mealAllowance.dinner.toString()}
               onChange={handleInputChange}
             />
           </div>
@@ -164,9 +168,9 @@ const SalaryForm: React.FC<SalaryFormProps> = ({ formData, onChange }) => {
         <div>
           <InputField
             label={t('contract.salary.fields.accommodationAllowance')}
-            name="accommodationAllowance"
+            name="salary.accommodationAllowance"
             type="number"
-            value={formData.accommodationAllowance.toString()}
+            value={formData.salary.accommodationAllowance.toString()}
             onChange={handleInputChange}
           />
         </div>
@@ -175,8 +179,8 @@ const SalaryForm: React.FC<SalaryFormProps> = ({ formData, onChange }) => {
           <label className="flex items-center">
             <input
               type="checkbox"
-              name="inKindBenefits"
-              checked={formData.inKindBenefits}
+              name="salary.inKindBenefits"
+              checked={formData.salary.inKindBenefits}
               onChange={handleInputChange}
               className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
             />

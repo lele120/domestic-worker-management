@@ -13,6 +13,7 @@ import { useState } from 'react'
 
 interface ContractFormProps {
   formData: {
+    contractColf: {
     startDate: string
     endDate: string
     terminationReason: string
@@ -24,8 +25,9 @@ interface ContractFormProps {
     level: string
     qualityCertification: boolean
     isTerminated: boolean
+    }
   }
-  onChange: (name: string, value: string | boolean) => void
+  onChange: (name: string, value: string | boolean | Date) => void
 }
 
 const ContractForm: React.FC<ContractFormProps> = ({ formData, onChange }) => {
@@ -83,16 +85,16 @@ const ContractForm: React.FC<ContractFormProps> = ({ formData, onChange }) => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <InputField
             label={t('contract.contract.fields.startDate')}
-            name="startDate"
+            name="contractColf.startDate"
             type="date"
-            value={formData.startDate}
+            value={formData.contractColf.startDate}
             onChange={handleInputChange}
           />
           <label className="flex items-center">
             <input
               type="checkbox"
-              name="isTerminated"
-              checked={formData.isTerminated}
+              name="contractColf.isTerminated"
+              checked={formData.contractColf.isTerminated}
               onChange={handleInputChange}
               className="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
             />
@@ -100,22 +102,22 @@ const ContractForm: React.FC<ContractFormProps> = ({ formData, onChange }) => {
           </label>
           
           {
-            formData.isTerminated && (
+            formData.contractColf.isTerminated && (
               <InputField
               label={t('contract.contract.fields.endDate')}
-              name="endDate"
+              name="contractColf.endDate"
               type="date"
-              value={formData.endDate}
+              value={formData.contractColf.endDate}
               onChange={handleInputChange}
               required={false}
             />
             )
           }
-          {formData.isTerminated && (
+          {formData.contractColf.isTerminated && (
             <SelectField
               label={t('contract.contract.fields.terminationReason')}
-              name="terminationReason"
-              value={formData.terminationReason}
+              name="contractColf.terminationReason"
+              value={formData.contractColf.terminationReason}
               onChange={handleInputChange}
               options={terminationReasons.map((terminationReason) => ({
                 value: terminationReason.value,
@@ -132,8 +134,8 @@ const ContractForm: React.FC<ContractFormProps> = ({ formData, onChange }) => {
         <h2 className="text-lg font-medium text-gray-900 mb-4">{t('contract.contract.sections.type')}</h2>
         <SelectField
           label={t('contract.contract.fields.subCategory')}
-          name="subCategory"
-          value={formData.subCategory}
+          name="contractColf.subCategory"
+          value={formData.contractColf.subCategory}
           onChange={handleInputChange}
           options={subCategories.map((subCategory) => ({
             value: subCategory.value,
@@ -149,8 +151,8 @@ const ContractForm: React.FC<ContractFormProps> = ({ formData, onChange }) => {
         <div className="relative">
           <SelectField
             label={t('contract.contract.fields.level')}
-            name="level"
-            value={formData.level}
+            name="contractColf.level"
+            value={formData.contractColf.level}
             onChange={handleInputChange}
             options={contractLevels.map((contractLevel) => ({
               value: contractLevel.subcategory,
@@ -158,12 +160,12 @@ const ContractForm: React.FC<ContractFormProps> = ({ formData, onChange }) => {
             }))
             }
           />
-          {formData.level && (
+          {formData.contractColf.level && (
             <div className="mt-2 bg-gray-50 p-4 rounded-lg border border-gray-200">
               <div className="flex items-start">
                 <HelpCircle className="w-5 h-5 text-blue-500 mr-2 mt-0.5 flex-shrink-0" />
                 <p className="text-sm text-gray-600">
-                  {t(`contract.contract.options.levels.${formData.level}Description`)}
+                  {t(`contract.contract.options.levels.${formData.contractColf.level}Description`)}
                 </p>
               </div>
             </div>
@@ -178,27 +180,27 @@ const ContractForm: React.FC<ContractFormProps> = ({ formData, onChange }) => {
           <label className="flex items-center">
             <input
               type="checkbox"
-              name="isFixedTerm"
-              checked={formData.isFixedTerm}
+              name="contractColf.isFixedTerm"
+              checked={formData.contractColf.isFixedTerm}
               onChange={handleInputChange}
               className="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
             />
             <span className="ml-2 text-sm text-gray-600">{t('contract.contract.fields.isFixedTerm')}</span>
           </label>
 
-          {formData.isFixedTerm && (
+          {formData.contractColf.isFixedTerm && (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
               <InputField
                 label={t('contract.contract.fields.fixedTermEndDate')}
-                name="fixedTermEndDate"
+                name="contractColf.fixedTermEndDate"
                 type="date"
-                value={formData.fixedTermEndDate}
+                value={formData.contractColf.fixedTermEndDate}
                 onChange={handleInputChange}
               />
               <SelectField
                 label={t('contract.contract.fields.fixedTermReason')}
-                name="fixedTermReason"
-                value={formData.fixedTermReason}
+                name="contractColf.fixedTermReason"
+                value={formData.contractColf.fixedTermReason}
                 onChange={handleInputChange}
                 options={contractDeterminateReasons.map((contractDeterminateReason) => ({
                   value: contractDeterminateReason.subcategory,
@@ -219,8 +221,8 @@ const ContractForm: React.FC<ContractFormProps> = ({ formData, onChange }) => {
           <label className="flex items-center">
             <input
               type="checkbox"
-              name="qualityCertification"
-              checked={formData.qualityCertification}
+              name="contractColf.qualityCertification"
+              checked={formData.contractColf.qualityCertification}
               onChange={handleInputChange}
               className="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
             />
