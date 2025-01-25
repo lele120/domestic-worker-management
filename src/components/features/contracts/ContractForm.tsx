@@ -55,12 +55,15 @@ const ContractForm: React.FC<ContractFormProps> = ({ formData, onChange }) => {
         setContractDeterminateReasons(resContractDeterminateReasons);
       }
       if (resContractLevels != undefined) {
+        resContractLevels.push({name: "", category: "",subcategory: "", id: 0, description: ""});
         setContractLevels(resContractLevels);
       }
       if (resSubCategories != undefined) {
+        resSubCategories.push({name: "", value: "", id: 0, description: ""});
         setSubCategories(resSubCategories);
       }
       if (resTerminationReasons != undefined) {
+        resTerminationReasons.push({name: "", value: "", id: 0, description: ""});
         setTerminationReasons(resTerminationReasons);
       }
     };
