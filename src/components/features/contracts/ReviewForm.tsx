@@ -75,20 +75,11 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ formData,errors, validateForm})
               <div className="mt-4">
                 {Object.keys(errors).map((key) => {
                   const errorValue = errors[key as keyof ContractColfValidation];
-                  if (typeof errorValue === 'string') {
                     return (
                       <div key={key} className="text-red-600">
                         {errorValue}
                       </div>
                     );
-                  } else if (typeof errorValue === 'object' && errorValue !== null) {
-                    return Object.keys(errorValue).map((subKey) => (
-                      <div key={subKey} className="text-red-600">
-                        {errorValue[subKey as keyof typeof errorValue]}
-                      </div>
-                    ));
-                  }
-                  return null;
                 })}
               </div>
             )}
