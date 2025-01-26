@@ -5,16 +5,7 @@ import { useTranslations } from 'next-intl'
 import { Clock, Calendar, Coffee, Plus, Minus } from 'lucide-react'
 import InputField from '@/components/shared/forms/InputField'
 import SelectField from '@/components/shared/forms/SelectField'
-
-interface DailySchedule {
-  enabled: boolean
-  startTime: string
-  endTime: string
-  breaks: {
-    startTime: string
-    duration: number
-  }[]
-}
+import { DailySchedule } from '@/types/contract.types'
 
 interface ScheduleFormProps {
   formData: {

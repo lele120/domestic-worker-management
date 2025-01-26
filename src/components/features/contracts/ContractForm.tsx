@@ -10,22 +10,11 @@ import { getSubCategories, SubCategory, getTerminationReasons, TerminationReason
 } from '@/app/api/auth/contract.configuration.service'
 import { useSession } from 'next-auth/react'
 import { useState } from 'react'
+import { ContractColf } from '@/types/contract.types'
 
 interface ContractFormProps {
   formData: {
-    contractColf: {
-      startDate: string
-      endDate: string
-      terminationReason: string
-      isFixedTerm: boolean
-      fixedTermEndDate: string
-      fixedTermReason: string
-      isLivingWithEmployer: boolean
-      subCategory: string
-      level: string
-      qualityCertification: boolean
-      isTerminated: boolean
-    }
+    contractColf: ContractColf
   }
   onChange: (name: string, value: string | boolean | Date) => void
 }

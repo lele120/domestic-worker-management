@@ -166,6 +166,78 @@
     "contract": {
       "title": "Nuovo Contratto",
       "subtitle": "Crea un nuovo contratto per un lavoratore",
+      "create": {
+        "validation":{
+          "employerId": {
+            "required": "Seleziona un datore di lavoro"
+          },
+          "workerId": {
+            "required": "Seleziona un lavoratore"
+          },"contractColf": {
+            "startDate": {
+              "required": "Inserisci la data di inizio"
+            },
+            "subCategory": {
+              "required": "Seleziona una sottocategoria"
+            },
+            "level": {
+              "required": "Seleziona un livello"
+            }
+          },"advancedSettings": {
+            "noCassaColf": {
+              "required": "Seleziona un'opzione"
+            },
+            "noWorkerContributions": {
+              "required": "Seleziona un'opzione"
+            },
+            "monthlyBonus": {
+              "required": "Inserisci un valore"
+            },
+            "monthlyPayment": {
+              "required": "Inserisci un valore"
+            }
+          }, "salary" : {
+            "basePay": {
+              "required": "Inserisci un valore"
+            },
+            "functionAllowance": {
+              "required": "Inserisci un valore"
+            },
+            "overtimeAllowance": {
+              "required": "Inserisci un valore"
+            },
+            "nonAutomaticAllowance": {
+              "required": "Inserisci un valore"
+            },
+            "futureIncrements": {
+              "required": "Inserisci un valore"
+            },  
+            "childrenAllowance": {
+              "required": "Inserisci un valore"
+            },
+            "nonAutomaticPersonalAllowance": {
+              "required": "Inserisci un valore"
+            },
+            "qualityCertificationAllowance": {
+              "required": "Inserisci un valore"
+            },
+            "accommodationAllowance": {
+              "required": "Inserisci un valore"
+            },
+            "mealAllowance": {
+              "breakfast": {
+                "required": "Inserisci un valore"
+              },
+              "lunch": {
+                "required": "Inserisci un valore"
+              },
+              "dinner": {
+                "required": "Inserisci un valore"
+              }
+            }
+          }
+        }
+      },
       "steps": {
         "association": "Associazione",
         "contract": "Contratto",

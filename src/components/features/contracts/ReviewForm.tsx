@@ -3,78 +3,21 @@
 import React from 'react'
 import { useTranslations } from 'next-intl'
 import { Check, AlertCircle } from 'lucide-react'
+import { ContractColfValidation } from '@/types/contract.types'
+import { CreateContractColf } from '@/types/contract.types'
 
 interface ReviewFormProps {
-  formData: {
-    // Contract Information
-      contractColf: {
-      startDate: string
-      endDate: string
-      terminationReason: string
-      subCategory: string
-      level: string
-      qualityCertification: boolean
-      isFixedTerm: boolean
-      fixedTermEndDate: string
-      fixedTermReason: string
-    }
-
-    // Schedule Information
-    workSchedule:{
-      weeklyHours: number
-      schedule: {
-        [key: string]: {
-          enabled: boolean
-          startTime: string
-          endTime: string
-          breaks: Array<{ startTime: string; duration: number }>
-        }
-      }
-      holidayWork: boolean
-      holidayCompensation: string
-      nightShift: boolean
-      nightShiftStartTime: string
-      nightShiftEndTime: string
-    }
-
-    // Salary Information
-    salary: {
-      basePay: number
-      functionAllowance: number
-      customItems: Array<{ name: string; amount: number }>
-      overtimeAllowance: number
-      nonAutomaticAllowance: number
-      futureIncrements: number
-      nonAutomaticPersonalAllowance: number
-      childrenAllowance: number
-      qualityCertificationAllowance: number
-      includeHolidayPay: boolean
-      include13thMonth: boolean
-      includeSeverancePay: boolean
-      mealAllowance: {
-        breakfast: number
-        lunch: number
-        dinner: number
-      }
-      accommodationAllowance: number
-      inKindBenefits: boolean
-    }
-
-    // Advanced Settings
-    advancedSettings: {
-      payHolidaysMonthly: boolean
-      pay13thMonthly: boolean
-      payTFRMonthly: boolean
-      monthlyPayment: boolean
-      monthlyBonus: boolean
-      noWorkerContributions: boolean
-      noCassaColf: boolean
-    }
-  }
+  errors:  Partial<ContractColfValidation>,
+  validateForm: () => void,
+  formData: CreateContractColf
 }
 
-const ReviewForm: React.FC<ReviewFormProps> = ({ formData }) => {
+const ReviewForm: React.FC<ReviewFormProps> = ({ formData,errors, validateForm}) => {
   const  t  = useTranslations()
+
+  const hasErrors = (obj: object) => {
+    return obj && Object.keys(obj).length > 0;
+  };
 
   const Section: React.FC<{ title: string; children: React.ReactNode }> = ({ title, children }) => (
     <div className="mb-8">
@@ -121,6 +64,38 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ formData }) => {
           </div>
         </div>
       </div>
+      {hasErrors(errors) && (<div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-6">
+        <div className="flex">
+          <div className="flex-shrink-0">
+            <AlertCircle className="h-5 w-5 text-red-400" />
+          </div>
+          <div className="ml-3">
+            <h3 className="text-sm font-medium text-red-800"></h3>
+            {hasErrors(errors) && (
+              <div className="mt-4">
+                {Object.keys(errors).map((key) => {
+                  const errorValue = errors[key as keyof ContractColfValidation];
+                  if (typeof errorValue === 'string') {
+                    return (
+                      <div key={key} className="text-red-600">
+                        {errorValue}
+                      </div>
+                    );
+                  } else if (typeof errorValue === 'object' && errorValue !== null) {
+                    return Object.keys(errorValue).map((subKey) => (
+                      <div key={subKey} className="text-red-600">
+                        {errorValue[subKey as keyof typeof errorValue]}
+                      </div>
+                    ));
+                  }
+                  return null;
+                })}
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+      )}
 
       <Section title={t('contract.review.sections.contract')}>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -242,14 +217,9 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ formData }) => {
 
       <div className="flex justify-end space-x-4">
         <button
-          type="button"
-          className="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-        >
-          {t('contract.review.actions.editInfo')}
-        </button>
-        <button
           type="submit"
           className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+          onClick={validateForm}
         >
           <Check
           className="w-4 h-4 mr-2" />

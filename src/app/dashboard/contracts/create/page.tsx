@@ -15,6 +15,8 @@ import { getEmployers } from '@/app/api/auth/employer.service';
 import { useSession } from 'next-auth/react';
 import { _CreateEmployer } from '@/types/employer.types';
 import {CreateWorkerResponse} from '@/types/worker.types';
+import { ContractColfValidation, CreateContractColf } from '@/types/contract.types';
+import { set } from 'zod';
 
 const CreateContract: React.FC = () => {
   const  t  = useTranslations();
@@ -44,7 +46,7 @@ const CreateContract: React.FC = () => {
     }
   }, [session]);
 
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<CreateContractColf>({
     // Contract Information
     contractColf: {
       startDate: '',
@@ -112,6 +114,49 @@ const CreateContract: React.FC = () => {
     }
   });
 
+  const [errors, setErrors] = useState<Partial<ContractColfValidation>>({});
+
+  function validateForm() {
+     const newErrors: Partial<ContractColfValidation> = {};
+        
+        if (!formData.employerId) newErrors.employerId = t('contract.create.validation.employerId.required');
+        if (!formData.workerId) newErrors.workerId = t('contract.create.validation.workerId.required');
+        
+        if (!formData.contractColf.startDate) newErrors.startDate = t('contract.create.validation.contractColf.startDate.required')
+        if (formData.contractColf.isTerminated && !formData.contractColf.endDate) newErrors.endDate = t('contract.create.validation.contractColf.endDate.required')
+        if (formData.contractColf.isTerminated && !formData.contractColf.terminationReason) newErrors.terminationReason = t('contract.create.validation.contractColf.terminationReason.required')
+        if (!formData.contractColf.subCategory) newErrors.subCategory = t('contract.create.validation.contractColf.subCategory.required')
+        if (!formData.contractColf.level) newErrors.level = t('contract.create.validation.contractColf.level.required')
+        
+        if (!formData.workSchedule.weeklyHours) newErrors.weeklyHours = t('contract.create.validation.workSchedule.weeklyHours.required')
+        if (formData.workSchedule.nightShift && !formData.workSchedule.nightShiftStartTime) newErrors.nightShiftStartTime = t('contract.create.validation.workSchedule.nightShiftStartTime.required')
+        if (formData.workSchedule.nightShift && !formData.workSchedule.nightShiftEndTime) newErrors.nightShiftEndTime = t('contract.create.validation.workSchedule.nightShiftEndTime.required')
+
+        if (!formData.salary.basePay) newErrors.basePay = t('contract.create.validation.salary.basePay.required')
+        if (!formData.salary.functionAllowance) newErrors.functionAllowance = t('contract.create.validation.salary.functionAllowance.required')
+        if (!formData.salary.overtimeAllowance) newErrors.overtimeAllowance = t('contract.create.validation.salary.overtimeAllowance.required')
+        if (!formData.salary.nonAutomaticAllowance) newErrors.nonAutomaticAllowance = t('contract.create.validation.salary.nonAutomaticAllowance.required')
+        if (!formData.salary.futureIncrements) newErrors.futureIncrements = t('contract.create.validation.salary.futureIncrements.required')
+        if (!formData.salary.nonAutomaticPersonalAllowance) newErrors.nonAutomaticPersonalAllowance = t('contract.create.validation.salary.nonAutomaticPersonalAllowance.required')
+        if (!formData.salary.childrenAllowance) newErrors.childrenAllowance = t('contract.create.validation.salary.childrenAllowance.required')
+        if (!formData.salary.qualityCertificationAllowance) newErrors.qualityCertificationAllowance = t('contract.create.validation.salary.qualityCertificationAllowance.required')
+        
+        if (!formData.salary.mealAllowance.breakfast) newErrors.breakfast = t('contract.create.validation.salary.mealAllowance.breakfast.required')
+        if (!formData.salary.mealAllowance.lunch) newErrors.lunch = t('contract.create.validation.salary.mealAllowance.lunch.required')
+        if (!formData.salary.mealAllowance.dinner) newErrors.dinner = t('contract.create.validation.salary.mealAllowance.dinner.required')
+        if (!formData.salary.accommodationAllowance) newErrors.accommodationAllowance = t('contract.create.validation.salary.accommodationAllowance.required')
+        
+        if (!formData.advancedSettings.payHolidaysMonthly) newErrors.payHolidaysMonthly = t('contract.create.validation.advancedSettings.payHolidaysMonthly.required')
+        if (!formData.advancedSettings.pay13thMonthly) newErrors.pay13thMonthly = t('contract.create.validation.advancedSettings.pay13thMonthly.required')
+        if (!formData.advancedSettings.payTFRMonthly) newErrors.payTFRMonthly = t('contract.create.validation.advancedSettings.payTFRMonthly.required')
+        if (!formData.advancedSettings.monthlyPayment) newErrors.monthlyPayment = t('contract.create.validation.advancedSettings.monthlyPayment.required')
+        if (!formData.advancedSettings.monthlyBonus) newErrors.monthlyBonus = t('contract.create.validation.advancedSettings.monthlyBonus.required')
+        if (!formData.advancedSettings.noWorkerContributions) newErrors.noWorkerContributions = t('contract.create.validation.advancedSettings.noWorkerContributions.required')
+        if (!formData.advancedSettings.noCassaColf) newErrors.noCassaColf = t('contract.create.validation.advancedSettings.noCassaColf.required')
+        
+        setErrors(newErrors);
+  }
+
   const handleChange = (name: string, value: string | number | boolean | object) => {
     setFormData(prev => {
       // If the name includes a dot, it means it's a nested property
@@ -122,7 +167,7 @@ const CreateContract: React.FC = () => {
           return {
             ...prev,
             [parent]: {
-              ...prev[parent] as any,
+              ...prev[parent],
               [child]: {
                 ...prev[parent][child],
                 [third]: value
@@ -243,6 +288,8 @@ const CreateContract: React.FC = () => {
         return (
           <ReviewForm
             formData={formData}
+            validateForm={validateForm}
+            errors={errors}
           />
         );
       default:
