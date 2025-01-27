@@ -144,10 +144,10 @@ const CreateContract: React.FC = () => {
         if (!formData.advancedSettings.payHolidaysMonthly) newErrors.payHolidaysMonthly = t('contract.create.validation.advancedSettings.payHolidaysMonthly.required')
         if (!formData.advancedSettings.pay13thMonthly) newErrors.pay13thMonthly = t('contract.create.validation.advancedSettings.pay13thMonthly.required')
         if (!formData.advancedSettings.payTFRMonthly) newErrors.payTFRMonthly = t('contract.create.validation.advancedSettings.payTFRMonthly.required')
-        if (!formData.advancedSettings.monthlyPayment) newErrors.monthlyPayment = t('contract.create.validation.advancedSettings.monthlyPayment.required')
-        if (!formData.advancedSettings.monthlyBonus) newErrors.monthlyBonus = t('contract.create.validation.advancedSettings.monthlyBonus.required')
-        if (!formData.advancedSettings.noWorkerContributions) newErrors.noWorkerContributions = t('contract.create.validation.advancedSettings.noWorkerContributions.required')
-        if (!formData.advancedSettings.noCassaColf) newErrors.noCassaColf = t('contract.create.validation.advancedSettings.noCassaColf.required')
+        //if (!formData.advancedSettings.monthlyPayment) newErrors.monthlyPayment = t('contract.create.validation.advancedSettings.monthlyPayment.required')
+        //if (!formData.advancedSettings.monthlyBonus) newErrors.monthlyBonus = t('contract.create.validation.advancedSettings.monthlyBonus.required')
+        //if (!formData.advancedSettings.noWorkerContributions) newErrors.noWorkerContributions = t('contract.create.validation.advancedSettings.noWorkerContributions.required')
+        //if (!formData.advancedSettings.noCassaColf) newErrors.noCassaColf = t('contract.create.validation.advancedSettings.noCassaColf.required')
         
         setErrors(newErrors);
         console.log(newErrors);
