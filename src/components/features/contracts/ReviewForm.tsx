@@ -5,15 +5,22 @@ import { useTranslations } from 'next-intl'
 import { Check, AlertCircle } from 'lucide-react'
 import { ContractColfValidation } from '@/types/contract.types'
 import { CreateContractColf } from '@/types/contract.types'
+import { _CreateEmployer } from '@/types/employer.types'
+import { CreateWorkerResponse } from '@/types/worker.types'
+import { createContractColf } from '@/app/api/auth/contractColf.service'
+import { useSession } from 'next-auth/react'
 
 interface ReviewFormProps {
   errors:  Partial<ContractColfValidation>,
-  validateForm: () => void,
+  validateForm: () => boolean,
   formData: CreateContractColf
+  employer: _CreateEmployer | null
+  worker: CreateWorkerResponse | null
 }
 
-const ReviewForm: React.FC<ReviewFormProps> = ({ formData,errors, validateForm}) => {
+const ReviewForm: React.FC<ReviewFormProps> = ({ formData,errors, validateForm,employer,worker}) => {
   const  t  = useTranslations()
+  const { data: session } = useSession()
 
   const hasErrors = (obj: object) => {
     return obj && Object.keys(obj).length > 0;
@@ -36,6 +43,24 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ formData,errors, validateForm})
       </dd>
     </div>
   )
+
+  const onClick = async () => {
+    const validated = validateForm()
+    console.log('Validated', validated)
+    if (validated) {
+      formData.employerId = employer?.id ?? undefined
+      formData.workerId = worker?.id
+      const token = session?.user.accessToken
+      if (token) {
+        const result = await createContractColf(formData, token)
+        if (result) {
+          console.log('Contract created', result)
+        }
+      } else {
+        console.error('Token is undefined')
+      }
+    }
+   }
 
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat('it-IT', {
@@ -210,7 +235,7 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ formData,errors, validateForm})
         <button
           type="submit"
           className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-          onClick={validateForm}
+          onClick={onClick}
         >
           <Check
           className="w-4 h-4 mr-2" />

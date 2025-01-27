@@ -175,7 +175,7 @@
             "required": "Seleziona un lavoratore"
           },"contractColf": {
             "startDate": {
-              "required": "Inserisci la data di inizio"
+              "required": "Inserisci la data di inizio del contratto"
             },
             "subCategory": {
               "required": "Seleziona una sottocategoria"
@@ -185,54 +185,54 @@
             }
           },"advancedSettings": {
             "noCassaColf": {
-              "required": "Seleziona un'opzione"
+              "required": "Seleziona un'opzione per CassaColf"
             },
             "noWorkerContributions": {
-              "required": "Seleziona un'opzione"
+              "required": "Seleziona un'opzione per i contributi del lavoratore"
             },
             "monthlyBonus": {
-              "required": "Inserisci un valore"
+              "required": "Inserisci un valore per il premio mensile"
             },
             "monthlyPayment": {
-              "required": "Inserisci un valore"
+              "required": "Inserisci un valore per il pagamento mensile"
             }
           }, "salary" : {
             "basePay": {
-              "required": "Inserisci un valore"
+              "required": "Inserisci un valore per la paga base"
             },
             "functionAllowance": {
-              "required": "Inserisci un valore"
+              "required": "Inserisci un valore per l'indennità di funzione"
             },
             "overtimeAllowance": {
-              "required": "Inserisci un valore"
+              "required": "Inserisci un valore per l'indennità straordinari"
             },
             "nonAutomaticAllowance": {
-              "required": "Inserisci un valore"
+              "required": "Inserisci un valore per l'indennità non automatica"
             },
             "futureIncrements": {
-              "required": "Inserisci un valore"
+              "required": "Inserisci un valore per gli incrementi futuri"
             },  
             "childrenAllowance": {
-              "required": "Inserisci un valore"
+              "required": "Inserisci un valore per gli assegni familiari"
             },
             "nonAutomaticPersonalAllowance": {
-              "required": "Inserisci un valore"
+              "required": "Inserisci un valore per l'indennità personale non automatica"
             },
             "qualityCertificationAllowance": {
-              "required": "Inserisci un valore"
+              "required": "Inserisci un valore per l'indennità di certificazione di qualità"
             },
             "accommodationAllowance": {
-              "required": "Inserisci un valore"
+              "required": "Inserisci un valore per l'indennità di alloggio"
             },
             "mealAllowance": {
               "breakfast": {
-                "required": "Inserisci un valore"
+                "required": "Inserisci un valore per l'indennità colazione"
               },
               "lunch": {
-                "required": "Inserisci un valore"
+                "required": "Inserisci un valore per l'indennità pranzo"
               },
               "dinner": {
-                "required": "Inserisci un valore"
+                "required": "Inserisci un valore per l'indennità cena"
               }
             }
           }

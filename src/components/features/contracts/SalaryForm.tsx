@@ -13,9 +13,7 @@ interface SalaryFormProps {
       overtimeAllowance: number
       nonAutomaticAllowance: number
       futureIncrements: number
-      nonAutomaticPersonalAllowance: number
       childrenAllowance: number
-      qualityCertificationAllowance: number
       includeHolidayPay: boolean
       include13thMonth: boolean
       includeSeverancePay: boolean

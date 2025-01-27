@@ -16,7 +16,7 @@ import { useSession } from 'next-auth/react';
 import { _CreateEmployer } from '@/types/employer.types';
 import {CreateWorkerResponse} from '@/types/worker.types';
 import { ContractColfValidation, CreateContractColf } from '@/types/contract.types';
-import { set } from 'zod';
+
 
 const CreateContract: React.FC = () => {
   const  t  = useTranslations();
@@ -87,9 +87,7 @@ const CreateContract: React.FC = () => {
       overtimeAllowance: 0,
       nonAutomaticAllowance: 0,
       futureIncrements: 0,
-      nonAutomaticPersonalAllowance: 0,
       childrenAllowance: 0,
-      qualityCertificationAllowance: 0,
       includeHolidayPay: true,
       include13thMonth: true,
       includeSeverancePay: true,
@@ -116,11 +114,11 @@ const CreateContract: React.FC = () => {
 
   const [errors, setErrors] = useState<Partial<ContractColfValidation>>({});
 
-  function validateForm() {
+  function validateForm() : boolean{
      const newErrors: Partial<ContractColfValidation> = {};
         
-        if (!formData.employerId) newErrors.employerId = t('contract.create.validation.employerId.required');
-        if (!formData.workerId) newErrors.workerId = t('contract.create.validation.workerId.required');
+        if (!selectedEmployer) newErrors.employerId = t('contract.create.validation.employerId.required');
+        if (!selectedWorker) newErrors.workerId = t('contract.create.validation.workerId.required');
         
         if (!formData.contractColf.startDate) newErrors.startDate = t('contract.create.validation.contractColf.startDate.required')
         if (formData.contractColf.isTerminated && !formData.contractColf.endDate) newErrors.endDate = t('contract.create.validation.contractColf.endDate.required')
@@ -137,10 +135,7 @@ const CreateContract: React.FC = () => {
         if (!formData.salary.overtimeAllowance) newErrors.overtimeAllowance = t('contract.create.validation.salary.overtimeAllowance.required')
         if (!formData.salary.nonAutomaticAllowance) newErrors.nonAutomaticAllowance = t('contract.create.validation.salary.nonAutomaticAllowance.required')
         if (!formData.salary.futureIncrements) newErrors.futureIncrements = t('contract.create.validation.salary.futureIncrements.required')
-        if (!formData.salary.nonAutomaticPersonalAllowance) newErrors.nonAutomaticPersonalAllowance = t('contract.create.validation.salary.nonAutomaticPersonalAllowance.required')
         if (!formData.salary.childrenAllowance) newErrors.childrenAllowance = t('contract.create.validation.salary.childrenAllowance.required')
-        if (!formData.salary.qualityCertificationAllowance) newErrors.qualityCertificationAllowance = t('contract.create.validation.salary.qualityCertificationAllowance.required')
-        
         if (!formData.salary.mealAllowance.breakfast) newErrors.breakfast = t('contract.create.validation.salary.mealAllowance.breakfast.required')
         if (!formData.salary.mealAllowance.lunch) newErrors.lunch = t('contract.create.validation.salary.mealAllowance.lunch.required')
         if (!formData.salary.mealAllowance.dinner) newErrors.dinner = t('contract.create.validation.salary.mealAllowance.dinner.required')
@@ -155,6 +150,11 @@ const CreateContract: React.FC = () => {
         if (!formData.advancedSettings.noCassaColf) newErrors.noCassaColf = t('contract.create.validation.advancedSettings.noCassaColf.required')
         
         setErrors(newErrors);
+        console.log(newErrors);
+        if (Object.keys(newErrors).length > 0) {
+          return false;
+        }
+        return true;
   }
 
   const handleChange = (name: string, value: string | number | boolean | object) => {
@@ -290,6 +290,8 @@ const CreateContract: React.FC = () => {
             formData={formData}
             validateForm={validateForm}
             errors={errors}
+            employer={selectedEmployer}
+            worker={selectedWorker}
           />
         );
       default:

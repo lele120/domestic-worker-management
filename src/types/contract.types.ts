@@ -45,9 +45,7 @@ export interface Salary {
     overtimeAllowance: number;
     nonAutomaticAllowance: number;
     futureIncrements: number;
-    nonAutomaticPersonalAllowance: number;
     childrenAllowance: number;
-    qualityCertificationAllowance: number;
     includeHolidayPay: boolean;
     include13thMonth: boolean;
     includeSeverancePay: boolean;
@@ -106,7 +104,6 @@ export interface ContractColfValidation {
     futureIncrements: string;
     nonAutomaticPersonalAllowance: string;
     childrenAllowance: string;
-    qualityCertificationAllowance: string;
     includeHolidayPay: string;
     include13thMonth: string;
     includeSeverancePay: string;
