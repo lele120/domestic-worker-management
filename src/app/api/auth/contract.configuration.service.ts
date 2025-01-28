@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export interface ContractType {
-    id: number;
+    id: string;
     name: string;
     description: string;
     category: string;
@@ -9,7 +9,7 @@ export interface ContractType {
 }
 
 export interface SubCategory {
-    id: number;
+    id: string;
     name: string;
     description: string;
     value: string;
@@ -20,14 +20,14 @@ export interface Params {
 } 
 
 export interface TerminationReason {
-    id: number;
+    id: string;
     name: string;
     description: string;
     value: string;
 }
 
 export interface ContractLevel {
-    id: number;
+    id: string;
     name: string;
     description: string;
     category: string;
@@ -35,7 +35,7 @@ export interface ContractLevel {
 }
 
 export interface ContractDeterminateReason {
-    id: number;
+    id: string;
     name: string;
     description: string;
     category: string;

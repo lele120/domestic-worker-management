@@ -44,15 +44,15 @@ const ContractForm: React.FC<ContractFormProps> = ({ formData, onChange }) => {
         setContractDeterminateReasons(resContractDeterminateReasons);
       }
       if (resContractLevels != undefined) {
-        resContractLevels.push({name: "", category: "",subcategory: "", id: 0, description: ""});
+        resContractLevels.push({name: "", category: "",subcategory: "", id: "", description: ""});
         setContractLevels(resContractLevels);
       }
       if (resSubCategories != undefined) {
-        resSubCategories.push({name: "", value: "", id: 0, description: ""});
+        resSubCategories.push({name: "", value: "", id: "", description: ""});
         setSubCategories(resSubCategories);
       }
       if (resTerminationReasons != undefined) {
-        resTerminationReasons.push({name: "", value: "", id: 0, description: ""});
+        resTerminationReasons.push({name: "", value: "", id: "", description: ""});
         setTerminationReasons(resTerminationReasons);
       }
     };
@@ -112,7 +112,7 @@ const ContractForm: React.FC<ContractFormProps> = ({ formData, onChange }) => {
               value={formData.contractColf.terminationReason}
               onChange={handleInputChange}
               options={terminationReasons.map((terminationReason) => ({
-                value: terminationReason.value,
+                value: terminationReason.id,
                 label: t(`contract.contract.options.terminationReasons.${terminationReason.name}`)
               }))
               }
@@ -130,7 +130,7 @@ const ContractForm: React.FC<ContractFormProps> = ({ formData, onChange }) => {
           value={formData.contractColf.subCategory}
           onChange={handleInputChange}
           options={subCategories.map((subCategory) => ({
-            value: subCategory.name,
+            value: subCategory.id,
             label: t(`contract.contract.options.subCategory.${subCategory.name}`)
           }))
           }
@@ -147,7 +147,7 @@ const ContractForm: React.FC<ContractFormProps> = ({ formData, onChange }) => {
             value={formData.contractColf.level}
             onChange={handleInputChange}
             options={contractLevels.map((contractLevel) => ({
-              value: contractLevel.subcategory,
+              value: contractLevel.id,
               label: t(`contract.contract.options.levels.${contractLevel.subcategory}`)
             }))
             }
@@ -195,7 +195,7 @@ const ContractForm: React.FC<ContractFormProps> = ({ formData, onChange }) => {
                 value={formData.contractColf.fixedTermReason}
                 onChange={handleInputChange}
                 options={contractDeterminateReasons.map((contractDeterminateReason) => ({
-                  value: contractDeterminateReason.subcategory,
+                  value: contractDeterminateReason.id,
                   label: t(`contract.contract.options.fixedTermReasons.${contractDeterminateReason.subcategory}`)
                 }
                 ))
