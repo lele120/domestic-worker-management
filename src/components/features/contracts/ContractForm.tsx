@@ -26,6 +26,7 @@ const ContractForm: React.FC<ContractFormProps> = ({ formData, onChange }) => {
   const [terminationReasons, setTerminationReasons] = useState<TerminationReason[]>([]);
   const [contractLevels, setContractLevels] = useState<ContractLevel[]>([]);
   const [contractDeterminateReasons, setContractDeterminateReasons] = useState<ContractDeterminateReason[]>([]);
+  const [contractLevelsDict] = useState<{ [key: string]: string }>({});
 
   useEffect(() => {
     const fetchData = async () => {
@@ -36,6 +37,12 @@ const ContractForm: React.FC<ContractFormProps> = ({ formData, onChange }) => {
       let resContractDeterminateReasons : ContractDeterminateReason[] = [];
 
       resContractLevels = await getContractLevel({"category": "COLF"}, token);
+      resContractLevels.map((contractLevel) => {
+        // create a dictionary with id: subcategory
+        contractLevelsDict[contractLevel.id] = contractLevel.subcategory;
+      })
+      console.log("contractLevelsDict: ", contractLevelsDict);
+
       resSubCategories = await getSubCategories(token);
       resTerminationReasons = await getTerminationReasons(token);
       resContractDeterminateReasons = await getContractDeterminateReason({"category": "COLF"}, token);
@@ -64,6 +71,7 @@ const ContractForm: React.FC<ContractFormProps> = ({ formData, onChange }) => {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value, type } = e.target
+    console.log("name: ", name, " value: ", value, " type: ", type);
     const finalValue = type === 'checkbox' ? (e.target as HTMLInputElement).checked : value
     onChange(name, finalValue)
   }
@@ -157,7 +165,7 @@ const ContractForm: React.FC<ContractFormProps> = ({ formData, onChange }) => {
               <div className="flex items-start">
                 <HelpCircle className="w-5 h-5 text-blue-500 mr-2 mt-0.5 flex-shrink-0" />
                 <p className="text-sm text-gray-600">
-                  {t(`contract.contract.options.levels.${formData.contractColf.level}Description`)}
+                  {t(`contract.contract.options.levels.${contractLevelsDict[formData.contractColf.level]}Description`)}
                 </p>
               </div>
             </div>
