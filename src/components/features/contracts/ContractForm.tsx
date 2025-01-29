@@ -27,6 +27,7 @@ const ContractForm: React.FC<ContractFormProps> = ({ formData, onChange }) => {
   const [contractLevels, setContractLevels] = useState<ContractLevel[]>([]);
   const [contractDeterminateReasons, setContractDeterminateReasons] = useState<ContractDeterminateReason[]>([]);
   const [contractLevelsDict] = useState<{ [key: string]: string }>({});
+  const [contractSubCategoryDict] = useState<{ [key: string]: string }>({});
 
   useEffect(() => {
     const fetchData = async () => {
@@ -41,9 +42,12 @@ const ContractForm: React.FC<ContractFormProps> = ({ formData, onChange }) => {
         // create a dictionary with id: subcategory
         contractLevelsDict[contractLevel.id] = contractLevel.subcategory;
       })
-      console.log("contractLevelsDict: ", contractLevelsDict);
 
       resSubCategories = await getSubCategories(token);
+      resSubCategories.map((subCategory) => {
+        contractSubCategoryDict[subCategory.id] = subCategory.name;
+      })
+
       resTerminationReasons = await getTerminationReasons(token);
       resContractDeterminateReasons = await getContractDeterminateReason({"category": "COLF"}, token);
 
@@ -71,7 +75,6 @@ const ContractForm: React.FC<ContractFormProps> = ({ formData, onChange }) => {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value, type } = e.target
-    console.log("name: ", name, " value: ", value, " type: ", type);
     const finalValue = type === 'checkbox' ? (e.target as HTMLInputElement).checked : value
     onChange(name, finalValue)
   }

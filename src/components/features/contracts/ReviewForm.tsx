@@ -1,6 +1,5 @@
 'use client'
 
-import React from 'react'
 import { useTranslations } from 'next-intl'
 import { Check, AlertCircle } from 'lucide-react'
 import { ContractColfValidation } from '@/types/contract.types'
@@ -9,6 +8,8 @@ import { _CreateEmployer } from '@/types/employer.types'
 import { CreateWorkerResponse } from '@/types/worker.types'
 import { createContractColf } from '@/app/api/auth/contractColf.service'
 import { useSession } from 'next-auth/react'
+import { useEffect, useState } from 'react'
+import { getContractLevel, getSubCategories } from '@/app/api/auth/contract.configuration.service'
 
 interface ReviewFormProps {
   errors:  Partial<ContractColfValidation>,
@@ -21,7 +22,38 @@ interface ReviewFormProps {
 const ReviewForm: React.FC<ReviewFormProps> = ({ formData,errors, validateForm,employer,worker}) => {
   const  t  = useTranslations()
   const { data: session } = useSession()
+  const [contractLevelsDict, setContractLevelsDict] = useState<{ [key: string]: string }>({})
+  const [contractSubCategoryDict, setContractSubCategoryDict] = useState<{ [key: string]: string }>({})
 
+  useEffect(() => {
+    const fetchContractConfiguration = async () => {
+      const token = session?.user.accessToken as string;
+      const resContractLevels = await getContractLevel({"category": "COLF"}, token);
+      const resSubCategories = await getSubCategories(token);
+      
+
+      if (resContractLevels) {
+        const levelsDict = resContractLevels.reduce((acc: { [key: string]: string }, level) => {
+          acc[level.id] = level.name;
+          return acc;
+        }, {});
+        setContractLevelsDict(levelsDict);
+      }
+
+      if (resSubCategories) {
+        const subCategoriesDict = resSubCategories.reduce((acc: { [key: string]: string }, subCategory) => {
+          acc[subCategory.id] = subCategory.name;
+          return acc;
+        }, {});
+        setContractSubCategoryDict(subCategoriesDict);
+      }
+    };
+
+    if (session) {
+      fetchContractConfiguration();
+    }
+  }, [session]);
+ 
   const hasErrors = (obj: object) => {
     return obj && Object.keys(obj).length > 0;
   };
@@ -117,8 +149,8 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ formData,errors, validateForm,e
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <Field label={t('contract.contract.fields.startDate')} value={formatDate(formData.contractColf.startDate)} />
           <Field label={t('contract.contract.fields.endDate')} value={formatDate(formData.contractColf.endDate)} />
-          <Field label={t('contract.contract.fields.subCategory')} value={t(`contract.contract.options.subCategory.${formData.contractColf.subCategory}`)} />
-          <Field label={t('contract.contract.fields.level')} value={t(`contract.contract.options.levels.${formData.contractColf.level}`)} />
+          <Field label={t('contract.contract.fields.subCategory')} value={t(`contract.contract.options.subCategory.${contractSubCategoryDict[formData.contractColf.subCategory]}`)} />
+          <Field label={t('contract.contract.fields.level')} value={t(`contract.contract.options.levels.${contractLevelsDict[formData.contractColf.level]}`)} />
           <Field label={t('contract.contract.fields.qualityCertification')} value={formData.contractColf.qualityCertification} />
           <Field label={t('contract.contract.fields.isFixedTerm')} value={formData.contractColf.isFixedTerm} />
           {formData.contractColf.isFixedTerm && (

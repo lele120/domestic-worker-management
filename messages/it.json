@@ -296,7 +296,8 @@
             "nightOnlyLiveIn": "Convivente Solo Notte",
             "partTimeLiveIn": "Convivente Part-time",
             "substitute": "Sostituzione",
-            "": "-"
+            "": "-",
+            "undefined" : "-"
           },
           "levels": {
             "dSuper": "Livello D Super",
@@ -315,7 +316,8 @@
             "bDescription": "Collaboratore generico polifunzionale",
             "aSuperDescription": "Compagno per persone autosufficienti",
             "aDescription": "Lavoratori generici non addetti all'assistenza",
-            "": "-"
+            "": "-",
+            "undefined" : "-"
           },
           "fixedTermReasons": {
             "substituteFamily": "Sostituzione Familiare",
