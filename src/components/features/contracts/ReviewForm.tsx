@@ -184,7 +184,7 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ formData,errors, validateForm,e
                         <span className="text-sm text-gray-500">{t('contract.schedule.sections.breaks')}: </span>
                         {schedule.breaks.map((breakItem, index) => (
                           <span key={index} className="text-sm text-gray-900">
-                            {breakItem.startTime} ({breakItem.duration} min)
+                            {breakItem.startTime} - {breakItem.endTime}
                             {index < schedule.breaks.length - 1 ? ', ' : ''}
                           </span>
                         ))}

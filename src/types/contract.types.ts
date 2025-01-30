@@ -2,7 +2,8 @@ import { UUID } from "crypto";
 
 export interface Break {
     startTime: string;
-    duration: number;
+    endTime: string;
+    duration?: number;
 }
 
 export interface ContractColf {

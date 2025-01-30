@@ -70,7 +70,7 @@ const ScheduleForm: React.FC<ScheduleFormProps> = ({ formData, onChange }) => {
         ...formData.workSchedule.schedule[day],
         breaks: [
           ...formData.workSchedule.schedule[day].breaks,
-          { startTime: '12:00', duration: 30 }
+          { startTime: '12:00', endTime: '12:30', duration: 30 }
         ]
       }
     }
@@ -85,7 +85,7 @@ const ScheduleForm: React.FC<ScheduleFormProps> = ({ formData, onChange }) => {
         breaks: formData.workSchedule.schedule[day].breaks.filter((_, i) => i !== index)
       }
     }
-    onChange('workSchedule.sschedule', newSchedule)
+    onChange('workSchedule.schedule', newSchedule)
   }
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -190,13 +190,22 @@ const ScheduleForm: React.FC<ScheduleFormProps> = ({ formData, onChange }) => {
                           </div>
                           <div className="flex-1">
                             <InputField
+                              label={t('contract.schedule.fields.breakEnd')}
+                              name={`${day.value}-break-${index}-start`}
+                              type="time"
+                              value={breakItem.endTime}
+                              onChange={(e) => handleBreakChange(day.value, index, 'endTime', e.target.value)}
+                            />
+                          </div>
+                          {/* <div className="flex-1">
+                            <InputField
                               label={t('contract.schedule.fields.breakDuration')}
                               name={`${day.value}-break-${index}-duration`}
                               type="number"
-                              value={breakItem.duration.toString()}
+                              value={breakItem.duration!.toString()}
                               onChange={(e) => handleBreakChange(day.value, index, 'duration', parseInt(e.target.value))}
                             />
-                          </div>
+                          </div> */}
                           <button
                             type="button"
                             onClick={() => removeBreak(day.value, index)}

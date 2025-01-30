@@ -343,6 +343,7 @@
           "startTime": "Ora Inizio",
           "endTime": "Ora Fine",
           "breakStart": "Inizio Pausa",
+          "breakEnd": "Fine Pausa",
           "breakDuration": "Durata Pausa (minuti)",
           "nightShift": "Lavoro Notturno",
           "nightShiftStart": "Inizio Turno Notturno",
