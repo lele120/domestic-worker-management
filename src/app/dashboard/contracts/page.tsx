@@ -1,62 +1,40 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect} from 'react';
 //import { useTranslation } from 'react-i18next';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { Search, Filter, MoreVertical, FileText, Download, Plus, Calendar, DollarSign } from 'lucide-react';
-
-// Mock data for demonstration
-const mockContracts = [
-  {
-    id: 1,
-    employerName: "Robert Anderson",
-    workerName: "Sarah Johnson",
-    type: "Full-time",
-    startDate: "2023-01-15",
-    endDate: "2024-01-14",
-    status: "Active",
-    salary: "2500",
-    employerImage: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=150&h=150",
-    workerImage: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=150&h=150"
-  },
-  {
-    id: 2,
-    employerName: "Elena Martinez",
-    workerName: "Michael Chen",
-    type: "Part-time",
-    startDate: "2023-03-20",
-    endDate: "2024-03-19",
-    status: "Active",
-    salary: "1500",
-    employerImage: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80&w=150&h=150",
-    workerImage: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=150&h=150"
-  },
-  {
-    id: 3,
-    employerName: "James Wilson",
-    workerName: "Emma Rodriguez",
-    type: "Temporary",
-    startDate: "2023-02-01",
-    endDate: "2023-12-31",
-    status: "Expiring Soon",
-    salary: "2000",
-    employerImage: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=150&h=150",
-    workerImage: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80&w=150&h=150"
-  }
-];
+import { useSession } from 'next-auth/react';
+import {listContractColf} from  '@/app/api/auth/contractColf.service';
+import { ContractColf } from '@/types/contractColf.type';
 
   const ContractList: React.FC = () => {
     
   const router = useRouter();
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedStatus, setSelectedStatus] = useState('all');
+  const { data: session } = useSession();
+  const [contracts, setContracts] = useState<ContractColf[]>();
 
-  const filteredContracts = mockContracts.filter(contract => {
+  useEffect(() => {
+    const fetchContracts = async () => {
+      const token = session?.user.accessToken; 
+      const response = await listContractColf(token!);
+      setContracts(response);
+    };
+    if (session) {
+      fetchContracts();
+    }
+  }, [session]);
+
+  const filteredContracts = (contracts || []).filter(contract => {
     const matchesSearch = 
-      contract.employerName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      contract.workerName.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesStatus = selectedStatus === 'all' || contract.status.toLowerCase() === selectedStatus.toLowerCase();
+      contract.worker.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      contract.worker.lastName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      contract.employer.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      contract.employer.lastName.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesStatus = selectedStatus === 'all' || contract.status.name.toLowerCase() === selectedStatus.toLowerCase();
     return matchesSearch && matchesStatus;
   });
 
@@ -129,34 +107,34 @@ const mockContracts = [
             <div className="flex items-start justify-between">
               <div className="flex items-start space-x-6">
                 {/* Employer & Worker */}
-                <div className="flex items-center space-x-4">
+                <div className="flex items-center space-x-10">
                   <div className="relative">
                     <Image
-                      src={contract.employerImage}
-                      alt={contract.employerName}
+                      src={contract.employer.image || '/default-avatar-512.png'}
+                      alt={contract.employer.firstName + ' ' + contract.employer.lastName}
                       className="w-12 h-12 rounded-full object-cover"
                       width={50}
                       height={50}
                     />
                     <Image
-                      src={contract.workerImage}
-                      alt={contract.workerName}
-                      className="w-12 h-12 rounded-full object-cover absolute -right-4 top-0 border-2 border-white"
+                      src={contract.worker.image || '/default-avatar-512.png'}
+                      alt={contract.worker.firstName + ' ' + contract.worker.lastName}
+                      className="w-12 h-12 rounded-full object-cover absolute -right-10 top-0 border-2 border-white"
                       width={50}
                       height={50}
                     />
                   </div>
                   <div className="ml-4">
                     <h3 className="text-lg font-semibold text-gray-900">
-                      {contract.employerName} & {contract.workerName}
+                      {contract.employer.firstName + ' ' + contract.employer.lastName} & {contract.worker.firstName + ' ' + contract.worker.lastName}
                     </h3>
                     <p className="text-sm text-gray-500">{contract.type} Contract</p>
                   </div>
                 </div>
               </div>
               <div className="flex items-center space-x-4">
-                <span className={`px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(contract.status)}`}>
-                  {contract.status}
+                <span className={`px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(contract.status.name)}`}>
+                  {contract.status.name}
                 </span>
                 <button className="text-gray-400 hover:text-gray-600">
                   <MoreVertical className="w-5 h-5" />
@@ -168,9 +146,9 @@ const mockContracts = [
               <div className="flex items-center">
                 <Calendar className="w-5 h-5 text-gray-400 mr-2" />
                 <div>
-                  <p className="text-sm text-gray-500">Duration</p>
+                  <p className="text-sm text-gray-500">Start Contract</p>
                   <p className="text-sm font-medium">
-                    {new Date(contract.startDate).toLocaleDateString()} - {new Date(contract.endDate).toLocaleDateString()}
+                    {contract.startDate}  {contract.endDate}
                   </p>
                 </div>
               </div>
@@ -178,7 +156,7 @@ const mockContracts = [
                 <DollarSign className="w-5 h-5 text-gray-400 mr-2" />
                 <div>
                   <p className="text-sm text-gray-500">Monthly Salary</p>
-                  <p className="text-sm font-medium">€{contract.salary}</p>
+                  <p className="text-sm font-medium">€{contract.totalValue}</p>
                 </div>
               </div>
               <div className="flex items-center">
