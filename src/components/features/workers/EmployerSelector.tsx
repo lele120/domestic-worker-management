@@ -7,7 +7,7 @@ import Image from 'next/image';
 import { getEmployers } from '@/app/api/auth/employer.service';
 import { useSession } from 'next-auth/react';
 import { useEffect } from 'react';
-import { _CreateEmployer } from '@/types/employer.types';
+import { CreateEmployer } from '@/types/employer.types';
 
 interface EmployerSelectorProps {
   selectedEmployerId: number | null | undefined;
@@ -21,7 +21,7 @@ const EmployerSelector: React.FC<EmployerSelectorProps> = ({
   const  t  = useTranslations();
   const [isOpen, setIsOpen] = useState(false);
   const {data} = useSession()
-  const [employers, setEmployers] = useState<_CreateEmployer[]>([])
+  const [employers, setEmployers] = useState<CreateEmployer[]>([])
 
   useEffect(() => {
     const fetchEmployers = async () => {
@@ -29,37 +29,34 @@ const EmployerSelector: React.FC<EmployerSelectorProps> = ({
         const response = await getEmployers(data?.user.accessToken as string) 
         if (response != undefined) {
           // Add a null option to the employers array
-          const nullOption = {
-            id: null,
-            first_name: 'No',
-            last_name: 'Employer',
+          const nullOption : CreateEmployer = {
+            id: undefined,
+            firstName: 'No',
+            lastName: 'Employer',
             sex: 'other' as 'male' |'female' | 'other',
-            date_of_birth: '',
+            dateOfBirth: '',
             nationality: '',
             address: '',
-            phone_number: '',
             email: '',
             company: '',
-            created_at: '',
-            updated_at: '',
             image: '/default-avatar-512.png',
-            place_of_birth: '',
-            tax_number: '',
+            placeOfBirth: '',
+            taxNumber: '',
             job: '',
-            document_type: '',
-            document_number: '',
-            document_issuer: '',
-            document_expiration: '',
+            documentType: '',
+            documentNumber: '',
+            documentIssuer: '',
+            documentExpiration: '',
             city: '',
             state: '',
             province: '',
-            zip_code: '',
-            preferred_contact: 'email' as 'email' | 'phone',
-            employment_type: "full-time" as "full-time" | "part-time" | "temporary",
+            zipCode: '',
+            preferredContact: 'email' as 'email' | 'phone',
+            employmentType: "full-time" as "full-time" | "part-time" | "temporary",
             phone: '',
             notes: '',
             status: 'active' as 'active' | 'inactive' | 'terminated',
-            workers_count: 0,
+            workersCount: 0,
             
           };
           setEmployers([nullOption, ...response]);
@@ -89,13 +86,13 @@ const EmployerSelector: React.FC<EmployerSelectorProps> = ({
             <div className="flex items-center">
               <Image 
                 src={selectedEmployer.image || '/default-avatar-512.png'} 
-                alt={`${selectedEmployer.first_name} ${selectedEmployer.last_name}`} 
+                alt={`${selectedEmployer.firstName} ${selectedEmployer.lastName}`} 
                 width={32} 
                 height={32} 
                 className="rounded-full" 
               />
               <div className="ml-3">
-                <div className="text-sm font-medium text-gray-900">{`${selectedEmployer.first_name} ${selectedEmployer.last_name}`} </div>
+                <div className="text-sm font-medium text-gray-900">{`${selectedEmployer.firstName} ${selectedEmployer.lastName}`} </div>
                 <div className="text-sm text-gray-500">{selectedEmployer.company}</div>
               </div>
             </div>
@@ -124,13 +121,13 @@ const EmployerSelector: React.FC<EmployerSelectorProps> = ({
                 >
                   <Image 
                     src={employer.image || '/default-avatar-512.png'} 
-                    alt={`${employer.first_name} ${employer.last_name}`} 
+                    alt={`${employer.firstName} ${employer.lastName}`} 
                     width={32} 
                     height={32} 
                     className="rounded-full"
                   />
                   <div className="ml-3">
-                    <div className="text-sm font-medium text-gray-900">{employer.first_name} {employer.last_name} </div>
+                    <div className="text-sm font-medium text-gray-900">{employer.firstName} {employer.lastName} </div>
                     <div className="text-sm text-gray-500">{employer.company}</div>
                   </div>
                   {selectedEmployerId === employer.id && (

@@ -4,12 +4,12 @@ import React from 'react';
 import { useTranslations } from 'next-intl';
 import { Plus, UserPlus } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { _CreateEmployer } from '@/types/employer.types';
+import { CreateEmployer } from '@/types/employer.types';
 import { CreateWorkerResponse } from '@/types/worker.types';
 import Image from 'next/image';
 
 interface SelectedEmployerWorkerProps {
-  employer: _CreateEmployer | null;
+  employer: CreateEmployer | null;
   worker: CreateWorkerResponse | null;
   onSelectEmployer: () => void;
   onSelectWorker: () => void;
@@ -44,13 +44,13 @@ const SelectedEmployerWorker: React.FC<SelectedEmployerWorkerProps> = ({
               <div className="flex items-center">
                 <Image
                   src={employer.image || '/default-avatar-512.png'}
-                  alt={employer.first_name + ' ' + employer.last_name}
+                  alt={employer.firstName + ' ' + employer.lastName}
                   width={32}
                   height={32}
                   className="w-12 h-12 rounded-full object-cover"
                   />
                 <div className="ml-4">
-                  <h3 className="text-sm font-medium text-gray-900">{employer.first_name + " " + employer.last_name}</h3>
+                  <h3 className="text-sm font-medium text-gray-900">{employer.firstName + " " + employer.lastName}</h3>
                 </div>
               </div>
               <button
