@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { useParams } from 'next/navigation';
+import Image from 'next/image';
 //import {useTranslations} from 'next-intl';
 import { 
   Building, 
@@ -70,10 +71,12 @@ const EmployerProfile : React.FC<CreateEmployerProps> = () => {
       {/* Header */}
       <div className="flex justify-between items-start mb-8">
         <div className="flex items-center">
-          <img
+          <Image
             src={mockEmployer.image}
             alt={mockEmployer.name}
             className="w-20 h-20 rounded-full object-cover"
+            width={50}
+            height={50}
           />
           <div className="ml-6">
             <h1 className="text-2xl font-bold text-gray-900">{mockEmployer.name}</h1>
@@ -134,10 +137,12 @@ const EmployerProfile : React.FC<CreateEmployerProps> = () => {
               {mockEmployer.workers.map(worker => (
                 <div key={worker.id} className="flex items-center justify-between p-4 rounded-lg border border-gray-200">
                   <div className="flex items-center">
-                    <img
+                    <Image
                       src={worker.image}
                       alt={worker.name}
                       className="w-10 h-10 rounded-full object-cover"
+                      width={50}
+                      height={50}
                     />
                     <div className="ml-4">
                       <h3 className="text-sm font-medium text-gray-900">{worker.name}</h3>

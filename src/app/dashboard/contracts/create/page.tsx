@@ -13,7 +13,7 @@ import SelectedEmployerWorker from '@/components/features/contracts/SelectedEmpl
 import { getWorkers } from '@/app/api/auth/worker.service';
 import { getEmployers } from '@/app/api/auth/employer.service';
 import { useSession } from 'next-auth/react';
-import { _CreateEmployer } from '@/types/employer.types';
+import { CreateEmployer } from '@/types/employer.types';
 import {CreateWorkerResponse} from '@/types/worker.types';
 import { ContractColfValidation, CreateContractColf } from '@/types/contract.types';
 
@@ -22,10 +22,10 @@ const CreateContract: React.FC = () => {
   const  t  = useTranslations();
   const [currentStep, setCurrentStep] = useState(0);
   const { data: session } = useSession();
-  const [selectedEmployer, setSelectedEmployer] = useState<_CreateEmployer | null>(null);
+  const [selectedEmployer, setSelectedEmployer] = useState<CreateEmployer | null>(null);
   const [selectedWorker, setSelectedWorker] = useState<CreateWorkerResponse | null>(null);
   const [showSelector, setShowSelector] = useState(false);
-  const [employers, setEmployers] = useState<_CreateEmployer[]>([]);
+  const [employers, setEmployers] = useState<CreateEmployer[]>([]);
   const [workers, setWorkers] = useState<CreateWorkerResponse[]>([]);
 
   useEffect(() => {

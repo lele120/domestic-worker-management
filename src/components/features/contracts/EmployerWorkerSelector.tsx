@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { Check, ChevronDown, ChevronUp, X } from 'lucide-react';
 import Image from 'next/image';
-import { _CreateEmployer } from '@/types/employer.types';
+import { CreateEmployer } from '@/types/employer.types';
 import {CreateWorkerResponse} from '@/types/worker.types';
 
 
 interface EmployerWorkerSelectorProps {
   workers: CreateWorkerResponse[];
-  employers: _CreateEmployer[];
+  employers: CreateEmployer[];
   selectedEmployerId: number | null;
   selectedWorkerId: number | null;
   onEmployerSelect: (id: number) => void;
@@ -62,13 +62,13 @@ const EmployerWorkerSelector: React.FC<EmployerWorkerSelectorProps> = ({
                 <div className="flex items-center">
                   <Image 
                     src={selectedEmployer.image || '/default-avatar-512.png'} 
-                    alt={selectedEmployer.first_name + ' ' + selectedEmployer.last_name} 
+                    alt={selectedEmployer.firstName + ' ' + selectedEmployer.lastName} 
                     width={32} 
                     height={32} 
                     className="rounded-full"
                   /> 
                   <div className="ml-3">
-                    <div className="text-sm font-medium text-gray-900">{selectedEmployer.first_name + " " + selectedEmployer.last_name}</div>
+                    <div className="text-sm font-medium text-gray-900">{selectedEmployer.firstName + " " + selectedEmployer.lastName}</div>
                     <div className="text-sm text-gray-500">{selectedEmployer.company}</div>
                   </div>
                 </div>
@@ -99,13 +99,13 @@ const EmployerWorkerSelector: React.FC<EmployerWorkerSelectorProps> = ({
                     >
                       <Image
                         src={employer.image || '/default-avatar-512.png'}
-                        alt={employer.first_name + ' ' + employer.last_name}
+                        alt={employer.firstName + ' ' + employer.lastName}
                         width={32}
                         height={32}
                         className="rounded-full"
                       />
                       <div className="ml-3">
-                        <div className="text-sm font-medium text-gray-900">{employer.first_name + " " + employer.last_name}</div>
+                        <div className="text-sm font-medium text-gray-900">{employer.firstName + " " + employer.lastName}</div>
                         <div className="text-sm text-gray-500">{employer.company}</div>
                       </div>
                       {selectedEmployerId === employer.id && (

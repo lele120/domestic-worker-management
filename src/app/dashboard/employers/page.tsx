@@ -5,7 +5,7 @@ import { useTranslations } from 'next-intl'
 import { Search, Filter, MoreVertical, UserPlus, Download, Briefcase, Mail, Phone } from 'lucide-react'
 import { getEmployers } from '@/app/api/auth/employer.service'
 import { useSession } from 'next-auth/react'
-import { _CreateEmployer } from '@/types/employer.types'
+import { CreateEmployer } from '@/types/employer.types'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 
@@ -14,7 +14,7 @@ export default function EmployersList() {
     const [searchTerm, setSearchTerm] = useState('')
     const [selectedStatus, setSelectedStatus] = useState('all')
     const {data} = useSession()
-    const defaultEmployer: _CreateEmployer[] = [] 
+    const defaultEmployer: CreateEmployer[] = [] 
     const [employers, setEmployers] = useState(defaultEmployer)
     const router = useRouter()
 
@@ -34,8 +34,8 @@ export default function EmployersList() {
   }, [data?.user.accessToken])
 
   const filteredEmployers = employers.filter(employer => {
-    const matchesSearch = employer.first_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         employer.last_name.toLowerCase().includes(searchTerm.toLowerCase())
+    const matchesSearch = employer.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         employer.lastName.toLowerCase().includes(searchTerm.toLowerCase())
     const matchesStatus = selectedStatus === 'all' || employer.status.toLowerCase() === selectedStatus.toLowerCase()
     return matchesSearch && matchesStatus
   })
@@ -97,13 +97,13 @@ export default function EmployersList() {
               <div className="flex items-start justify-between">
                 <div className="flex items-center">
                   <Image className="w-12 h-12 rounded-full object-cover" 
-                    alt={employer.first_name + ' ' + employer.last_name}
+                    alt={employer.firstName + ' ' + employer.lastName}
                     src={employer.image || '/default-avatar-512.png'}
                     width={150}
                     height={150}
                   />
                   <div className="ml-4">
-                    <h3 className="text-lg font-semibold text-gray-900">{employer.first_name} {employer.last_name}</h3>
+                    <h3 className="text-lg font-semibold text-gray-900">{employer.firstName} {employer.lastName}</h3>
                     <p className="text-sm text-gray-500">{employer.company}</p>
                   </div>
                 </div>
@@ -123,7 +123,7 @@ export default function EmployersList() {
                 <div className="space-y-2 text-sm text-gray-500">
                   <div className="flex items-center">
                     <Briefcase className="w-4 h-4 mr-2" />
-                    <span>{employer.employment_type}</span>
+                    <span>{employer.employmentType}</span>
                   </div>
                   <div className="flex items-center">
                     <Mail className="w-4 h-4 mr-2" />

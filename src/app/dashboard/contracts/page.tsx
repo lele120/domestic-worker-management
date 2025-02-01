@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 //import { useTranslation } from 'react-i18next';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { Search, Filter, MoreVertical, FileText, Download, Plus, Calendar, DollarSign } from 'lucide-react';
 
@@ -130,15 +131,19 @@ const mockContracts = [
                 {/* Employer & Worker */}
                 <div className="flex items-center space-x-4">
                   <div className="relative">
-                    <img
+                    <Image
                       src={contract.employerImage}
                       alt={contract.employerName}
                       className="w-12 h-12 rounded-full object-cover"
+                      width={50}
+                      height={50}
                     />
-                    <img
+                    <Image
                       src={contract.workerImage}
                       alt={contract.workerName}
                       className="w-12 h-12 rounded-full object-cover absolute -right-4 top-0 border-2 border-white"
+                      width={50}
+                      height={50}
                     />
                   </div>
                   <div className="ml-4">

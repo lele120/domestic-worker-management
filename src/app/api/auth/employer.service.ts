@@ -1,31 +1,31 @@
-import { _CreateEmployer, CreateEmployer } from "@/types/employer.types";
+import { CreateEmployer } from "@/types/employer.types";
 import axios from "axios";
 
 export async function createEmployer(employer: CreateEmployer, token: string) {
-    const _employer : _CreateEmployer= {
-        first_name: employer.firstName,
-        last_name: employer.lastName,
+    const _employer : CreateEmployer= {
+        firstName: employer.firstName,
+        lastName: employer.lastName,
         email: employer.email,
         phone: employer.phone,
         address: employer.address,
         city: employer.city,
         state: employer.state,
         province: employer.province,
-        zip_code: employer.zipCode,
-        preferred_contact: employer.preferredContact,
-        employment_type: employer.employmentType,
+        zipCode: employer.zipCode,
+        preferredContact: employer.preferredContact,
+        employmentType: employer.employmentType,
         notes: employer.notes,
-        date_of_birth: employer.dateOfBirth,
-        place_of_birth: employer.placeOfBirth,
-        document_expiration: employer.documentExpiration,
-        document_issuer: employer.documentIssuer,
-        document_number: employer.documentNumber,
-        document_type: employer.documentType,
+        dateOfBirth: employer.dateOfBirth,
+        placeOfBirth: employer.placeOfBirth,
+        documentExpiration: employer.documentExpiration,
+        documentIssuer: employer.documentIssuer,
+        documentNumber: employer.documentNumber,
+        documentType: employer.documentType,
         job: employer.job,
         nationality: employer.nationality,
         sex: employer.sex,
-        tax_number: employer.taxNumber,
-        workers_count: employer.workersCount,
+        taxNumber: employer.taxNumber,
+        workersCount: employer.workersCount,
         status: employer.status,
         company: employer.company,
         image: employer.image,
@@ -46,7 +46,7 @@ export async function createEmployer(employer: CreateEmployer, token: string) {
     }
 }
 
-export async function getEmployers(token: string) : Promise<_CreateEmployer[] | undefined> {
+export async function getEmployers(token: string) : Promise<CreateEmployer[] | undefined> {
     try {
         const response = await axios({
             method: "get",
