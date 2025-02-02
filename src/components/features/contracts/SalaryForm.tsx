@@ -3,6 +3,8 @@
 import React from 'react'
 import { useTranslations } from 'next-intl'
 import InputField from '@/components/shared/forms/InputField'
+import CostTable from './CostTable'
+import { useState } from 'react'
 
 interface SalaryFormProps {
   formData: {
@@ -32,6 +34,63 @@ interface SalaryFormProps {
 
 const SalaryForm: React.FC<SalaryFormProps> = ({ formData, onChange }) => {
   const  t  = useTranslations()
+
+   const [calculateSalary] = useState({
+      "costs":{
+         "worker":{
+            "grossPay":{
+               "hourly":7.0,
+               "monthly":1213.352
+            },
+            "contributions":{
+               "hourly":0.42,
+               "monthly":72.80112
+            },
+            "cassaColf":{
+               "hourly":0.02,
+               "monthly":3.4667200000000005
+            },
+            "netPay":{
+               "hourly":6.5600000000000005,
+               "monthly":1137.08416
+            }
+         },
+         "employer":{
+            "grossPay":{
+               "hourly":7.0,
+               "monthly":1213.352
+            },
+            "roomBoard":{
+               "hourly":0.0,
+               "monthly":0.0
+            },
+            "contributions":{
+               "hourly":1.37,
+               "monthly":237.47032000000004
+            },
+            "cassaColf":{
+               "hourly":0.04,
+               "monthly":6.933440000000001
+            },
+            "holidays":{
+               "hourly":0.62,
+               "monthly":107.46832
+            },
+            "thirteenthMonth":{
+               "hourly":0.62,
+               "monthly":107.46832
+            },
+            "severancePay":{
+               "hourly":0.59,
+               "monthly":102.26824
+            },
+            "totalCost":{
+               "hourly":10.239999999999998,
+               "monthly":1774.9606399999998
+            }
+         }
+      }
+   });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type } = e.target
@@ -187,41 +246,34 @@ const SalaryForm: React.FC<SalaryFormProps> = ({ formData, onChange }) => {
         </div>
       </div>
 
-      {/* Cost Summary */}
-      <div className="bg-gray-100 rounded-lg p-6">
-        <h3 className="text-lg font-medium text-gray-900 mb-6">{t('contract.salary.sections.summary')}</h3>
+      {/* Cost Breakdown */}
+      <div className="bg-gray-50 rounded-lg p-6 mt-8">
+        <h3 className="text-lg font-medium text-gray-900 mb-6">Cost Breakdown</h3>
         
-        <div className="space-y-6">
-          {/* Employee Costs */}
-          <div>
-            <h4 className="font-medium text-gray-700 mb-4">{t('contract.salary.sections.employeeCosts')}:</h4>
-            <div className="grid grid-cols-3 gap-4">
-              <div className="col-span-1">
-                <span className="text-sm text-gray-600">{t('common.description')}</span>
-              </div>
-              <div className="col-span-1 text-right">
-                <span className="text-sm text-gray-600">{t('common.hourly')}</span>
-              </div>
-              <div className="col-span-1 text-right">
-                <span className="text-sm text-gray-600">{t('common.monthly')}</span>
-              </div>
+        <div className="space-y-1 mb-2 text-right text-sm text-gray-500">
+          <div className="grid grid-cols-[1fr_12rem] gap-4">
+            <div></div>
+            <div className="grid grid-cols-2">
+              <span>Hourly</span>
+              <span>Monthly</span>
             </div>
           </div>
+        </div>
 
-          {/* Employer Costs */}
-          <div className="pt-6 border-t border-gray-200">
-            <h4 className="font-medium text-gray-700 mb-4">{t('contract.salary.sections.employerCosts')}:</h4>
-            <div className="grid grid-cols-3 gap-4">
-              <div className="col-span-1">
-                <span className="text-sm text-gray-600">{t('common.description')}</span>
-              </div>
-              <div className="col-span-1 text-right">
-                <span className="text-sm text-gray-600">{t('common.hourly')}</span>
-              </div>
-              <div className="col-span-1 text-right">
-                <span className="text-sm text-gray-600">{t('common.monthly')}</span>
-              </div>
-            </div>
+        <div className="space-y-6">
+          {/* Worker's Costs */}
+          <CostTable 
+            title="Worker" 
+            data={calculateSalary.costs.worker} 
+          />
+
+          {/* Employer's Costs */}
+          <div className="border-t border-gray-200 pt-6">
+            <CostTable 
+              title="Employer" 
+              data={calculateSalary.costs.employer}
+              showPositive
+            />
           </div>
         </div>
       </div>
