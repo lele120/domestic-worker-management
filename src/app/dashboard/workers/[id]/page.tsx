@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 //import { useTranslation } from 'react-i18next';
 import { 
   User,
@@ -86,10 +87,12 @@ export default function WorkerProfilePage() {
       {/* Header */}
       <div className="flex justify-between items-start mb-8">
         <div className="flex items-center">
-          <img
+          <Image
             src={mockWorker.image}
             alt={`${mockWorker.firstName} ${mockWorker.lastName}`}
-            className="w-20 h-20 rounded-full object-cover"
+            width={80}
+            height={80}
+            className="rounded-full"
           />
           <div className="ml-6">
             <h1 className="text-2xl font-bold text-gray-900">
@@ -227,10 +230,12 @@ export default function WorkerProfilePage() {
             {mockWorker.contracts.map((contract) => (
               <div key={contract.id} className="space-y-4">
                 <div className="flex items-center">
-                  <img
+                  <Image
                     src={contract.employerImage}
                     alt={contract.employer}
-                    className="w-10 h-10 rounded-full object-cover"
+                    width={40}
+                    height={40}
+                    className="rounded-full"
                   />
                   <div className="ml-3">
                     <p className="text-sm font-medium text-gray-900">{contract.employer}</p>

@@ -11,6 +11,8 @@ const languages = [
 ];
 
 const LanguageSelector = () => {
+  
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const t = useTranslations('common'); // Use the common namespace for translations
   const [isOpen, setIsOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
@@ -18,7 +20,8 @@ const LanguageSelector = () => {
   useEffect(() => {
     setMounted(true);
   }, []);
-
+  
+ // eslint-disable-next-line @typescript-eslint/no-unused-vars
 interface Language {
     code: string;
     name: string;

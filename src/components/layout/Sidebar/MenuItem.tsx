@@ -11,6 +11,7 @@ interface MenuItemProps {
   onClick: () => void
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const MenuItem = ({ href, icon: Icon, text, active, onClick }: MenuItemProps) => (
   <button
     onClick={onClick}
