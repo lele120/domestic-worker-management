@@ -4,7 +4,7 @@ import { useTranslations } from 'next-intl'
 import { Check, AlertCircle } from 'lucide-react'
 import { ContractColfValidation } from '@/types/contract.types'
 import { CreateContractColf } from '@/types/contract.types'
-import { _CreateEmployer } from '@/types/employer.types'
+import { CreateEmployer } from '@/types/employer.types'
 import { CreateWorkerResponse } from '@/types/worker.types'
 import { createContractColf } from '@/app/api/auth/contractColf.service'
 import { useSession } from 'next-auth/react'
@@ -15,7 +15,7 @@ interface ReviewFormProps {
   errors:  Partial<ContractColfValidation>,
   validateForm: () => boolean,
   formData: CreateContractColf
-  employer: _CreateEmployer | null
+  employer: CreateEmployer | null
   worker: CreateWorkerResponse | null
 }
 
