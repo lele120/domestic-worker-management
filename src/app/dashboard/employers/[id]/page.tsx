@@ -56,11 +56,7 @@ const mockEmployer = {
   ]
 };
 
-interface CreateEmployerProps {
-  onNavigate?: (page: string) => void;
-}
-
-const EmployerProfile : React.FC<CreateEmployerProps> = () => {
+const EmployerProfile = () => {
   //const { t } = useTranslations();
   const { id } = useParams();
   console.log(id)
