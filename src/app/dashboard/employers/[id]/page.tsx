@@ -58,7 +58,6 @@ const mockEmployer = {
 
 interface CreateEmployerProps {
   onNavigate?: (page: string) => void;
-  id : string;
 }
 
 const EmployerProfile : React.FC<CreateEmployerProps> = () => {
