@@ -159,29 +159,32 @@ const CreateContract: React.FC = () => {
 
   const handleChange = (name: string, value: string | number | boolean | object) => {
     setFormData(prev => {
-      // If the name includes a dot, it means it's a nested property
-      console.log(name, value);
       if (name.includes('.')) {
         const [parent, child, third] = name.split('.');
-        if (third) {
+        // Type guard to ensure parent is a valid key
+        if (parent && child && parent in prev) {
+          const parentKey = parent as keyof CreateContractColf;
+          if (third) {
+            return {
+              ...prev,
+              [parentKey]: {
+                ...(typeof prev[parentKey] === 'object' ? prev[parentKey] : {}),
+                [child]: {
+                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                  ...(prev[parentKey] as any)[child],
+                  [third]: value
+                }
+              }
+            };
+          }
           return {
             ...prev,
-            [parent]: {
-              ...prev[parent],
-              [child]: {
-                ...prev[parent][child],
-                [third]: value
-              }
+            [parentKey]: {
+              ...(typeof prev[parentKey] === 'object' ? prev[parentKey] : {}),
+              [child]: value
             }
           };
         }
-        return {
-          ...prev,
-          [parent]: {
-            ...prev[parent],
-            [child]: value
-          }
-        };
       }
       // For top-level properties
       return {
