@@ -100,6 +100,23 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       console.log("sign-in-user", user, account, profile)
       return true
     },
+    // Add redirect callback to ensure proper redirection after login
+    async redirect({ url, baseUrl }) {
+      console.log("redirect-callback", { url, baseUrl });
+      
+      // If the URL is relative, prepend the base URL
+      if (url.startsWith('/')) {
+        return `${baseUrl}${url}`;
+      }
+      
+      // If the URL is on the same origin as the base URL, allow it
+      else if (new URL(url).origin === baseUrl) {
+        return url;
+      }
+      
+      // Default redirect to dashboard
+      return `${baseUrl}/dashboard`;
+    },
     async jwt({user, token, account, profile, session,trigger}) {
       console.log("user-token-account", user, token, account, profile,session, trigger)
       // If `user` and `account` are set that means it is a login event
