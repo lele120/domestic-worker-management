@@ -1,22 +1,26 @@
-import {NextIntlClientProvider} from 'next-intl';
-import {getLocale, getMessages} from 'next-intl/server';
 import './globals.css'
 import { SessionProvider } from 'next-auth/react';
- 
-export default async function RootLayout({
+import { NextIntlClientProvider } from 'next-intl';
+import { defaultLocale } from '@/i18n';
+
+// Import default messages directly as a fallback
+import itMessages from '../../messages/it.json';
+
+export default function RootLayout({
   children
 }: {
   children: React.ReactNode;
 }) {
+  // Use default locale and messages for simplicity
+  // This avoids the async context issues with getLocale() and getMessages()
+  const locale = defaultLocale;
+  const messages = itMessages;
   
-  const locale = await getLocale();
-  const messages = await getMessages({locale});
- 
   return (
     <html lang={locale}>
       <body>
         <SessionProvider>
-          <NextIntlClientProvider messages={messages}>
+          <NextIntlClientProvider locale={locale} messages={messages}>
             {children}
           </NextIntlClientProvider>
         </SessionProvider>
