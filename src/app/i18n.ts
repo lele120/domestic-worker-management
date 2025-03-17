@@ -1,5 +1,5 @@
 import {getRequestConfig} from 'next-intl/server';
-import {locales, defaultLocale, isValidLocale} from '../i18n';
+import {defaultLocale, isValidLocale} from '../i18n';
 
 export default getRequestConfig(async ({requestLocale}) => {
   // Must properly await the requestLocale

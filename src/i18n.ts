@@ -14,13 +14,13 @@ export function isValidLocale(locale: string): locale is Locale {
 }
 
 // Basic message loading function
-export function getMessages(locale: string) {
+export async function getMessages(locale: string) {
   const safeLocale = isValidLocale(locale) ? locale : defaultLocale;
   try {
-    return require(`../messages/${safeLocale}.json`);
+    return (await import(`../messages/${safeLocale}.json`)).default;
   } catch (error) {
     console.error(`Could not load messages for locale: ${safeLocale}`, error);
-    return require(`../messages/${defaultLocale}.json`);
+    return (await import(`../messages/${defaultLocale}.json`)).default;
   }
 }
 
