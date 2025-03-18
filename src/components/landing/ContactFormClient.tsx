@@ -117,8 +117,8 @@ export default function ContactFormClient() {
         message: '',
         privacyPolicy: false
       });
-    } catch (_) {
-      setSubmitError('Si è verificato un errore durante l\'invio. Riprova più tardi.');
+    } catch {
+      setSubmitError('Si è verificato un errore durante l&apos;invio. Riprova più tardi.');
     } finally {
       setIsSubmitting(false);
     }

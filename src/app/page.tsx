@@ -1,7 +1,7 @@
-import { Suspense } from 'react';
+import React, { Suspense } from 'react';
 import Image from 'next/image';
 import type { Metadata } from 'next';
-import { CheckCircle, Clock, Clipboard, CreditCard, Users, FileText, Shield, Calendar, Star, ChevronRight, ArrowRight, Menu, X } from 'lucide-react';
+import { CheckCircle, FileText, Calendar, Star, ChevronRight, ArrowRight, CreditCard } from 'lucide-react';
 import Loading from '@/components/shared/Loading';
 import NavbarClient from '@/components/landing/NavbarClient';
 import StatsClient from '@/components/landing/StatsClient';
@@ -371,7 +371,7 @@ export default function Home() {
                 Una piattaforma per <span className="text-blue-600">TUTTO</span> ciò che riguarda il personale
               </h3>
               <p className="text-lg text-gray-600 max-w-xl mx-auto">
-                Un gestito unico per tutto
+                Tutto ciò che ti serve in un&apos;unica piattaforma
               </p>
             </div>
             <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-16 lg:max-w-none">
@@ -414,7 +414,7 @@ export default function Home() {
                 Servizi Inclusi
               </h2>
               <p className="text-lg text-gray-600 max-w-xl mx-auto">
-                Tutto ciò che ti serve in un'unica piattaforma
+                Tutto ciò che ti serve in un&apos;unica piattaforma
               </p>
             </div>
             <div className="bg-white rounded-2xl shadow-xl p-8 lg:p-12">
@@ -558,9 +558,9 @@ export default function Home() {
               <a
                 href="#home"
                 className="group relative flex items-center justify-center rounded-full border-2 border-white px-8 py-4 text-lg font-medium text-white hover:bg-white/10 transition-all duration-300"
-                aria-label="Torna all'inizio della pagina"
+                aria-label="Torna all&apos;inizio della pagina"
               >
-                Torna all'inizio
+                Torna all&apos;inizio
                 <ChevronRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" aria-hidden="true" />
               </a>
             </div>

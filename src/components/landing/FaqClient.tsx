@@ -7,11 +7,11 @@ import { ChevronDown, ChevronUp } from 'lucide-react';
 const faqItems = [
   {
     question: 'È sicuro inserire i dati nella piattaforma?',
-    answer: 'Assolutamente. Utilizziamo protocolli di sicurezza avanzati e rispettiamo al 100% il GDPR. Tutti i dati sono criptati e archiviati in server sicuri all\'interno dell\'Unione Europea.'
+    answer: 'Assolutamente. Utilizziamo protocolli di sicurezza avanzati e rispettiamo al 100% il GDPR. Tutti i dati sono criptati e archiviati in server sicuri all&apos;interno dell&apos;Unione Europea.'
   },
   {
     question: 'Come si gestiscono malattie o ferie?',
-    answer: 'Attraverso un semplice calendario digitale, con notifiche automatiche e calcoli immediati. Puoi approvare richieste, monitorare le assenze e gestire le sostituzioni, tutto da un\'unica interfaccia.'
+    answer: 'Attraverso un semplice calendario digitale, con notifiche automatiche e calcoli immediati. Puoi approvare richieste, monitorare le assenze e gestire le sostituzioni, tutto da un&apos;unica interfaccia.'
   },
   {
     question: 'Posso passare a Staffwise se ho già un collaboratore?',
