@@ -280,7 +280,7 @@ export default function Home() {
             </div>
             <div className="mx-auto mt-16 flex max-w-2xl sm:mt-16 lg:ml-10 lg:mt-0 lg:mr-0 lg:max-w-none lg:flex-none xl:ml-32">
               <div className="relative w-full max-w-3xl flex-none sm:max-w-5xl lg:max-w-none transform transition-transform hover:scale-[1.02] duration-500 overflow-hidden rounded-2xl shadow-2xl">
-              <Image
+                <Image
                   src="https://images.unsplash.com/photo-1573497620053-ea5300f94f21?ixlib=rb-1.2.1&auto=format&fit=crop&w=1400&q=85"
                   alt="Gestione digitale del personale domestico: tablet che mostra la piattaforma Staffwise per semplificare contratti e pagamenti"
                   width={1400}
@@ -289,7 +289,12 @@ export default function Home() {
                   placeholder="blur"
                   blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQwMCIgaGVpZ2h0PSI4NTAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iI2YwZjlmZiI+PC9yZWN0PjwvdmlnPg=="
                   priority
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" // Adjust this if needed
+                  style={{
+                    width: '100%',
+                    height: 'auto',
+                    maxHeight: '650px',
+                    objectFit: 'cover',
+                  }}
                 />
                 <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10"></div>
               </div>
@@ -327,6 +332,12 @@ export default function Home() {
                   height={600}
                   className="rounded-2xl shadow-2xl"
                   quality={90}
+                  style={{
+                    width: '100%',
+                    height: 'auto',
+                    maxHeight: '500px',
+                    objectFit: 'cover',
+                  }}
                 />
               </div>
             </div>
