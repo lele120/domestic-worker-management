@@ -117,7 +117,7 @@ export default function ContactFormClient() {
         message: '',
         privacyPolicy: false
       });
-    } catch (error) {
+    } catch (_) {
       setSubmitError('Si è verificato un errore durante l\'invio. Riprova più tardi.');
     } finally {
       setIsSubmitting(false);

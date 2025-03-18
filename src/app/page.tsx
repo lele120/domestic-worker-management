@@ -111,11 +111,11 @@ const navigationItems = [
 const faqItems = [
   {
     question: 'È sicuro inserire i dati nella piattaforma?',
-    answer: 'Assolutamente. Utilizziamo protocolli di sicurezza avanzati e rispettiamo al 100% il GDPR. Tutti i dati sono criptati e archiviati in server sicuri all\'interno dell\'Unione Europea.'
+    answer: 'Assolutamente. Utilizziamo protocolli di sicurezza avanzati e rispettiamo al 100% il GDPR. Tutti i dati sono criptati e archiviati in server sicuri all&apos;interno dell&apos;Unione Europea.'
   },
   {
     question: 'Come si gestiscono malattie o ferie?',
-    answer: 'Attraverso un semplice calendario digitale, con notifiche automatiche e calcoli immediati. Puoi approvare richieste, monitorare le assenze e gestire le sostituzioni, tutto da un\'unica interfaccia.'
+    answer: 'Attraverso un semplice calendario digitale, con notifiche automatiche e calcoli immediati. Puoi approvare richieste, monitorare le assenze e gestire le sostituzioni, tutto da un&apos;unica interfaccia.'
   },
   {
     question: 'Posso passare a Staffwise se ho già un collaboratore?',
@@ -269,7 +269,7 @@ export default function Home() {
                   <span className="absolute inset-0 bg-gradient-to-r from-blue-500 to-blue-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
                 </a>
                 <a 
-                  href="/about" 
+                  href="#features" 
                   className="group relative rounded-full bg-white px-6 py-3 text-sm font-medium text-gray-900 shadow-md hover:shadow-lg ring-1 ring-gray-200 hover:ring-blue-200 transition-all duration-300"
                   aria-label="Scopri la piattaforma Staffwise"
                 >
@@ -281,16 +281,17 @@ export default function Home() {
             <div className="mx-auto mt-16 flex max-w-2xl sm:mt-16 lg:ml-10 lg:mt-0 lg:mr-0 lg:max-w-none lg:flex-none xl:ml-32">
               <div className="relative w-full max-w-3xl flex-none sm:max-w-5xl lg:max-w-none transform transition-transform hover:scale-[1.02] duration-500 overflow-hidden rounded-2xl shadow-2xl">
                 <Image
-                  src="https://images.unsplash.com/photo-1555421689-491a97ff2040?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80"
-                  alt="Dashboard Staffwise mostrata su un computer portatile con grafici e statistiche del personale domestico"
-                  width={1000}
-                  height={667}
+                  src="https://images.unsplash.com/photo-1573497620053-ea5300f94f21?ixlib=rb-1.2.1&auto=format&fit=crop&w=1400&q=85"
+                  alt="Gestione digitale del personale domestico: tablet che mostra la piattaforma Staffwise per semplificare contratti e pagamenti"
+                  width={1400}
+                  height={850}
                   className="w-full h-auto object-cover rounded-2xl bg-white/5 ring-1 ring-gray-900/10"
                   placeholder="blur"
-                  blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwMCIgaGVpZ2h0PSI2NjciIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iI2YwZjlmZiI+PC9yZWN0PjwvdmlnPg=="
+                  blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQwMCIgaGVpZ2h0PSI4NTAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iI2YwZjlmZiI+PC9yZWN0PjwvdmlnPg=="
                   priority
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   loading="eager"
+                  quality={90}
                 />
                 <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10"></div>
               </div>
@@ -322,11 +323,12 @@ export default function Home() {
               </div>
               <div className="transform transition-transform hover:scale-[1.02] duration-500">
                 <Image
-                  src="https://images.unsplash.com/photo-1590649613897-1bf9adcc8914?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80"
+                  src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80"
                   alt="Interfaccia di Staffwise mostrando la semplificazione del processo di gestione domestica con documenti organizzati"
-                  width={600}
-                  height={400}
+                  width={800}
+                  height={600}
                   className="rounded-2xl shadow-2xl"
+                  quality={90}
                 />
               </div>
             </div>
@@ -374,7 +376,7 @@ export default function Home() {
             </div>
             <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-16 lg:max-w-none">
               <dl className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-10 lg:max-w-none lg:grid-cols-3">
-                {features.map((feature, idx) => (
+                {features.map((feature) => (
                   <div 
                     key={feature.title} 
                     className="group relative bg-white p-10 rounded-2xl shadow-lg transition-all duration-300 hover:shadow-xl hover:-translate-y-1 overflow-hidden border border-gray-100"
@@ -502,7 +504,7 @@ export default function Home() {
                 </p>
                 <div className="mt-8 flex justify-start">
                   <a
-                    href="/contact"
+                    href="#contact"
                     className="group relative inline-flex items-center justify-center rounded-full bg-gray-900 px-8 py-4 text-base font-medium text-white shadow-xl hover:shadow-2xl transition-all duration-300 overflow-hidden"
                     aria-label="Richiedi una demo di Staffwise"
                   >
@@ -554,11 +556,11 @@ export default function Home() {
                 <ChevronRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" aria-hidden="true" />
               </a>
               <a
-                href="/about"
+                href="#home"
                 className="group relative flex items-center justify-center rounded-full border-2 border-white px-8 py-4 text-lg font-medium text-white hover:bg-white/10 transition-all duration-300"
-                aria-label="Scopri di più sulla piattaforma Staffwise"
+                aria-label="Torna all'inizio della pagina"
               >
-                Scopri la piattaforma
+                Torna all'inizio
                 <ChevronRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" aria-hidden="true" />
               </a>
             </div>
