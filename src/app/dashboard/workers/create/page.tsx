@@ -65,6 +65,8 @@ const NewWorker: React.FC = () => {
     if (!workerForm.documentNumber.trim()) newErrors.documentNumber = t('worker.validation.required');
     if (!workerForm.documentIssuer.trim()) newErrors.documentIssuer = t('worker.validation.required');
     if (!workerForm.documentExpiration) newErrors.documentExpiration = t('worker.validation.required');
+    if (!workerForm.permitReason) newErrors.permitReason = t('worker.validation.required');
+    if (!workerForm.documentIssueDate) newErrors.documentIssueDate = t('worker.validation.required');
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;

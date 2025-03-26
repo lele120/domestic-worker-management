@@ -21,6 +21,12 @@ export interface CreateWorkerInput {
     state : string; 
     province : string; 
     image: string | null;
+    permitType?: string;
+    permitReason?: string;
+    questura?: string;
+    permitNumber?: string;
+    permitIssueDate?: string;
+    permitExpiryDate?: string;
 }
 
 export interface CreateWorkerResponse {

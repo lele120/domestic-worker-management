@@ -26,6 +26,12 @@ interface PersonalInfoFormProps {
     documentNumber: string;
     documentIssuer: string;
     documentExpiration: string;
+    permitType?: string;
+    permitReason?: string;
+    questura?: string;
+    permitNumber?: string;
+    permitIssueDate?: string;
+    permitExpiryDate?: string;
   };
   errors: Partial<{
     firstName: string;
@@ -47,6 +53,12 @@ interface PersonalInfoFormProps {
     documentNumber: string;
     documentIssuer: string;
     documentExpiration: string;
+    permitType?: string;
+    permitReason?: string;
+    questura?: string;
+    permitNumber?: string;
+    permitIssueDate?: string;
+    permitExpiryDate?: string;
   }>;
   onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
 }
@@ -56,7 +68,10 @@ const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
   errors,
   onChange
 }) => {
-  const  t  = useTranslations();
+  const t = useTranslations();
+
+  const isNonEU = formData.nationality === 'NON_EU';
+  const isEUOrItalian = formData.nationality === 'IT' || formData.nationality === 'EU';
 
   return (
     <div className="space-y-6">
@@ -187,13 +202,13 @@ const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
             onChange={onChange}
             error={errors.city}
           />
-           <InputField 
-                label={t('employers.fields.state')}
-                name="state"
-                value={formData.state}
-                onChange={onChange}
-                error={errors.state}
-              />
+          <InputField 
+            label={t('employers.fields.state')}
+            name="state"
+            value={formData.state}
+            onChange={onChange}
+            error={errors.state}
+          />
           <InputField
             label={t('worker.fields.province')}
             name="province"
@@ -211,49 +226,149 @@ const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
         </div>
       </div>
 
-      {/* Document Information */}
-      <div>
-        <h2 className="text-lg font-medium text-gray-900 mb-4">
-          {t('worker.sections.documentInfo')}
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <SelectField
-            label={t('worker.fields.documentType')}
-            name="documentType"
-            value={formData.documentType}
-            onChange={onChange}
-            options={[
-              { value: '', label: t('worker.options.selectDocType') },
-              { value: 'PASSPORT', label: t('worker.options.passport') },
-              { value: 'ID_CARD', label: t('worker.options.idCard') },
-              { value: 'DRIVERS_LICENSE', label: t('worker.options.driversLicense') }
-            ]}
-            error={errors.documentType}
-          />
-          <InputField
-            label={t('worker.fields.documentNumber')}
-            name="documentNumber"
-            value={formData.documentNumber}
-            onChange={onChange}
-            error={errors.documentNumber}
-          />
-          <InputField
-            label={t('worker.fields.documentIssuer')}
-            name="documentIssuer"
-            value={formData.documentIssuer}
-            onChange={onChange}
-            error={errors.documentIssuer}
-          />
-          <InputField
-            label={t('worker.fields.documentExpiry')}
-            name="documentExpiration"
-            type="date"
-            value={formData.documentExpiration}
-            onChange={onChange}
-            error={errors.documentExpiration}
-          />
+      {/* Document Information - Show only for Italian or EU citizens */}
+      {isEUOrItalian && (
+        <div>
+          <h2 className="text-lg font-medium text-gray-900 mb-4">
+            {t('worker.sections.documentInfo')}
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <SelectField
+              label={t('worker.fields.documentType')}
+              name="documentType"
+              value={formData.documentType}
+              onChange={onChange}
+              options={[
+                { value: '', label: t('worker.options.selectDocType') },
+                { value: 'PASSPORT', label: t('worker.options.passport') },
+                { value: 'ID_CARD', label: t('worker.options.idCard') },
+                { value: 'DRIVERS_LICENSE', label: t('worker.options.driversLicense') }
+              ]}
+              error={errors.documentType}
+            />
+            <InputField
+              label={t('worker.fields.documentNumber')}
+              name="documentNumber"
+              value={formData.documentNumber}
+              onChange={onChange}
+              error={errors.documentNumber}
+            />
+            <InputField
+              label={t('worker.fields.documentIssuer')}
+              name="documentIssuer"
+              value={formData.documentIssuer}
+              onChange={onChange}
+              error={errors.documentIssuer}
+            />
+            <InputField
+              label={t('worker.fields.documentExpiry')}
+              name="documentExpiration"
+              type="date"
+              value={formData.documentExpiration}
+              onChange={onChange}
+              error={errors.documentExpiration}
+            />
+          </div>
         </div>
-      </div>
+      )}
+
+      {/* Document Permit Section - Show only for Non-EU citizens */}
+      {isNonEU && (
+        <div>
+          <h2 className="text-lg font-medium text-gray-900 mb-4">
+            {t('worker.sections.documentPermit')}
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <SelectField
+              label={t('worker.fields.permitType')}
+              name="permitType"
+              value={formData.permitType || ''}
+              onChange={onChange}
+              options={[
+                { value: '', label: t('worker.options.selectPermitType') },
+                { value: 'residencePermit', label: t('worker.options.residencePermit') },
+                { value: 'residenceCard', label: t('worker.options.residenceCard') },
+                { value: 'otherProvision', label: t('worker.options.otherProvision') },
+                { value: 'pendingPermit', label: t('worker.options.pendingPermit') },
+                { value: 'renewal', label: t('worker.options.renewal') },
+                { value: 'permit', label: t('worker.options.permit') }
+              ]}
+              error={errors.permitType}
+            />
+            <SelectField
+              label={t('worker.fields.permitReason')}
+              name="permitReason"
+              value={formData.permitReason || ''}
+              onChange={onChange}
+              options={[
+                { value: '', label: t('worker.options.selectReason') },
+                { value: 'childCare', label: t('worker.options.childCare') },
+                { value: 'waitingEmployment', label: t('worker.options.waitingEmployment') },
+                { value: 'sportsActivity', label: t('worker.options.sportsActivity') },
+                { value: 'presenceDeclaration', label: t('worker.options.presenceDeclaration') },
+                { value: 'familyMinor', label: t('worker.options.familyMinor') },
+                { value: 'minorIntegration', label: t('worker.options.minorIntegration') },
+                { value: 'particularWork', label: t('worker.options.particularWork') },
+                { value: 'artisticWork', label: t('worker.options.artisticWork') },
+                { value: 'seasonalWork', label: t('worker.options.seasonalWork') },
+                { value: 'multiYearSeasonalWork', label: t('worker.options.multiYearSeasonalWork') },
+                { value: 'subordinateWork', label: t('worker.options.subordinateWork') },
+                { value: 'subordinateWorkWaiting', label: t('worker.options.subordinateWorkWaiting') },
+                { value: 'volunteerMission', label: t('worker.options.volunteerMission') },
+                { value: 'commercialReasons', label: t('worker.options.commercialReasons') },
+                { value: 'studyReasons', label: t('worker.options.studyReasons') },
+                { value: 'familyReasons', label: t('worker.options.familyReasons') },
+                { value: 'humanitarianReasonsArt11', label: t('worker.options.humanitarianReasonsArt11') },
+                { value: 'humanitarianReasonsArt18', label: t('worker.options.humanitarianReasonsArt18') },
+                { value: 'humanitarianReasonsL155', label: t('worker.options.humanitarianReasonsL155') },
+                { value: 'longTermResidence', label: t('worker.options.longTermResidence') },
+                { value: 'subsidiaryProtection', label: t('worker.options.subsidiaryProtection') },
+                { value: 'temporaryProtection', label: t('worker.options.temporaryProtection') },
+                { value: 'scientificResearch', label: t('worker.options.scientificResearch') },
+                { value: 'politicalAsylum', label: t('worker.options.politicalAsylum') },
+                { value: 'statelessRecognition', label: t('worker.options.statelessRecognition') },
+                { value: 'internship', label: t('worker.options.internship') },
+                { value: 'workVacation', label: t('worker.options.workVacation') },
+                { value: 'medicalCare', label: t('worker.options.medicalCare') },
+                { value: 'specialProtection', label: t('worker.options.specialProtection') }
+              ]}
+              error={errors.permitReason}
+            />
+            <InputField
+              label={t('worker.fields.questura')}
+              name="questura"
+              value={formData.questura || ''}
+              onChange={onChange}
+              error={errors.questura}
+              placeholder={t('worker.placeholders.questura')}
+            />
+            <InputField
+              label={t('worker.fields.permitNumber')}
+              name="permitNumber"
+              value={formData.permitNumber || ''}
+              onChange={onChange}
+              error={errors.permitNumber}
+              placeholder={t('worker.placeholders.permitNumber')}
+            />
+            <InputField
+              label={t('worker.fields.permitIssueDate')}
+              name="permitIssueDate"
+              type="date"
+              value={formData.permitIssueDate || ''}
+              onChange={onChange}
+              error={errors.permitIssueDate}
+            />
+            <InputField
+              label={t('worker.fields.permitExpiryDate')}
+              name="permitExpiryDate"
+              type="date"
+              value={formData.permitExpiryDate || ''}
+              onChange={onChange}
+              error={errors.permitExpiryDate}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 };
