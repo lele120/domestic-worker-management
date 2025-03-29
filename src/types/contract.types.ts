@@ -69,6 +69,16 @@ export interface AdvancedSettings {
     noCassaColf: boolean
 }
 
+export interface WorkplaceLocation {
+    careOf: string;
+    streetAddress: string;
+    city: string;
+    postalCode: string;
+    province: string;
+    isEmployerAddress: boolean;
+}
+
+
 export interface CreateContractColf {
     id?: UUID;
     employerId?: number;
@@ -77,6 +87,7 @@ export interface CreateContractColf {
     workSchedule: WorkSchedule;
     salary: Salary;
     advancedSettings: AdvancedSettings;
+    workplaceLocation?: WorkplaceLocation;
 }
 
 export interface ContractColfValidation {
@@ -120,4 +131,8 @@ export interface ContractColfValidation {
     monthlyBonus: string;
     noWorkerContributions: string;
     noCassaColf: string;
+    streetAddress?: string;
+    city?: string;
+    postalCode?: string;
+    province?: string;
 }

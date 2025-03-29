@@ -348,6 +348,85 @@
           "editInfo": "Edit Information",
           "submitContract": "Submit Contract"
         }
+      },
+      "workplace": {
+        "title": "Workplace Location (only if different from employer's residence)",
+        "useEmployerAddress": "Use employer's address in the payslip",
+        "usingCustomAddress": "Use the information shown below in the payslip",
+        "careOf": "Care of",
+        "streetAddress": "Street Address",
+        "city": "City",
+        "postalCode": "Postal Code",
+        "province": "Province"
+      },
+      "create": {
+        "validation": {
+          "employerId": {
+            "required": "Please select an employer"
+          },
+          "workerId": {
+            "required": "Please select a worker"
+          },
+          "workplaceLocation": {
+            "streetAddress": {
+              "required": "Please enter the street address"
+            },
+            "city": {
+              "required": "Please enter the city"
+            },
+            "postalCode": {
+              "required": "Please enter the postal code"
+            },
+            "province": {
+              "required": "Please enter the province"
+            }
+          },
+          "contractColf": {
+            "startDate": {
+              "required": "Please enter the contract start date"
+            },
+            "subCategory": {
+              "required": "Please select a subcategory"
+            },
+            "level": {
+              "required": "Please select a level"
+            }
+          },
+          "salary": {
+            "basePay": {
+              "required": "Please enter a value for base pay"
+            },
+            "functionAllowance": {
+              "required": "Please enter a value for function allowance"
+            },
+            "overtimeAllowance": {
+              "required": "Please enter a value for overtime allowance"
+            },
+            "nonAutomaticAllowance": {
+              "required": "Please enter a value for non-automatic allowance"
+            },
+            "futureIncrements": {
+              "required": "Please enter a value for future increments"
+            },
+            "childrenAllowance": {
+              "required": "Please enter a value for children allowance"
+            },
+            "mealAllowance": {
+              "breakfast": {
+                "required": "Please enter a value for breakfast allowance"
+              },
+              "lunch": {
+                "required": "Please enter a value for lunch allowance"
+              },
+              "dinner": {
+                "required": "Please enter a value for dinner allowance"
+              }
+            },
+            "accommodationAllowance": {
+              "required": "Please enter a value for accommodation allowance"
+            }
+          }
+        }
       }
     },
     "common": {

@@ -12,18 +12,18 @@ import { useEffect, useState } from 'react'
 import { getContractLevel, getSubCategories } from '@/app/api/auth/contract.configuration.service'
 
 interface ReviewFormProps {
-  errors:  Partial<ContractColfValidation>,
-  validateForm: () => boolean,
+  errors: Partial<ContractColfValidation>;
+  validateForm: () => boolean;
   formData: CreateContractColf
-  employer: CreateEmployer | null
-  worker: CreateWorkerResponse | null
+  employer: CreateEmployer | null;
+  worker: CreateWorkerResponse | null;
 }
 
-const ReviewForm: React.FC<ReviewFormProps> = ({ formData,errors, validateForm,employer,worker}) => {
-  const  t  = useTranslations()
-  const { data: session } = useSession()
-  const [contractLevelsDict, setContractLevelsDict] = useState<{ [key: string]: string }>({})
-  const [contractSubCategoryDict, setContractSubCategoryDict] = useState<{ [key: string]: string }>({})
+const ReviewForm: React.FC<ReviewFormProps> = ({ formData, errors, validateForm, employer, worker }) => {
+  const t = useTranslations();
+  const { data: session } = useSession();
+  const [contractLevelsDict, setContractLevelsDict] = useState<{ [key: string]: string }>({});
+  const [contractSubCategoryDict, setContractSubCategoryDict] = useState<{ [key: string]: string }>({});
 
   useEffect(() => {
     const fetchContractConfiguration = async () => {
@@ -77,22 +77,27 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ formData,errors, validateForm,e
   )
 
   const onClick = async () => {
-    const validated = validateForm()
-    console.log('Validated', validated)
+    const validated = validateForm();
+    console.log('Validated', validated);
     if (validated) {
-      formData.employerId = employer?.id ?? undefined
-      formData.workerId = worker?.id
-      const token = session?.user.accessToken
+      const contractData = {
+        ...formData,
+        employerId: employer?.id ?? undefined,
+        workerId: worker?.id,
+        workplaceLocation: formData.workplaceLocation
+      };
+      
+      const token = session?.user.accessToken;
       if (token) {
-        const result = await createContractColf(formData, token)
+        const result = await createContractColf(contractData, token);
         if (result) {
-          console.log('Contract created', result)
+          console.log('Contract created', result);
         }
       } else {
-        console.error('Token is undefined')
+        console.error('Token is undefined');
       }
     }
-   }
+  };
 
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat('it-IT', {
@@ -262,6 +267,68 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ formData,errors, validateForm,e
           <Field label={t('contract.advanced.fields.noCassaColf')} value={formData.advancedSettings.noCassaColf} />
         </div>
       </Section>
+
+      {/* Workplace Location Section */}
+      <div>
+        <h3 className="text-lg font-medium text-gray-900 mb-4">
+          {t('contract.workplace.title')}
+        </h3>
+        <div className="bg-white shadow rounded-lg p-6">
+          {formData.workplaceLocation?.isEmployerAddress ? (
+            <div className="mb-4">
+              <p className="text-sm text-gray-500 mb-2">
+                {t('contract.workplace.useEmployerAddress')}
+              </p>
+              <Field
+                label={t('contract.workplace.careOf')}
+                value={formData.workplaceLocation.careOf}
+              />
+              <Field
+                label={t('contract.workplace.streetAddress')}
+                value={formData.workplaceLocation.streetAddress}
+              />
+              <Field
+                label={t('contract.workplace.city')}
+                value={formData.workplaceLocation.city}
+              />
+              <Field
+                label={t('contract.workplace.postalCode')}
+                value={formData.workplaceLocation.postalCode}
+              />
+              <Field
+                label={t('contract.workplace.province')}
+                value={formData.workplaceLocation.province}
+              />
+            </div>
+          ) : (
+            <div className="mb-4">
+              <p className="text-sm text-gray-500 mb-2">
+                {t('contract.workplace.usingCustomAddress')}
+              </p>
+              <Field
+                label={t('contract.workplace.careOf')}
+                value={formData.workplaceLocation?.careOf || ''}
+              />
+              <Field
+                label={t('contract.workplace.streetAddress')}
+                value={formData.workplaceLocation?.streetAddress || ''}
+              />
+              <Field
+                label={t('contract.workplace.city')}
+                value={formData.workplaceLocation?.city || ''}
+              />
+              <Field
+                label={t('contract.workplace.postalCode')}
+                value={formData.workplaceLocation?.postalCode || ''}
+              />
+              <Field
+                label={t('contract.workplace.province')}
+                value={formData.workplaceLocation?.province || ''}
+              />
+            </div>
+          )}
+        </div>
+      </div>
 
       <div className="flex justify-end space-x-4">
         <button

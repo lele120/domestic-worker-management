@@ -218,13 +218,28 @@
       "title": "Nuovo Contratto",
       "subtitle": "Crea un nuovo contratto per un lavoratore",
       "create": {
-        "validation":{
+        "validation": {
           "employerId": {
             "required": "Seleziona un datore di lavoro"
           },
           "workerId": {
             "required": "Seleziona un lavoratore"
-          },"contractColf": {
+          },
+          "workplaceLocation": {
+            "streetAddress": {
+              "required": "Inserisci l'indirizzo"
+            },
+            "city": {
+              "required": "Inserisci la città"
+            },
+            "postalCode": {
+              "required": "Inserisci il codice postale"
+            },
+            "province": {
+              "required": "Inserisci la provincia"
+            }
+          },
+          "contractColf": {
             "startDate": {
               "required": "Inserisci la data di inizio del contratto"
             },
@@ -234,20 +249,8 @@
             "level": {
               "required": "Seleziona un livello"
             }
-          },"advancedSettings": {
-            "noCassaColf": {
-              "required": "Seleziona un'opzione per CassaColf"
-            },
-            "noWorkerContributions": {
-              "required": "Seleziona un'opzione per i contributi del lavoratore"
-            },
-            "monthlyBonus": {
-              "required": "Inserisci un valore per il premio mensile"
-            },
-            "monthlyPayment": {
-              "required": "Inserisci un valore per il pagamento mensile"
-            }
-          }, "salary" : {
+          },
+          "salary": {
             "basePay": {
               "required": "Inserisci un valore per la paga base"
             },
@@ -262,18 +265,9 @@
             },
             "futureIncrements": {
               "required": "Inserisci un valore per gli incrementi futuri"
-            },  
+            },
             "childrenAllowance": {
               "required": "Inserisci un valore per gli assegni familiari"
-            },
-            "nonAutomaticPersonalAllowance": {
-              "required": "Inserisci un valore per l'indennità personale non automatica"
-            },
-            "qualityCertificationAllowance": {
-              "required": "Inserisci un valore per l'indennità di certificazione di qualità"
-            },
-            "accommodationAllowance": {
-              "required": "Inserisci un valore per l'indennità di alloggio"
             },
             "mealAllowance": {
               "breakfast": {
@@ -285,6 +279,9 @@
               "dinner": {
                 "required": "Inserisci un valore per l'indennità cena"
               }
+            },
+            "accommodationAllowance": {
+              "required": "Inserisci un valore per l'indennità di alloggio"
             }
           }
         }
@@ -503,6 +500,16 @@
           "editInfo": "Modifica Informazioni",
           "submitContract": "Invia Contratto"
         }
+      },
+      "workplace": {
+        "title": "Luogo di svolgimento del lavoro (indicare solo se diverso dalla residenza del datore di lavoro)",
+        "useEmployerAddress": "In busta paga utilizza l'indirizzo del datore di lavoro",
+        "usingCustomAddress": "In busta paga utilizza l'informazione mostrata di seguito",
+        "careOf": "Presso",
+        "streetAddress": "Via",
+        "city": "Città",
+        "postalCode": "CAP",
+        "province": "Provincia"
       }
     },
     "common": {

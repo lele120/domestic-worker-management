@@ -17,6 +17,22 @@ import { CreateEmployer } from '@/types/employer.types';
 import {CreateWorkerResponse} from '@/types/worker.types';
 import { ContractColfValidation, CreateContractColf } from '@/types/contract.types';
 
+interface WorkplaceLocation {
+  careOf: string;
+  streetAddress: string;
+  city: string;
+  postalCode: string;
+  province: string;
+  isEmployerAddress: boolean;
+}
+
+interface WorkplaceLocationErrors {
+  careOf?: string;
+  streetAddress?: string;
+  city?: string;
+  postalCode?: string;
+  province?: string;
+}
 
 const CreateContract: React.FC = () => {
   const  t  = useTranslations();
@@ -27,6 +43,15 @@ const CreateContract: React.FC = () => {
   const [showSelector, setShowSelector] = useState(false);
   const [employers, setEmployers] = useState<CreateEmployer[]>([]);
   const [workers, setWorkers] = useState<CreateWorkerResponse[]>([]);
+  const [workplaceLocation, setWorkplaceLocation] = useState<WorkplaceLocation>({
+    careOf: '',
+    streetAddress: '',
+    city: '',
+    postalCode: '',
+    province: '',
+    isEmployerAddress: false
+  });
+  const [workplaceLocationErrors, setWorkplaceLocationErrors] = useState<WorkplaceLocationErrors>({});
 
   useEffect(() => {
     const fetchData = async () => {
@@ -114,47 +139,59 @@ const CreateContract: React.FC = () => {
 
   const [errors, setErrors] = useState<Partial<ContractColfValidation>>({});
 
-  function validateForm() : boolean{
-     const newErrors: Partial<ContractColfValidation> = {};
-        
-        if (!selectedEmployer) newErrors.employerId = t('contract.create.validation.employerId.required');
-        if (!selectedWorker) newErrors.workerId = t('contract.create.validation.workerId.required');
-        
-        if (!formData.contractColf.startDate) newErrors.startDate = t('contract.create.validation.contractColf.startDate.required')
-        if (formData.contractColf.isTerminated && !formData.contractColf.endDate) newErrors.endDate = t('contract.create.validation.contractColf.endDate.required')
-        if (formData.contractColf.isTerminated && !formData.contractColf.terminationReason) newErrors.terminationReason = t('contract.create.validation.contractColf.terminationReason.required')
-        if (!formData.contractColf.subCategory) newErrors.subCategory = t('contract.create.validation.contractColf.subCategory.required')
-        if (!formData.contractColf.level) newErrors.level = t('contract.create.validation.contractColf.level.required')
-        
-        if (!formData.workSchedule.weeklyHours) newErrors.weeklyHours = t('contract.create.validation.workSchedule.weeklyHours.required')
-        if (formData.workSchedule.nightShift && !formData.workSchedule.nightShiftStartTime) newErrors.nightShiftStartTime = t('contract.create.validation.workSchedule.nightShiftStartTime.required')
-        if (formData.workSchedule.nightShift && !formData.workSchedule.nightShiftEndTime) newErrors.nightShiftEndTime = t('contract.create.validation.workSchedule.nightShiftEndTime.required')
+  function validateForm() : boolean {
+    const newErrors: Partial<ContractColfValidation> = {};
+    
+    if (!selectedEmployer) newErrors.employerId = t('contract.create.validation.employerId.required');
+    if (!selectedWorker) newErrors.workerId = t('contract.create.validation.workerId.required');
+    
+    if (!workplaceLocation.isEmployerAddress) {
+        if (!workplaceLocation.streetAddress) newErrors.streetAddress = t('contract.create.validation.workplaceLocation.streetAddress.required');
+        if (!workplaceLocation.city) newErrors.city = t('contract.create.validation.workplaceLocation.city.required');
+        if (!workplaceLocation.postalCode) newErrors.postalCode = t('contract.create.validation.workplaceLocation.postalCode.required');
+        if (!workplaceLocation.province) newErrors.province = t('contract.create.validation.workplaceLocation.province.required');
+    }
+    
+    if (!formData.contractColf.startDate) newErrors.startDate = t('contract.create.validation.contractColf.startDate.required');
+    if (formData.contractColf.isTerminated && !formData.contractColf.endDate) newErrors.endDate = t('contract.create.validation.contractColf.endDate.required');
+    if (formData.contractColf.isTerminated && !formData.contractColf.terminationReason) newErrors.terminationReason = t('contract.create.validation.contractColf.terminationReason.required');
+    if (!formData.contractColf.subCategory) newErrors.subCategory = t('contract.create.validation.contractColf.subCategory.required');
+    if (!formData.contractColf.level) newErrors.level = t('contract.create.validation.contractColf.level.required');
+    
+    if (!formData.workSchedule.weeklyHours) newErrors.weeklyHours = t('contract.create.validation.workSchedule.weeklyHours.required');
+    if (formData.workSchedule.nightShift && !formData.workSchedule.nightShiftStartTime) newErrors.nightShiftStartTime = t('contract.create.validation.workSchedule.nightShiftStartTime.required');
+    if (formData.workSchedule.nightShift && !formData.workSchedule.nightShiftEndTime) newErrors.nightShiftEndTime = t('contract.create.validation.workSchedule.nightShiftEndTime.required');
 
-        if (!formData.salary.basePay) newErrors.basePay = t('contract.create.validation.salary.basePay.required')
-        if (!formData.salary.functionAllowance) newErrors.functionAllowance = t('contract.create.validation.salary.functionAllowance.required')
-        if (!formData.salary.overtimeAllowance) newErrors.overtimeAllowance = t('contract.create.validation.salary.overtimeAllowance.required')
-        if (!formData.salary.nonAutomaticAllowance) newErrors.nonAutomaticAllowance = t('contract.create.validation.salary.nonAutomaticAllowance.required')
-        if (!formData.salary.futureIncrements) newErrors.futureIncrements = t('contract.create.validation.salary.futureIncrements.required')
-        if (!formData.salary.childrenAllowance) newErrors.childrenAllowance = t('contract.create.validation.salary.childrenAllowance.required')
-        if (!formData.salary.mealAllowance.breakfast) newErrors.breakfast = t('contract.create.validation.salary.mealAllowance.breakfast.required')
-        if (!formData.salary.mealAllowance.lunch) newErrors.lunch = t('contract.create.validation.salary.mealAllowance.lunch.required')
-        if (!formData.salary.mealAllowance.dinner) newErrors.dinner = t('contract.create.validation.salary.mealAllowance.dinner.required')
-        if (!formData.salary.accommodationAllowance) newErrors.accommodationAllowance = t('contract.create.validation.salary.accommodationAllowance.required')
-        
-        if (!formData.advancedSettings.payHolidaysMonthly) newErrors.payHolidaysMonthly = t('contract.create.validation.advancedSettings.payHolidaysMonthly.required')
-        if (!formData.advancedSettings.pay13thMonthly) newErrors.pay13thMonthly = t('contract.create.validation.advancedSettings.pay13thMonthly.required')
-        if (!formData.advancedSettings.payTFRMonthly) newErrors.payTFRMonthly = t('contract.create.validation.advancedSettings.payTFRMonthly.required')
-        //if (!formData.advancedSettings.monthlyPayment) newErrors.monthlyPayment = t('contract.create.validation.advancedSettings.monthlyPayment.required')
-        //if (!formData.advancedSettings.monthlyBonus) newErrors.monthlyBonus = t('contract.create.validation.advancedSettings.monthlyBonus.required')
-        //if (!formData.advancedSettings.noWorkerContributions) newErrors.noWorkerContributions = t('contract.create.validation.advancedSettings.noWorkerContributions.required')
-        //if (!formData.advancedSettings.noCassaColf) newErrors.noCassaColf = t('contract.create.validation.advancedSettings.noCassaColf.required')
-        
-        setErrors(newErrors);
-        console.log(newErrors);
-        if (Object.keys(newErrors).length > 0) {
-          return false;
-        }
-        return true;
+    if (formData.salary.basePay === undefined || formData.salary.basePay === null || formData.salary.basePay < 0) 
+        newErrors.basePay = t('contract.create.validation.salary.basePay.required');
+    if (formData.salary.functionAllowance === undefined || formData.salary.functionAllowance === null || formData.salary.functionAllowance < 0) 
+        newErrors.functionAllowance = t('contract.create.validation.salary.functionAllowance.required');
+    if (formData.salary.overtimeAllowance === undefined || formData.salary.overtimeAllowance === null || formData.salary.overtimeAllowance < 0) 
+        newErrors.overtimeAllowance = t('contract.create.validation.salary.overtimeAllowance.required');
+    if (formData.salary.nonAutomaticAllowance === undefined || formData.salary.nonAutomaticAllowance === null || formData.salary.nonAutomaticAllowance < 0) 
+        newErrors.nonAutomaticAllowance = t('contract.create.validation.salary.nonAutomaticAllowance.required');
+    if (formData.salary.futureIncrements === undefined || formData.salary.futureIncrements === null || formData.salary.futureIncrements < 0) 
+        newErrors.futureIncrements = t('contract.create.validation.salary.futureIncrements.required');
+    if (formData.salary.childrenAllowance === undefined || formData.salary.childrenAllowance === null || formData.salary.childrenAllowance < 0) 
+        newErrors.childrenAllowance = t('contract.create.validation.salary.childrenAllowance.required');
+    
+    if (formData.salary.mealAllowance.breakfast === undefined || formData.salary.mealAllowance.breakfast === null || formData.salary.mealAllowance.breakfast < 0) 
+        newErrors.breakfast = t('contract.create.validation.salary.mealAllowance.breakfast.required');
+    if (formData.salary.mealAllowance.lunch === undefined || formData.salary.mealAllowance.lunch === null || formData.salary.mealAllowance.lunch < 0) 
+        newErrors.lunch = t('contract.create.validation.salary.mealAllowance.lunch.required');
+    if (formData.salary.mealAllowance.dinner === undefined || formData.salary.mealAllowance.dinner === null || formData.salary.mealAllowance.dinner < 0) 
+        newErrors.dinner = t('contract.create.validation.salary.mealAllowance.dinner.required');
+    
+    if (formData.salary.accommodationAllowance === undefined || formData.salary.accommodationAllowance === null || formData.salary.accommodationAllowance < 0) 
+        newErrors.accommodationAllowance = t('contract.create.validation.salary.accommodationAllowance.required');
+    
+    if (!formData.advancedSettings.payHolidaysMonthly) newErrors.payHolidaysMonthly = t('contract.create.validation.advancedSettings.payHolidaysMonthly.required');
+    if (!formData.advancedSettings.pay13thMonthly) newErrors.pay13thMonthly = t('contract.create.validation.advancedSettings.pay13thMonthly.required');
+    if (!formData.advancedSettings.payTFRMonthly) newErrors.payTFRMonthly = t('contract.create.validation.advancedSettings.payTFRMonthly.required');
+    
+    setErrors(newErrors);
+    console.log('Validation errors:', newErrors);
+    return Object.keys(newErrors).length === 0;
   }
 
   const handleChange = (name: string, value: string | number | boolean | object) => {
@@ -221,6 +258,48 @@ const CreateContract: React.FC = () => {
     }
   };
 
+  const validateWorkplaceLocation = () => {
+    if (workplaceLocation.isEmployerAddress) {
+      setWorkplaceLocationErrors({});
+      return true;
+    }
+
+    const newErrors: WorkplaceLocationErrors = {};
+    
+    if (!workplaceLocation.streetAddress) {
+      newErrors.streetAddress = t('validation.required');
+    }
+    if (!workplaceLocation.city) {
+      newErrors.city = t('validation.required');
+    }
+    if (!workplaceLocation.postalCode) {
+      newErrors.postalCode = t('validation.required');
+    }
+    if (!workplaceLocation.province) {
+      newErrors.province = t('validation.required');
+    }
+
+    setWorkplaceLocationErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleWorkplaceLocationChange = (location: WorkplaceLocation) => {
+    setWorkplaceLocation(location);
+    if (!location.isEmployerAddress) {
+      validateWorkplaceLocation();
+    } else {
+      setWorkplaceLocationErrors({});
+    }
+  };
+
+  const handleStepClick = (stepIndex: number) => {
+    // Close the selector if it's open when changing tabs
+    if (showSelector) {
+      setShowSelector(false);
+    }
+    setCurrentStep(stepIndex);
+  };
+
   const steps = [
     { id: 'association', title: t('contract.steps.association') },
     { id: 'contract', title: t('contract.steps.contract') },
@@ -241,6 +320,8 @@ const CreateContract: React.FC = () => {
           onEmployerSelect={handleEmployerSelection}
           onWorkerSelect={handleWorkerSelection}
           onClose={() => setShowSelector(false)}
+          workplaceLocation={workplaceLocation}
+          onWorkplaceLocationChange={handleWorkplaceLocationChange}
         />
       );
     }
@@ -251,12 +332,166 @@ const CreateContract: React.FC = () => {
           <div>
             <h2 className="text-lg font-medium text-gray-900 mb-4">{t('contract.association.title')}</h2>
             <p className="text-gray-500 mb-6">{t('contract.association.subtitle')}</p>
-            <SelectedEmployerWorker
-              employer={selectedEmployer}
-              worker={selectedWorker}
-              onSelectEmployer={handleSelectEmployer}
-              onSelectWorker={handleSelectWorker}
-            />
+            
+            <div className="space-y-8">
+              <SelectedEmployerWorker
+                employer={selectedEmployer}
+                worker={selectedWorker}
+                onSelectEmployer={handleSelectEmployer}
+                onSelectWorker={handleSelectWorker}
+              />
+
+              {/* Workplace Location Section */}
+              <div className="mt-8 pt-8 border-t border-gray-200">
+                <h3 className="text-lg font-medium text-gray-900 mb-4">
+                  {t('contract.workplace.title')}
+                </h3>
+                <div className="space-y-4">
+                  <div className="flex items-center">
+                    <input
+                      type="checkbox"
+                      id="isEmployerAddress"
+                      name="isEmployerAddress"
+                      checked={workplaceLocation.isEmployerAddress}
+                      onChange={(e) => handleWorkplaceLocationChange({
+                        ...workplaceLocation,
+                        isEmployerAddress: e.target.checked,
+                        ...(e.target.checked && selectedEmployer ? {
+                          careOf: selectedEmployer.company || '',
+                          streetAddress: selectedEmployer.address || '',
+                          city: selectedEmployer.city || '',
+                          postalCode: selectedEmployer.zipCode || '',
+                          province: selectedEmployer.province || ''
+                        } : {})
+                      })}
+                      className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                    />
+                    <label htmlFor="isEmployerAddress" className="ml-2 block text-sm text-gray-900">
+                      {workplaceLocation.isEmployerAddress 
+                        ? "In busta paga utilizza l'indirizzo del datore di lavoro"
+                        : "In busta paga utilizza l'informazione mostrata di seguito"}
+                    </label>
+                  </div>
+
+                  {!workplaceLocation.isEmployerAddress && (
+                    <div className="grid grid-cols-1 gap-4">
+                      <div>
+                        <label htmlFor="careOf" className="block text-sm font-medium text-gray-700">
+                          {t('contract.workplace.careOf')}
+                        </label>
+                        <input
+                          type="text"
+                          name="careOf"
+                          id="careOf"
+                          value={workplaceLocation.careOf}
+                          onChange={(e) => handleWorkplaceLocationChange({
+                            ...workplaceLocation,
+                            careOf: e.target.value
+                          })}
+                          className={`mt-1 block w-full rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm ${
+                            workplaceLocationErrors.careOf ? 'border-red-300' : 'border-gray-300'
+                          }`}
+                        />
+                        {workplaceLocationErrors.careOf && (
+                          <p className="mt-1 text-sm text-red-600">{workplaceLocationErrors.careOf}</p>
+                        )}
+                      </div>
+
+                      <div>
+                        <label htmlFor="streetAddress" className="block text-sm font-medium text-gray-700">
+                          {t('contract.workplace.streetAddress')} *
+                        </label>
+                        <input
+                          type="text"
+                          name="streetAddress"
+                          id="streetAddress"
+                          value={workplaceLocation.streetAddress}
+                          onChange={(e) => handleWorkplaceLocationChange({
+                            ...workplaceLocation,
+                            streetAddress: e.target.value
+                          })}
+                          className={`mt-1 block w-full rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm ${
+                            workplaceLocationErrors.streetAddress ? 'border-red-300' : 'border-gray-300'
+                          }`}
+                        />
+                        {workplaceLocationErrors.streetAddress && (
+                          <p className="mt-1 text-sm text-red-600">{workplaceLocationErrors.streetAddress}</p>
+                        )}
+                      </div>
+
+                      <div className="grid grid-cols-2 gap-4">
+                        <div>
+                          <label htmlFor="city" className="block text-sm font-medium text-gray-700">
+                            {t('contract.workplace.city')} *
+                          </label>
+                          <input
+                            type="text"
+                            name="city"
+                            id="city"
+                            value={workplaceLocation.city}
+                            onChange={(e) => handleWorkplaceLocationChange({
+                              ...workplaceLocation,
+                              city: e.target.value
+                            })}
+                            className={`mt-1 block w-full rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm ${
+                              workplaceLocationErrors.city ? 'border-red-300' : 'border-gray-300'
+                            }`}
+                          />
+                          {workplaceLocationErrors.city && (
+                            <p className="mt-1 text-sm text-red-600">{workplaceLocationErrors.city}</p>
+                          )}
+                        </div>
+
+                        <div>
+                          <label htmlFor="postalCode" className="block text-sm font-medium text-gray-700">
+                            {t('contract.workplace.postalCode')} *
+                          </label>
+                          <input
+                            type="text"
+                            name="postalCode"
+                            id="postalCode"
+                            value={workplaceLocation.postalCode}
+                            onChange={(e) => handleWorkplaceLocationChange({
+                              ...workplaceLocation,
+                              postalCode: e.target.value
+                            })}
+                            className={`mt-1 block w-full rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm ${
+                              workplaceLocationErrors.postalCode ? 'border-red-300' : 'border-gray-300'
+                            }`}
+                          />
+                          {workplaceLocationErrors.postalCode && (
+                            <p className="mt-1 text-sm text-red-600">{workplaceLocationErrors.postalCode}</p>
+                          )}
+                        </div>
+                      </div>
+
+                      <div>
+                        <label htmlFor="province" className="block text-sm font-medium text-gray-700">
+                          {t('contract.workplace.province')} *
+                        </label>
+                        <input
+                          type="text"
+                          name="province"
+                          id="province"
+                          value={workplaceLocation.province}
+                          onChange={(e) => handleWorkplaceLocationChange({
+                            ...workplaceLocation,
+                            province: e.target.value
+                          })}
+                          maxLength={2}
+                          className={`mt-1 block w-full rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm ${
+                            workplaceLocationErrors.province ? 'border-red-300' : 'border-gray-300'
+                          }`}
+                        />
+                        {workplaceLocationErrors.province && (
+                          <p className="mt-1 text-sm text-red-600">{workplaceLocationErrors.province}</p>
+                        )}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
           </div>
         );
       case 1:
@@ -290,7 +525,17 @@ const CreateContract: React.FC = () => {
       case 5:
         return (
           <ReviewForm
-            formData={formData}
+            formData={{
+                ...formData,
+                workplaceLocation: workplaceLocation.isEmployerAddress ? {
+                    careOf: selectedEmployer?.company || '',
+                    streetAddress: selectedEmployer?.address || '',
+                    city: selectedEmployer?.city || '',
+                    postalCode: selectedEmployer?.zipCode || '',
+                    province: selectedEmployer?.province || '',
+                    isEmployerAddress: true
+                } : workplaceLocation
+            }}
             validateForm={validateForm}
             errors={errors}
             employer={selectedEmployer}
@@ -313,7 +558,7 @@ const CreateContract: React.FC = () => {
         <WorkflowSteps
           steps={steps}
           currentStep={currentStep}
-          onStepClick={setCurrentStep}
+          onStepClick={handleStepClick}
         />
       </div>
 

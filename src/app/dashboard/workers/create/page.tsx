@@ -61,11 +61,23 @@ const NewWorker: React.FC = () => {
       newErrors.phone = t('worker.validation.invalidPhone');
     }
 
-    if (!workerForm.documentType) newErrors.documentType = t('worker.validation.required');
-    if (!workerForm.documentNumber) newErrors.documentNumber = t('worker.validation.required');
-    if (!workerForm.documentIssuer) newErrors.documentIssuer = t('worker.validation.required');
-    if (!workerForm.documentExpiration) newErrors.documentExpiration = t('worker.validation.required');
-    if (!workerForm.permitReason) newErrors.permitReason = t('worker.validation.required');
+    // Validate document fields only for Italian or EU citizens
+    if (workerForm.nationality === 'IT' || workerForm.nationality === 'EU') {
+      if (!workerForm.documentType) newErrors.documentType = t('worker.validation.required');
+      if (!workerForm.documentNumber) newErrors.documentNumber = t('worker.validation.required');
+      if (!workerForm.documentIssuer) newErrors.documentIssuer = t('worker.validation.required');
+      if (!workerForm.documentExpiration) newErrors.documentExpiration = t('worker.validation.required');
+    }
+
+    // Validate permit fields only for Non-EU citizens
+    if (workerForm.nationality === 'NON_EU') {
+      if (!workerForm.permitType) newErrors.permitType = t('worker.validation.required');
+      if (!workerForm.permitReason) newErrors.permitReason = t('worker.validation.required');
+      if (!workerForm.questura) newErrors.questura = t('worker.validation.required');
+      if (!workerForm.permitNumber) newErrors.permitNumber = t('worker.validation.required');
+      if (!workerForm.permitIssueDate) newErrors.permitIssueDate = t('worker.validation.required');
+      if (!workerForm.permitExpiryDate) newErrors.permitExpiryDate = t('worker.validation.required');
+    }
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;

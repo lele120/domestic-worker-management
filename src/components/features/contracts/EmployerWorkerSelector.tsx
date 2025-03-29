@@ -3,8 +3,16 @@ import { useTranslations } from 'next-intl';
 import { Check, ChevronDown, ChevronUp, X } from 'lucide-react';
 import Image from 'next/image';
 import { CreateEmployer } from '@/types/employer.types';
-import {CreateWorkerResponse} from '@/types/worker.types';
+import { CreateWorkerResponse } from '@/types/worker.types';
 
+interface WorkplaceLocation {
+  careOf: string;
+  streetAddress: string;
+  city: string;
+  postalCode: string;
+  province: string;
+  isEmployerAddress: boolean;
+}
 
 interface EmployerWorkerSelectorProps {
   workers: CreateWorkerResponse[];
@@ -14,6 +22,8 @@ interface EmployerWorkerSelectorProps {
   onEmployerSelect: (id: number) => void;
   onWorkerSelect: (id: number) => void;
   onClose: () => void;
+  onWorkplaceLocationChange: (location: WorkplaceLocation) => void;
+  workplaceLocation: WorkplaceLocation;
 }
 
 const EmployerWorkerSelector: React.FC<EmployerWorkerSelectorProps> = ({
@@ -23,14 +33,38 @@ const EmployerWorkerSelector: React.FC<EmployerWorkerSelectorProps> = ({
   selectedWorkerId,
   onEmployerSelect,
   onWorkerSelect,
-  onClose
+  onClose,
+  onWorkplaceLocationChange,
+  workplaceLocation
 }) => {
-  const  t  = useTranslations();
+  const t = useTranslations();
   const [isEmployerDropdownOpen, setIsEmployerDropdownOpen] = useState(false);
   const [isWorkerDropdownOpen, setIsWorkerDropdownOpen] = useState(false);
 
   const selectedEmployer = employers.find(emp => emp.id === selectedEmployerId);
   const selectedWorker = workers.find(w => w.id === selectedWorkerId);
+
+  const handleWorkplaceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value, type, checked } = e.target;
+    const newValue = type === 'checkbox' ? checked : value;
+    
+    onWorkplaceLocationChange({
+      ...workplaceLocation,
+      [name]: newValue
+    });
+
+    // If using employer address is checked, copy employer address details
+    if (name === 'isEmployerAddress' && checked && selectedEmployer) {
+      onWorkplaceLocationChange({
+        careOf: selectedEmployer.company || '',
+        streetAddress: selectedEmployer.address || '',
+        city: selectedEmployer.city || '',
+        postalCode: selectedEmployer.zipCode || '',
+        province: selectedEmployer.province || '',
+        isEmployerAddress: true
+      });
+    }
+  };
 
   return (
     <div className="space-y-6">
@@ -173,7 +207,6 @@ const EmployerWorkerSelector: React.FC<EmployerWorkerSelectorProps> = ({
                       onClick={() => {
                         onWorkerSelect(worker.id);
                         setIsWorkerDropdownOpen(false);
-                        onClose();
                       }}
                       className="w-full px-4 py-2 flex items-center hover:bg-gray-50"
                     >
@@ -194,6 +227,105 @@ const EmployerWorkerSelector: React.FC<EmployerWorkerSelectorProps> = ({
                       )}
                     </button>
                   ))}
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Workplace Location Section */}
+        <div className="mt-6 border-t border-gray-200 pt-6">
+          <h3 className="text-lg font-medium text-gray-900 mb-4">
+            {t('contract.workplace.title')}
+          </h3>
+          <div className="space-y-4">
+            <div className="flex items-center">
+              <input
+                type="checkbox"
+                id="isEmployerAddress"
+                name="isEmployerAddress"
+                checked={workplaceLocation.isEmployerAddress}
+                onChange={handleWorkplaceChange}
+                className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+              />
+              <label htmlFor="isEmployerAddress" className="ml-2 block text-sm text-gray-900">
+                {t('contract.workplace.useEmployerAddress')}
+              </label>
+            </div>
+
+            {!workplaceLocation.isEmployerAddress && (
+              <div className="grid grid-cols-1 gap-4">
+                <div>
+                  <label htmlFor="careOf" className="block text-sm font-medium text-gray-700">
+                    {t('contract.workplace.careOf')}
+                  </label>
+                  <input
+                    type="text"
+                    name="careOf"
+                    id="careOf"
+                    value={workplaceLocation.careOf}
+                    onChange={handleWorkplaceChange}
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="streetAddress" className="block text-sm font-medium text-gray-700">
+                    {t('contract.workplace.streetAddress')}
+                  </label>
+                  <input
+                    type="text"
+                    name="streetAddress"
+                    id="streetAddress"
+                    value={workplaceLocation.streetAddress}
+                    onChange={handleWorkplaceChange}
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                  />
+                </div>
+
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label htmlFor="city" className="block text-sm font-medium text-gray-700">
+                      {t('contract.workplace.city')}
+                    </label>
+                    <input
+                      type="text"
+                      name="city"
+                      id="city"
+                      value={workplaceLocation.city}
+                      onChange={handleWorkplaceChange}
+                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                    />
+                  </div>
+
+                  <div>
+                    <label htmlFor="postalCode" className="block text-sm font-medium text-gray-700">
+                      {t('contract.workplace.postalCode')}
+                    </label>
+                    <input
+                      type="text"
+                      name="postalCode"
+                      id="postalCode"
+                      value={workplaceLocation.postalCode}
+                      onChange={handleWorkplaceChange}
+                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label htmlFor="province" className="block text-sm font-medium text-gray-700">
+                    {t('contract.workplace.province')}
+                  </label>
+                  <input
+                    type="text"
+                    name="province"
+                    id="province"
+                    value={workplaceLocation.province}
+                    onChange={handleWorkplaceChange}
+                    maxLength={2}
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                  />
                 </div>
               </div>
             )}
