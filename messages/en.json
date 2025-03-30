@@ -238,11 +238,11 @@
             "other": "Other"
           },
           "paymentMethods": {
-            "bankTransfer": "Bank Transfer",
-            "cash": "Cash",
             "check": "Check",
-            "postalOrder": "Postal Order",
-            "": "-"
+            "bank_transfer": "Bank Transfer",
+            "cash": "Cash",
+            "undefined": "Undefined",
+            "": "Select payment method"
           }
         },
         "tooltips": {

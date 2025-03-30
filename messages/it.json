@@ -388,11 +388,11 @@
             "other": "Altro"
           },
           "paymentMethods": {
-            "bankTransfer": "Bonifico Bancario",
-            "cash": "Contanti",
             "check": "Assegno",
-            "postalOrder": "Vaglia Postale",
-            "": "-"
+            "bank_transfer": "Bonifico C/C",
+            "cash": "Contanti",
+            "undefined": "Non definito",
+            "": "Seleziona modalità di pagamento"
           }
         },
         "tooltips": {
