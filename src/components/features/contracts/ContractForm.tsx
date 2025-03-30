@@ -87,6 +87,36 @@ const ContractForm: React.FC<ContractFormProps> = ({ formData, onChange }) => {
     onChange(name, finalValue)
   }
 
+  const getFilteredLevels = () => {
+    // Log for debugging
+    console.log('Current subCategory:', formData.contractColf.subCategory);
+    console.log('Available levels:', contractLevels);
+
+    if (formData.contractColf.subCategory === 'b0fb1b42-25c5-4b96-a8cb-4f6a15299b64' 
+      || formData.contractColf.subCategory === 'd26009b4-297e-45fb-ba11-6c68f92c4eb2') {
+      return contractLevels.filter(level => {
+        // Log for debugging
+        console.log('Checking level:', level);
+        return ['dSuper', 'cSuper', 'bSuper'].includes(level.name);
+      });
+    }
+    if (formData.contractColf.subCategory === 'd3c56888-227d-4c17-94e2-4aeedb402962') {
+      return contractLevels.filter(level => {
+        // Log for debugging
+        console.log('Checking level:', level);
+        return ['cSuper', 'bSuper', 'b'].includes(level.name);
+      });
+    }
+    if (formData.contractColf.subCategory === 'e5f6a7b8-c9d0-8e1f-2a3b-4c5d6e7f8a9b') {
+      return contractLevels.filter(level => {
+        // Log for debugging
+        console.log('Checking level:', level);
+        return ['dSuper', 'cSuper'].includes(level.name);
+      });
+    }
+    return contractLevels;
+  };
+
   return (
     <div className="space-y-6">
       <div>
@@ -165,11 +195,10 @@ const ContractForm: React.FC<ContractFormProps> = ({ formData, onChange }) => {
             name="contractColf.level"
             value={formData.contractColf.level}
             onChange={handleInputChange}
-            options={contractLevels.map((contractLevel) => ({
+            options={getFilteredLevels().map((contractLevel) => ({
               value: contractLevel.id,
               label: t(`contract.contract.options.levels.${contractLevel.subcategory}`)
-            }))
-            }
+            }))}
           />
           {formData.contractColf.level && (
             <div className="mt-2 bg-gray-50 p-4 rounded-lg border border-gray-200">

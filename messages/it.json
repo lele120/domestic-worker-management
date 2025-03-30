@@ -352,13 +352,14 @@
             "other": "Altro"
           },
           "subCategory": {
-            "nonLiveIn": "Non Convivente",
-            "fullTimeLiveIn": "Convivente Tempo Pieno",
-            "nightOnlyLiveIn": "Convivente Solo Notte",
-            "partTimeLiveIn": "Convivente Part-time",
-            "substitute": "Sostituzione",
-            "": "-",
-            "undefined" : "-"
+            "nonLiveIn": "Non convivente",
+            "fullTimeLiveIn": "Convivente a tempo pieno",
+            "nightCareLiveIn": "Convivente con compiti di esclusiva assistenza notturna",
+            "nightPresenceLiveIn": "Convivente con compiti di esclusiva presenza notturna",
+            "partTimeLiveIn": "Convivente part-time livelli C,B,B Super o studente (30 ore settimanali)",
+            "substitute": "Sostituzione di lavoratori CS o DS nei turni di riposo",
+            "": "Seleziona sottocategoria",
+            "undefined": "Seleziona sottocategoria"
           },
           "levels": {
             "dSuper": "Livello D Super",

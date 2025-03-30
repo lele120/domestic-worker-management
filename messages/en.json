@@ -243,6 +243,16 @@
             "cash": "Cash",
             "undefined": "Undefined",
             "": "Select payment method"
+          },
+          "subCategory": {
+            "nonLiveIn": "Non live-in",
+            "fullTimeLiveIn": "Full-time live-in",
+            "nightCareLiveIn": "Live-in with exclusive night care duties",
+            "nightPresenceLiveIn": "Live-in with exclusive night presence duties",
+            "partTimeLiveIn": "Part-time live-in levels C,B,B Super or student (30 hours weekly)",
+            "substitute": "Substitution of CS or DS workers during rest shifts",
+            "": "Select subcategory",
+            "undefined": "Select subcategory"
           }
         },
         "tooltips": {
