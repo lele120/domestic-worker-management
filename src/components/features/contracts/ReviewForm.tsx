@@ -164,6 +164,11 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ formData, errors, validateForm,
               <Field label={t('contract.contract.fields.fixedTermReason')} value={formData.contractColf.fixedTermReason} />
             </>
           )}
+          <Field label={t('contract.contract.fields.inpsCode')} value={formData.contractColf.inpsCode  || ''} />
+          <Field label={t('contract.contract.fields.paymentMethod')} value={formData.contractColf.paymentMethod} />
+          {formData.contractColf.iban && (
+            <Field label={t('contract.contract.fields.iban')} value={formData.contractColf.iban} />
+          )}
         </div>
       </Section>
 

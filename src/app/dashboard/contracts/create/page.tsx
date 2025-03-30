@@ -84,7 +84,10 @@ const CreateContract: React.FC = () => {
       isLivingWithEmployer: false,
       isFixedTerm: false,
       fixedTermEndDate: '',
-      fixedTermReason: ''
+      fixedTermReason: '',
+      inpsCode: '',
+      paymentMethod: '',
+      iban: ''
     },
     // Schedule Information
     workSchedule:{

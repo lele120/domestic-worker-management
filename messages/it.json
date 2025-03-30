@@ -312,7 +312,8 @@
           "type": "Tipo di Contratto",
           "level": "Livello Professionale",
           "fixedTerm": "Contratto a Tempo Determinato",
-          "certification": "Certificazione di Qualità"
+          "certification": "Certificazione di Qualità",
+          "inpsReport": "Codice rapporto INPS - Modalità di pagamento"
         },
         "fields": {
           "startDate": "Data di Inizio",
@@ -325,7 +326,10 @@
           "isFixedTerm": "Contratto a Tempo Determinato",
           "fixedTermEndDate": "Data Fine Tempo Determinato",
           "fixedTermReason": "Motivo Tempo Determinato",
-          "isTerminated": "Contratto Terminato"
+          "isTerminated": "Contratto Terminato",
+          "inpsCode": "Codice del rapporto assegnato dall'INPS",
+          "paymentMethod": "Modalità di pagamento",
+          "iban": "Codice IBAN (eventuale)"
         },
         "options": {
           "terminationReasons": {
@@ -383,6 +387,9 @@
             "specificProject": "Per l'esecuzione di un servizio definito o predeterminato nel tempo, anche se ripetitivo",
             "other": "Altro"
           }
+        },
+        "tooltips": {
+          "inpsCode": "Inserendo il codice INPS i cedolini stampati verranno inseriti nella cartella documenti, visualizzabili anche dal collaboratore, oltre a poter fare la richiesta massiva dei MAV."
         }
       },
       "schedule": {

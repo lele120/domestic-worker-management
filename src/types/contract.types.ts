@@ -18,6 +18,9 @@ export interface ContractColf {
     isFixedTerm: boolean;
     fixedTermEndDate: string;
     fixedTermReason: string;
+    inpsCode?: string | null;
+    paymentMethod: string;
+    iban?: string | null;
 }
 
 export interface DailySchedule {

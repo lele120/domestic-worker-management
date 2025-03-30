@@ -235,6 +235,48 @@ const ContractForm: React.FC<ContractFormProps> = ({ formData, onChange }) => {
           </label>
         </div>
       </div>
+
+      {/* INPS Report Code and Payment Method */}
+      <div>
+        <h2 className="text-lg font-medium text-gray-900 mb-4">{t('contract.contract.sections.inpsReport')}</h2>
+        <div className="space-y-4">
+          <div className="relative">
+            <InputField
+              label={t('contract.contract.fields.inpsCode')}
+              name="contractColf.inpsCode"
+              type="text"
+              value={formData.contractColf.inpsCode || ''}
+              onChange={handleInputChange}
+            />
+            <div className="mt-2 bg-gray-50 p-4 rounded-lg border border-gray-200">
+              <div className="flex items-start">
+                <HelpCircle className="w-5 h-5 text-blue-500 mr-2 mt-0.5 flex-shrink-0" />
+                <p className="text-sm text-gray-600">
+                  {t('contract.contract.tooltips.inpsCode')}
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <InputField
+              label={t('contract.contract.fields.paymentMethod')}
+              name="contractColf.paymentMethod"
+              type="text"
+              value={formData.contractColf.paymentMethod}
+              onChange={handleInputChange}
+            />
+            <InputField
+              label={t('contract.contract.fields.iban')}
+              name="contractColf.iban"
+              type="text"
+              value={formData.contractColf.iban || ''}
+              onChange={handleInputChange}
+              required={false}
+            />
+          </div>
+        </div>
+      </div>
     </div>
   )
 }

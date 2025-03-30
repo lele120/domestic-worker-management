@@ -168,7 +168,8 @@
           "type": "Contract Type",
           "level": "Professional Level",
           "fixedTerm": "Fixed Term Contract",
-          "certification": "Quality Certification"
+          "certification": "Quality Certification",
+          "inpsReport": "INPS Report Code - Payment Method"
         },
         "fields": {
           "startDate": "Start Date",
@@ -180,7 +181,10 @@
           "qualityCertification": "Quality Certification",
           "isFixedTerm": "Fixed Term Contract",
           "fixedTermEndDate": "Fixed Term End Date",
-          "fixedTermReason": "Fixed Term Reason"
+          "fixedTermReason": "Fixed Term Reason",
+          "inpsCode": "INPS assigned relationship code",
+          "paymentMethod": "Payment Method",
+          "iban": "IBAN Code (optional)"
         },
         "options": {
           "terminationReasons": {
@@ -233,6 +237,9 @@
             "specificProject": "For the execution of a defined or predetermined service in time, even if repetitive",
             "other": "Other"
           }
+        },
+        "tooltips": {
+          "inpsCode": "By entering the INPS code, printed payslips will be added to the documents folder, viewable by the collaborator, and you can make bulk MAV requests."
         }
       },
       "schedule": {
