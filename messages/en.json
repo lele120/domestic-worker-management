@@ -190,7 +190,16 @@
             "retirement": "Retirement",
             "contractEnd": "Contract End",
             "death": "Death",
-            "justCause": "Just Cause"
+            "justCause": "Just Cause",
+            "consensualResolution": "Consensual Resolution",
+            "probationFailure": "Probation Period Failure",
+            "termModification": "Term Modification",
+            "dismissalJustCause": "Dismissal for Just Cause",
+            "probationResignation": "Resignation During Probation",
+            "workerDeath": "Worker's Death",
+            "resignationJustCause": "Resignation for Just Cause",
+            "employerDeath": "Employer's Death",
+            "other": "Other"
           },
           "contractTypes": {
             "nonLiveIn": "Non Live-in",
@@ -218,10 +227,10 @@
             "aDescription": "Generic workers not involved in care assistance"
           },
           "fixedTermReasons": {
-            "substituteFamily": "Family Member Substitution",
-            "substituteMedical": "Medical Leave Substitution",
-            "substituteVacation": "Vacation Substitution",
-            "specificProject": "Specific Project",
+            "substituteFamily": "To replace workers absent for family reasons, including family reunification abroad",
+            "substituteMedical": "To replace workers who are sick, injured, on maternity leave or other legally recognized reasons",
+            "substituteVacation": "To replace workers on vacation",
+            "specificProject": "For the execution of a defined or predetermined service in time, even if repetitive",
             "other": "Other"
           }
         }

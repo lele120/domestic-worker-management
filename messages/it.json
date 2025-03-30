@@ -336,7 +336,16 @@
             "contractEnd": "Fine Contratto",
             "death": "Decesso",
             "justCause": "Giusta Causa",
-            "": "-"
+            "": "-",
+            "consensualResolution": "Risoluzione consensuale",
+            "probationFailure": "Fallimento del periodo di prova",
+            "termModification": "Modifica del termine",
+            "dismissalJustCause": "Licenziamento per giusta causa",
+            "probationResignation": "Dimissioni durante il periodo di prova",
+            "workerDeath": "Morte del lavoratore",
+            "resignationJustCause": "Dimissioni per giusta causa",
+            "employerDeath": "Morte del datore di lavoro",
+            "other": "Altro"
           },
           "subCategory": {
             "nonLiveIn": "Non Convivente",
@@ -368,10 +377,10 @@
             "undefined" : "-"
           },
           "fixedTermReasons": {
-            "substituteFamily": "Sostituzione Familiare",
-            "substituteMedical": "Sostituzione Malattia",
-            "substituteVacation": "Sostituzione Ferie",
-            "specificProject": "Progetto Specifico",
+            "substituteFamily": "Per sostituire lavoratori assenti per motivi familiari, anche il raggiung. la famiglia all'estero",
+            "substituteMedical": "Per sostituire lavoratori malati, infortunati, in maternità o altri motivi previsti dalla legge",
+            "substituteVacation": "Per sostituire lavoratori in ferie",
+            "specificProject": "Per l'esecuzione di un servizio definito o predeterminato nel tempo, anche se ripetitivo",
             "other": "Altro"
           }
         }
