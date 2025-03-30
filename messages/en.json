@@ -236,6 +236,13 @@
             "substituteVacation": "To replace workers on vacation",
             "specificProject": "For the execution of a defined or predetermined service in time, even if repetitive",
             "other": "Other"
+          },
+          "paymentMethods": {
+            "bankTransfer": "Bank Transfer",
+            "cash": "Cash",
+            "check": "Check",
+            "postalOrder": "Postal Order",
+            "": "-"
           }
         },
         "tooltips": {

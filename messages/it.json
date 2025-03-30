@@ -386,6 +386,13 @@
             "substituteVacation": "Per sostituire lavoratori in ferie",
             "specificProject": "Per l'esecuzione di un servizio definito o predeterminato nel tempo, anche se ripetitivo",
             "other": "Altro"
+          },
+          "paymentMethods": {
+            "bankTransfer": "Bonifico Bancario",
+            "cash": "Contanti",
+            "check": "Assegno",
+            "postalOrder": "Vaglia Postale",
+            "": "-"
           }
         },
         "tooltips": {

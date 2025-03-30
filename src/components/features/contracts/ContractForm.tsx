@@ -6,7 +6,8 @@ import { HelpCircle } from 'lucide-react'
 import InputField from '@/components/shared/forms/InputField'
 import SelectField from '@/components/shared/forms/SelectField'
 import { getSubCategories, SubCategory, getTerminationReasons, TerminationReason,
-  getContractLevel, ContractLevel, getContractDeterminateReason,ContractDeterminateReason
+  getContractLevel, ContractLevel, getContractDeterminateReason, ContractDeterminateReason,
+  getPaymentMethods, PaymentMethod
 } from '@/app/api/auth/contract.configuration.service'
 import { useSession } from 'next-auth/react'
 import { useState } from 'react'
@@ -26,6 +27,7 @@ const ContractForm: React.FC<ContractFormProps> = ({ formData, onChange }) => {
   const [terminationReasons, setTerminationReasons] = useState<TerminationReason[]>([]);
   const [contractLevels, setContractLevels] = useState<ContractLevel[]>([]);
   const [contractDeterminateReasons, setContractDeterminateReasons] = useState<ContractDeterminateReason[]>([]);
+  const [paymentMethods, setPaymentMethods] = useState<PaymentMethod[]>([]);
   const [contractLevelsDict] = useState<{ [key: string]: string }>({});
   const [contractSubCategoryDict] = useState<{ [key: string]: string }>({});
 
@@ -36,6 +38,7 @@ const ContractForm: React.FC<ContractFormProps> = ({ formData, onChange }) => {
       let resTerminationReasons : TerminationReason[] = [];
       let resContractLevels : ContractLevel[] = [];
       let resContractDeterminateReasons : ContractDeterminateReason[] = [];
+      let resPaymentMethods : PaymentMethod[] = [];
 
       resContractLevels = await getContractLevel({"category": "COLF"}, token);
       resContractLevels.map((contractLevel) => {
@@ -50,6 +53,7 @@ const ContractForm: React.FC<ContractFormProps> = ({ formData, onChange }) => {
 
       resTerminationReasons = await getTerminationReasons(token);
       resContractDeterminateReasons = await getContractDeterminateReason({"category": "COLF"}, token);
+      resPaymentMethods = await getPaymentMethods(token);
 
       if (resContractDeterminateReasons != undefined) {
         setContractDeterminateReasons(resContractDeterminateReasons);
@@ -65,6 +69,10 @@ const ContractForm: React.FC<ContractFormProps> = ({ formData, onChange }) => {
       if (resTerminationReasons != undefined) {
         resTerminationReasons.push({name: "", value: "", id: "", description: ""});
         setTerminationReasons(resTerminationReasons);
+      }
+      if (resPaymentMethods != undefined) {
+        resPaymentMethods.push({name: "", value: "", id: "", description: ""});
+        setPaymentMethods(resPaymentMethods);
       }
     };
   
@@ -259,12 +267,15 @@ const ContractForm: React.FC<ContractFormProps> = ({ formData, onChange }) => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <InputField
+            <SelectField
               label={t('contract.contract.fields.paymentMethod')}
               name="contractColf.paymentMethod"
-              type="text"
               value={formData.contractColf.paymentMethod}
               onChange={handleInputChange}
+              options={paymentMethods.map((method) => ({
+                value: method.id,
+                label: t(`contract.contract.options.paymentMethods.${method.name}`)
+              }))}
             />
             <InputField
               label={t('contract.contract.fields.iban')}

@@ -8,6 +8,13 @@ export interface ContractType {
     subcategory: string;
 }
 
+export interface PaymentMethod {
+    id: string;
+    name: string;
+    value: string;
+    description: string;
+}
+
 export interface SubCategory {
     id: string;
     name: string;
@@ -142,6 +149,22 @@ export async function getContractDeterminateReason(params: Params, token: string
         return response.data;
     } catch (error) {
         console.error("Error fetching contract determinate reason:", error);
+        return [];
+    }
+}
+
+export async function getPaymentMethods(token : string): Promise<PaymentMethod[]> {
+    try {
+        const response = await axios({
+            method: "get",
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+            url: process.env.NEXT_PUBLIC_BACKEND_URL + "paymentMethod",
+        });
+        return response.data;
+    } catch (error) {
+        console.error("Error fetching payment methods:", error);
         return [];
     }
 }
