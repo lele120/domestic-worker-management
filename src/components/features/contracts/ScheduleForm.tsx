@@ -368,11 +368,9 @@ const ScheduleForm: React.FC<ScheduleFormProps> = ({ formData, onChange }) => {
             <InputField
               label={t('contract.schedule.fields.patronSaintDay')}
               name="workSchedule.patronSaintDay"
-              type="text"
-              placeholder="GG/MM"
+              type="date"
               value={formData.workSchedule.patronSaintDay || ''}
               onChange={handleInputChange}
-              required={false}
             />
           </div>
 
