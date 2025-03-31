@@ -103,11 +103,27 @@ export default function ContactFormClient() {
     setSubmitError('');
 
     try {
-      // Here you would typically send the form data to your API
-      // For this example, we'll simulate an API call with a timeout
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      // Simulate successful submission
+      const response = await fetch('/api/staff-applications', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          firstName: formState.firstName,
+          lastName: formState.lastName,
+          email: formState.email,
+          phoneNumber: formState.phone,
+          message: formState.message,
+          privacyPolicyAccepted: formState.privacyPolicy
+        })
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to submit application');
+      }
+
+      // Reset form and show success message
       setSubmitSuccess(true);
       setFormState({
         firstName: '',
@@ -117,8 +133,8 @@ export default function ContactFormClient() {
         message: '',
         privacyPolicy: false
       });
-    } catch {
-      setSubmitError('Si è verificato un errore durante l&apos;invio. Riprova più tardi.');
+    } catch (error) {
+      setSubmitError(error instanceof Error ? error.message : 'Si è verificato un errore durante l\'invio. Riprova più tardi.');
     } finally {
       setIsSubmitting(false);
     }

@@ -286,31 +286,31 @@ const ScheduleForm: React.FC<ScheduleFormProps> = ({ formData, onChange }) => {
         <h2 className="text-lg font-medium text-gray-900 mb-4">{t('contract.schedule.sections.holidays')}</h2>
         <div className="space-y-6">
           {/* Holiday Work Checkbox and Compensation */}
-          <div className="space-y-4">
-            <label className="flex items-center">
-              <input
-                type="checkbox"
-                name="workSchedule.holidayWork"
-                checked={formData.workSchedule.holidayWork}
-                onChange={handleInputChange}
-                className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-              />
-              <span className="ml-2 text-sm text-gray-700">{t('contract.schedule.fields.holidayWork')}</span>
-            </label>
-            
-            {formData.workSchedule.holidayWork && (
+        <div className="space-y-4">
+          <label className="flex items-center">
+            <input
+              type="checkbox"
+              name="workSchedule.holidayWork"
+              checked={formData.workSchedule.holidayWork}
+              onChange={handleInputChange}
+              className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+            />
+            <span className="ml-2 text-sm text-gray-700">{t('contract.schedule.fields.holidayWork')}</span>
+          </label>
+          
+          {formData.workSchedule.holidayWork && (
               <div className="ml-8">
-                <SelectField
-                  label={t('contract.schedule.fields.holidayCompensation')}
+            <SelectField
+              label={t('contract.schedule.fields.holidayCompensation')}
                   name="workSchedule.holidayCompensation"
-                  value={formData.workSchedule.holidayCompensation}
-                  onChange={handleInputChange}
-                  options={[
-                    { value: 'paid', label: t('contract.schedule.options.holidayCompensation.paid') },
-                    { value: 'timeoff', label: t('contract.schedule.options.holidayCompensation.timeoff') },
-                    { value: 'both', label: t('contract.schedule.options.holidayCompensation.both') }
-                  ]}
-                />
+              value={formData.workSchedule.holidayCompensation}
+              onChange={handleInputChange}
+              options={[
+                { value: 'paid', label: t('contract.schedule.options.holidayCompensation.paid') },
+                { value: 'timeoff', label: t('contract.schedule.options.holidayCompensation.timeoff') },
+                { value: 'both', label: t('contract.schedule.options.holidayCompensation.both') }
+              ]}
+            />
               </div>
             )}
           </div>
