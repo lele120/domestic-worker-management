@@ -6,6 +6,17 @@ export interface Break {
     duration?: number;
 }
 
+export interface Schedule {
+  restDay: string;
+  secondRestDay?: string;
+  holidayAccrualType: 'days' | 'hours' | 'proportional';
+  patronSaintDay?: string;
+  manualSeniorityManagement: boolean;
+  accruedSeniority?: number;
+  lastSeniorityDate?: string;
+  nextSeniorityDate?: string;
+}
+
 export interface ContractColf {
     startDate: string;
     endDate: string;
@@ -21,6 +32,11 @@ export interface ContractColf {
     inpsCode?: string | null;
     paymentMethod: string;
     iban?: string | null;
+    schedule?: Schedule;
+    trialPeriodEnabled?: boolean;
+    trialPeriodDays?: number;
+    includeNoticePeriod?: boolean;
+    includeSpecialNotice?: boolean;
 }
 
 export interface DailySchedule {
@@ -37,9 +53,19 @@ export interface WorkSchedule {
     }
     holidayWork: boolean;
     holidayCompensation: string;
+    holidayAccrualType?: 'days' | 'hours' | 'proportional';
+    patronSaintDay?: string;
+    manualSeniorityManagement?: boolean;
+    accruedSeniority?: number;
+    lastSeniorityDate?: string;
+    nextSeniorityDate?: string;
     nightShift: boolean;
     nightShiftStartTime: string;
     nightShiftEndTime: string;
+    trialPeriodEnabled?: boolean;
+    trialPeriodDays?: number;
+    includeNoticePeriod?: boolean;
+    includeSpecialNotice?: boolean;
 }
 
 export interface Salary {

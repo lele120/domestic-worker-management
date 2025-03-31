@@ -184,7 +184,11 @@
           "fixedTermReason": "Fixed Term Reason",
           "inpsCode": "INPS assigned relationship code",
           "paymentMethod": "Payment Method",
-          "iban": "IBAN Code (optional)"
+          "iban": "IBAN Code (optional)",
+          "trialPeriod": "Include trial period",
+          "trialPeriodDays": "Trial period days",
+          "includeNoticePeriod": "Include notice period even if the contract is fixed-term",
+          "includeSpecialNotice": "Include notice period for doorkeepers, custodians and other personnel with independent accommodation"
         },
         "options": {
           "terminationReasons": {
@@ -280,7 +284,20 @@
           "nightShiftEnd": "Night Shift End",
           "holidayWork": "Holiday Work",
           "holidayCompensation": "Holiday Compensation",
-          "hours": "Hours"
+          "hours": "Hours",
+          "restDay": "Rest Day",
+          "secondRestDay": "Second Half Rest Day",
+          "holidayAccrualType": "Holiday Accrual Type",
+          "patronSaintDay": "Patron Saint Day (dd/mm)",
+          "manualSeniorityManagement": "Manual Seniority Management:",
+          "manualSeniorityDescription": "Check this box only if the worker suspends the relationship for expectation or job retention after the behavior or if the worker has already been employed by the family and you want to apply a different accrual from the automatic one managed by the program and provided for by the collective agreement",
+          "accruedSeniority": "No. Accrued Steps",
+          "lastSeniorityDate": "Last Step Date",
+          "nextSeniorityDate": "Next Step Date",
+          "trialPeriod": "Trial Period",
+          "trialPeriodDays": "Trial Period Days",
+          "includeNoticePeriod": "Include notice period even if the contract is fixed-term",
+          "includeSpecialNotice": "Include notice period for doorkeepers, custodians and other personnel with independent accommodation"
         },
         "days": {
           "monday": "Monday",
@@ -296,6 +313,11 @@
             "paid": "Paid Extra",
             "timeoff": "Time Off",
             "both": "Both Extra Pay and Time Off"
+          },
+          "holidayAccrual": {
+            "days": "Holidays in days, 26 working days (contractual provision)",
+            "hours": "Express holidays in hours (recommended)",
+            "proportional": "Express holidays in days, possibly proportional to part-time"
           }
         },
         "actions": {

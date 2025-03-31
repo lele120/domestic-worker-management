@@ -8,9 +8,11 @@ interface InputFieldProps {
   type?: string
   required?: boolean
   value: string
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+  onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void
   error?: string
   placeholder?: string
+  min?: string
+  max?: string
 }
 
 const InputField: React.FC<InputFieldProps> = ({
