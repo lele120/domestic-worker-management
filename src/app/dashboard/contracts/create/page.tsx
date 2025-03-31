@@ -106,6 +106,16 @@ const CreateContract: React.FC = () => {
       nightShift: false,
       nightShiftStartTime: '',
       nightShiftEndTime: '',
+      holidayAccrualType: 'hours',
+      patronSaintDay: '',
+      manualSeniorityManagement: false,
+      accruedSeniority: 0,
+      lastSeniorityDate: '',
+      nextSeniorityDate: '',
+      trialPeriodEnabled: false,
+      trialPeriodDays: 8,
+      includeNoticePeriod: false,
+      includeSpecialNotice: false
     },
     // Salary Information
     salary: {
@@ -192,6 +202,21 @@ const CreateContract: React.FC = () => {
     if (!formData.advancedSettings.pay13thMonthly) newErrors.pay13thMonthly = t('contract.create.validation.advancedSettings.pay13thMonthly.required');
     if (!formData.advancedSettings.payTFRMonthly) newErrors.payTFRMonthly = t('contract.create.validation.advancedSettings.payTFRMonthly.required');
     
+    if (formData.workSchedule.holidayWork && !formData.workSchedule.holidayCompensation) 
+        newErrors.holidayCompensation = t('contract.create.validation.workSchedule.holidayCompensation.required');
+    
+    if (formData.workSchedule.manualSeniorityManagement) {
+        if (!formData.workSchedule.accruedSeniority) 
+            newErrors.accruedSeniority = t('contract.create.validation.workSchedule.accruedSeniority.required');
+        if (!formData.workSchedule.lastSeniorityDate) 
+            newErrors.lastSeniorityDate = t('contract.create.validation.workSchedule.lastSeniorityDate.required');
+        if (!formData.workSchedule.nextSeniorityDate) 
+            newErrors.nextSeniorityDate = t('contract.create.validation.workSchedule.nextSeniorityDate.required');
+    }
+
+    if (formData.workSchedule.trialPeriodEnabled && !formData.workSchedule.trialPeriodDays) 
+        newErrors.trialPeriodDays = t('contract.create.validation.workSchedule.trialPeriodDays.required');
+
     setErrors(newErrors);
     console.log('Validation errors:', newErrors);
     return Object.keys(newErrors).length === 0;
