@@ -92,11 +92,11 @@ const SalaryForm: React.FC<SalaryFormProps> = ({ formData, onChange }) => {
       }
    });
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value, type } = e.target
     console.log(name, value, type)
     if (type === 'checkbox') {
-      onChange(name, e.target.checked)
+      onChange(name, (e.target as HTMLInputElement).checked)
     } else if (type === 'number') {
       onChange(name, parseFloat(value))
     } else {
