@@ -137,6 +137,16 @@
         "documentIssuer": "Enter issuing authority",
         "questura": "Enter questura",
         "permitNumber": "Enter permit number"
+      },
+      "profile": {
+        "personalInfo": "Personal Information",
+        "contactInfo": "Contact Information",
+        "documents": "Documents",
+        "nationality": "Nationality",
+        "dateOfBirth": "Date of Birth",
+        "taxNumber": "Tax Number",
+        "documentType": "Document Type",
+        "documentNumber": "Document Number"
       }
     },
     "contract": {

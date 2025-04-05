@@ -33,3 +33,19 @@ export async function getWorkers(token: string) : Promise<CreateWorkerResponse[]
         return null;
     }
 }
+
+export async function getWorkerById(id: number, token: string) : Promise<CreateWorkerResponse | null> {
+    try {
+        const response = await axios({
+        method: "get",
+        url: process.env.NEXT_PUBLIC_BACKEND_URL + `worker/${id}`,
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+        });
+        return response.data;
+    } catch (error) {
+        console.error(`Error fetching worker with ID ${id}:`, error);
+        return null;
+    }
+}

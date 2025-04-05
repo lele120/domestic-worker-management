@@ -212,6 +212,16 @@
       "placeholders": {
         "questura": "Inserisci questura",
         "permitNumber": "Inserisci numero permesso"
+      },
+      "profile": {
+        "personalInfo": "Informazioni Personali",
+        "contactInfo": "Informazioni di Contatto",
+        "documents": "Documenti",
+        "nationality": "Nazionalità",
+        "dateOfBirth": "Data di Nascita",
+        "taxNumber": "Codice Fiscale",
+        "documentType": "Tipo Documento",
+        "documentNumber": "Numero Documento"
       }
     },
     "contract": {
@@ -632,6 +642,7 @@
       "description": "Descrizione",
       "hourly": "Orario",
       "monthly": "Mensile",
+      "edit": "Modifica",
       "gender": {
         "male" : "Maschio",
         "female" : "Femmina",
