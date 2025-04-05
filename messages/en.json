@@ -340,7 +340,21 @@
           "trialPeriod": "Trial Period",
           "trialPeriodDays": "Trial Period Days",
           "includeNoticePeriod": "Include notice period even if the contract is fixed-term",
-          "includeSpecialNotice": "Include notice period for doorkeepers, custodians and other personnel with independent accommodation"
+          "includeSpecialNotice": "Include notice period for doorkeepers, custodians and other personnel with independent accommodation",
+          "workSchedule": {
+            "weeklyHours": {
+              "required": "Please enter the total weekly hours"
+            },
+            "accruedSeniority": {
+              "required": "Please enter the number of accrued seniority steps"
+            },
+            "lastSeniorityDate": {
+              "required": "Please enter the date of the last seniority step"
+            },
+            "nextSeniorityDate": {
+              "required": "Please enter the date of the next seniority step"
+            }
+          }
         },
         "days": {
           "monday": "Monday",

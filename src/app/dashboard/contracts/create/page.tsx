@@ -213,11 +213,11 @@ const CreateContract: React.FC = () => {
         newErrors.holidayCompensation = t('contract.create.validation.workSchedule.holidayCompensation.required');
     
     if (formData.workSchedule.manualSeniorityManagement) {
-        if (!formData.workSchedule.accruedSeniority) 
+        if (formData.workSchedule.accruedSeniority && !formData.workSchedule.accruedSeniority) 
             newErrors.accruedSeniority = t('contract.create.validation.workSchedule.accruedSeniority.required');
-        if (!formData.workSchedule.lastSeniorityDate) 
+        if (formData.workSchedule.lastSeniorityDate && !formData.workSchedule.lastSeniorityDate) 
             newErrors.lastSeniorityDate = t('contract.create.validation.workSchedule.lastSeniorityDate.required');
-        if (!formData.workSchedule.nextSeniorityDate) 
+        if (formData.workSchedule.nextSeniorityDate && !formData.workSchedule.nextSeniorityDate) 
             newErrors.nextSeniorityDate = t('contract.create.validation.workSchedule.nextSeniorityDate.required');
     }
 

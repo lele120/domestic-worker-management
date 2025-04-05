@@ -397,7 +397,7 @@ const ScheduleForm: React.FC<ScheduleFormProps> = ({ formData, onChange }) => {
             <div className="grid grid-cols-3 gap-4">
               <div className="space-y-2">
                 <label htmlFor="accruedSeniority" className="text-sm font-medium">
-                  {t('contract.schedule.fields.accruedSeniority')} *
+                  {t('contract.schedule.fields.accruedSeniority')}
                 </label>
                 <input
                   id="accruedSeniority"
@@ -410,7 +410,7 @@ const ScheduleForm: React.FC<ScheduleFormProps> = ({ formData, onChange }) => {
 
               <div className="space-y-2">
                 <label htmlFor="lastSeniorityDate" className="text-sm font-medium">
-                  {t('contract.schedule.fields.lastSeniorityDate')} *
+                  {t('contract.schedule.fields.lastSeniorityDate')}
                 </label>
                 <div className="relative">
                   <input
@@ -425,7 +425,7 @@ const ScheduleForm: React.FC<ScheduleFormProps> = ({ formData, onChange }) => {
 
               <div className="space-y-2">
                 <label htmlFor="nextSeniorityDate" className="text-sm font-medium">
-                  {t('contract.schedule.fields.nextSeniorityDate')} *
+                  {t('contract.schedule.fields.nextSeniorityDate')}
                 </label>
                 <div className="relative">
                   <input

@@ -483,7 +483,21 @@
           "trialPeriod": "Periodo di prova",
           "trialPeriodDays": "Giorni di prova",
           "includeNoticePeriod": "Inserisci il periodo di preavviso anche se il contratto è a tempo determinato",
-          "includeSpecialNotice": "Inserisci il preavviso per portieri, custodi e altro personale che usufruisca di alloggio indipendente"
+          "includeSpecialNotice": "Inserisci il preavviso per portieri, custodi e altro personale che usufruisca di alloggio indipendente",
+          "workSchedule": {
+            "weeklyHours": {
+              "required": "Inserisci il totale delle ore settimanali"
+            },
+            "accruedSeniority": {
+              "required": "Inserisci il numero di scatti di anzianità maturati"
+            },
+            "lastSeniorityDate": {
+              "required": "Inserisci la data dell'ultimo scatto di anzianità"
+            },
+            "nextSeniorityDate": {
+              "required": "Inserisci la data del prossimo scatto di anzianità"
+            }
+          }
         },
         "days": {
           "monday": "Lunedì",
