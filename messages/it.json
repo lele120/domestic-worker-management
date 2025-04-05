@@ -330,6 +330,10 @@
           "inpsCode": "Codice del rapporto assegnato dall'INPS",
           "paymentMethod": "Modalità di pagamento",
           "iban": "Codice IBAN (eventuale)",
+          "childrenUnder6Allowance": "Indennità assistenza minori di 6 anni",
+          "qualityCertificationAllowance": "Indennità certificazione di qualità",
+          "isFamilyMember": "Assunzione tra parenti conviventi",
+          "familyRelationship": "Grado di parentela",
           "trialPeriod": "Periodo di prova",
           "trialPeriodDays": "Giorni di prova",
           "includeNoticePeriod": "Inserisci il periodo di preavviso anche se il contratto è a tempo determinato",
@@ -354,6 +358,39 @@
             "resignationJustCause": "Dimissioni per giusta causa",
             "employerDeath": "Morte del datore di lavoro",
             "other": "Altro"
+          },
+          "familyRelationships": {
+            "": "Nessuna selezione",
+            "figlio": "Figlio",
+            "figlia": "Figlia",
+            "padre": "Padre",
+            "madre": "Madre",
+            "nuora": "Nuora",
+            "genero": "Genero",
+            "suocero": "Suocero",
+            "suocera": "Suocera",
+            "nonno": "Nonno",
+            "nonna": "Nonna",
+            "nipote": "Nipote (da nonno)",
+            "moglie_nipote": "Moglie nipote (da nonno)",
+            "marito_nipote": "Marito nipote (da nonno)",
+            "fratello": "Fratello",
+            "sorella": "Sorella",
+            "cognato": "Cognato",
+            "cognata": "Cognata",
+            "bisnonno": "Bisnonno",
+            "bisnonna": "Bisnonna",
+            "pronipote": "Pronipote",
+            "moglie_pronipote": "Moglie pronipote",
+            "marito_pronipote": "Marito pronipote",
+            "zio": "Zio",
+            "zia": "Zia",
+            "moglie_zio": "Moglie zio",
+            "marito_zia": "Marito zia",
+            "nipote_c": "Nipote-c (da figli fratello o sorella)",
+            "moglie_nipote_c": "Moglie nipote-c (da figli fratello o sorella)",
+            "marito_nipote_c": "Marito nipote-c (da figli fratello o sorella)",
+            "coniuge": "Coniuge"
           },
           "subCategory": {
             "nonLiveIn": "Non convivente",
@@ -402,6 +439,12 @@
         },
         "tooltips": {
           "inpsCode": "Inserendo il codice INPS i cedolini stampati verranno inseriti nella cartella documenti, visualizzabili anche dal collaboratore, oltre a poter fare la richiesta massiva dei MAV."
+        },
+        "descriptions": {
+          "childrenUnder6Allowance": "Il CCNL prevede che se la baby sitter assiste uno o più bambini con età inferiore ai 6 anni ha diritto, dal 1 ottobre 2020, ad una speciale indennità.",
+          "qualityCertificationAllowance": "Se il lavoratore è in possesso della certificazione di qualità di cui alla norma tecnica UNI 11766:2019 in corso di validità dal 01.10.2021 ha diritto ad una speciale indennità.",
+          "isFamilyMember": "Il lavoratore convive ed è coniuge del datore di lavoro o parente o affine entro il 3° grado (non applica la quota CUAF, cassa assegno nucleo familiare, sui contributi)",
+          "familyRelationship": "Seleziona il grado di parentela tra il lavoratore e il datore di lavoro"
         }
       },
       "schedule": {

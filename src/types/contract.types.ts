@@ -37,6 +37,9 @@ export interface ContractColf {
     trialPeriodDays?: number;
     includeNoticePeriod?: boolean;
     includeSpecialNotice?: boolean;
+    childrenUnder6Allowance?: boolean;
+    isFamilyMember?: boolean;
+    familyRelationship?: string;
 }
 
 export interface DailySchedule {
@@ -175,4 +178,7 @@ export interface ContractColfValidation {
     city?: string;
     postalCode?: string;
     province?: string;
+    childrenUnder6Allowance: string;
+    isFamilyMember: string;
+    familyRelationship: string;
 }

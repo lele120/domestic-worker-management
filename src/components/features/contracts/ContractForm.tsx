@@ -266,10 +266,85 @@ const ContractForm: React.FC<ContractFormProps> = ({ formData, onChange }) => {
               onChange={handleInputChange}
               className="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
             />
-            <span className="ml-2 text-sm text-gray-600">
-              {t('contract.contract.fields.qualityCertification')}
-            </span>
+            <div className="ml-2">
+              <span className="text-sm font-medium text-gray-900">Certificazione di qualità</span>
+              <p className="text-sm text-gray-500">Se il lavoratore è in possesso della certificazione di qualità di cui alla norma tecnica UNI 11766:2019 in corso di validità dal 01.10.2021 ha diritto ad una speciale indennità.</p>
+            </div>
           </label>
+
+          <div className="mt-4 space-y-4">
+            <label className="flex items-center">
+              <input
+                type="checkbox"
+                name="contractColf.childrenUnder6Allowance"
+                checked={formData.contractColf.childrenUnder6Allowance}
+                onChange={handleInputChange}
+                className="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
+              />
+              <div className="ml-2">
+                <span className="text-sm font-medium text-gray-900">Indennità assistenza minori di 6 anni</span>
+                <p className="text-sm text-gray-500">Il CCNL prevede che se la baby sitter assiste uno o più bambini con età inferiore ai 6 anni ha diritto, dal 1 ottobre 2020, ad una speciale indennità.</p>
+              </div>
+            </label>
+
+            <label className="flex items-center">
+              <input
+                type="checkbox"
+                name="contractColf.isFamilyMember"
+                checked={formData.contractColf.isFamilyMember}
+                onChange={handleInputChange}
+                className="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
+              />
+              <div className="ml-2">
+                <span className="text-sm font-medium text-gray-900">Assunzione tra parenti conviventi</span>
+                <p className="text-sm text-gray-500">Il lavoratore convive ed è coniuge del datore di lavoro o parente o affine entro il 3° grado (non applica la quota CUAF, cassa assegno nucleo familiare, sui contributi)</p>
+              </div>
+            </label>
+
+            {formData.contractColf.isFamilyMember && (
+              <div className="ml-6">
+                <SelectField
+                  label="Grado di parentela"
+                  name="contractColf.familyRelationship"
+                  value={formData.contractColf.familyRelationship || ''}
+                  onChange={handleInputChange}
+                  options={[
+                    { value: '', label: 'Nessuna selezione' },
+                    { value: 'figlio', label: 'Figlio' },
+                    { value: 'figlia', label: 'Figlia' },
+                    { value: 'padre', label: 'Padre' },
+                    { value: 'madre', label: 'Madre' },
+                    { value: 'nuora', label: 'Nuora' },
+                    { value: 'genero', label: 'Genero' },
+                    { value: 'suocero', label: 'Suocero' },
+                    { value: 'suocera', label: 'Suocera' },
+                    { value: 'nonno', label: 'Nonno' },
+                    { value: 'nonna', label: 'Nonna' },
+                    { value: 'nipote', label: 'Nipote (da nonno)' },
+                    { value: 'moglie_nipote', label: 'Moglie nipote (da nonno)' },
+                    { value: 'marito_nipote', label: 'Marito nipote (da nonno)' },
+                    { value: 'fratello', label: 'Fratello' },
+                    { value: 'sorella', label: 'Sorella' },
+                    { value: 'cognato', label: 'Cognato' },
+                    { value: 'cognata', label: 'Cognata' },
+                    { value: 'bisnonno', label: 'Bisnonno' },
+                    { value: 'bisnonna', label: 'Bisnonna' },
+                    { value: 'pronipote', label: 'Pronipote' },
+                    { value: 'moglie_pronipote', label: 'Moglie pronipote' },
+                    { value: 'marito_pronipote', label: 'Marito pronipote' },
+                    { value: 'zio', label: 'Zio' },
+                    { value: 'zia', label: 'Zia' },
+                    { value: 'moglie_zio', label: 'Moglie zio' },
+                    { value: 'marito_zia', label: 'Marito zia' },
+                    { value: 'nipote_c', label: 'Nipote-c (da figli fratello o sorella)' },
+                    { value: 'moglie_nipote_c', label: 'Moglie nipote-c (da figli fratello o sorella)' },
+                    { value: 'marito_nipote_c', label: 'Marito nipote-c (da figli fratello o sorella)' },
+                    { value: 'coniuge', label: 'Coniuge' }
+                  ]}
+                />
+              </div>
+            )}
+          </div>
         </div>
       </div>
 

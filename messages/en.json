@@ -185,10 +185,20 @@
           "inpsCode": "INPS assigned relationship code",
           "paymentMethod": "Payment Method",
           "iban": "IBAN Code (optional)",
+          "childrenUnder6Allowance": "Children Under 6 Allowance",
+          "qualityCertificationAllowance": "Quality Certification Allowance",
+          "isFamilyMember": "Family Member Employment",
+          "familyRelationship": "Family Relationship",
           "trialPeriod": "Include trial period",
           "trialPeriodDays": "Trial period days",
           "includeNoticePeriod": "Include notice period even if the contract is fixed-term",
           "includeSpecialNotice": "Include notice period for doorkeepers, custodians and other personnel with independent accommodation"
+        },
+        "descriptions": {
+          "childrenUnder6Allowance": "If the babysitter assists one or more children under 6 years old, they are entitled to a special allowance from October 1, 2020.",
+          "qualityCertificationAllowance": "If the worker has a valid quality certification according to UNI 11766:2019 technical standard from 01.10.2021, they are entitled to a special allowance.",
+          "isFamilyMember": "The worker lives with and is a spouse of the employer or a relative or in-law within the 3rd degree (CUAF quota, family allowance fund, does not apply to contributions)",
+          "familyRelationship": "Select the family relationship between the worker and employer"
         },
         "options": {
           "terminationReasons": {
@@ -257,6 +267,39 @@
             "substitute": "Substitution of CS or DS workers during rest shifts",
             "": "Select subcategory",
             "undefined": "Select subcategory"
+          },
+          "familyRelationships": {
+            "": "No selection",
+            "figlio": "Son",
+            "figlia": "Daughter",
+            "padre": "Father",
+            "madre": "Mother",
+            "nuora": "Daughter-in-law",
+            "genero": "Son-in-law",
+            "suocero": "Father-in-law",
+            "suocera": "Mother-in-law",
+            "nonno": "Grandfather",
+            "nonna": "Grandmother",
+            "nipote": "Grandchild (from grandfather)",
+            "moglie_nipote": "Grandchild's wife (from grandfather)",
+            "marito_nipote": "Grandchild's husband (from grandfather)",
+            "fratello": "Brother",
+            "sorella": "Sister",
+            "cognato": "Brother-in-law",
+            "cognata": "Sister-in-law",
+            "bisnonno": "Great-grandfather",
+            "bisnonna": "Great-grandmother",
+            "pronipote": "Great-grandchild",
+            "moglie_pronipote": "Great-grandchild's wife",
+            "marito_pronipote": "Great-grandchild's husband",
+            "zio": "Uncle",
+            "zia": "Aunt",
+            "moglie_zio": "Uncle's wife",
+            "marito_zia": "Aunt's husband",
+            "nipote_c": "Grandchild (from children of brother or sister)",
+            "moglie_nipote_c": "Grandchild's wife (from children of brother or sister)",
+            "marito_nipote_c": "Grandchild's husband (from children of brother or sister)",
+            "coniuge": "Spouse"
           }
         },
         "tooltips": {

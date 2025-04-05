@@ -87,7 +87,10 @@ const CreateContract: React.FC = () => {
       fixedTermReason: '',
       inpsCode: '',
       paymentMethod: '',
-      iban: ''
+      iban: '',
+      childrenUnder6Allowance: false,
+      isFamilyMember: false,
+      familyRelationship: ''
     },
     // Schedule Information
     workSchedule:{
@@ -170,6 +173,10 @@ const CreateContract: React.FC = () => {
     if (formData.contractColf.isTerminated && !formData.contractColf.terminationReason) newErrors.terminationReason = t('contract.create.validation.contractColf.terminationReason.required');
     if (!formData.contractColf.subCategory) newErrors.subCategory = t('contract.create.validation.contractColf.subCategory.required');
     if (!formData.contractColf.level) newErrors.level = t('contract.create.validation.contractColf.level.required');
+    
+    if (formData.contractColf.isFamilyMember && !formData.contractColf.familyRelationship) {
+      newErrors.familyRelationship = t('contract.create.validation.contractColf.familyRelationship.required');
+    }
     
     if (!formData.workSchedule.weeklyHours) newErrors.weeklyHours = t('contract.create.validation.workSchedule.weeklyHours.required');
     if (formData.workSchedule.nightShift && !formData.workSchedule.nightShiftStartTime) newErrors.nightShiftStartTime = t('contract.create.validation.workSchedule.nightShiftStartTime.required');
