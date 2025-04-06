@@ -102,7 +102,7 @@ const WorkersList: React.FC = () => {
               <div className="flex items-start justify-between">
                 <div className="flex items-center">
                 <Image
-                  src={worker.image || '/default-avatar-512.png'}
+                  src={worker.image || worker.imageUrl || '/default-avatar-512.png'}
                   alt={worker.firstName}
                   className="w-12 h-12 rounded-full object-cover"
                   width={48}

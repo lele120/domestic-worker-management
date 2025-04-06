@@ -22,7 +22,8 @@ export interface CreateEmployer {
     employmentType: 'full-time' | 'part-time' | 'temporary';
     notes: string;
     status: 'active' | 'inactive' | 'terminated';
-    image?: string;
+    image?: string | null;
+    imageUrl?: string | null;
     workersCount: number;
     id?: number;
     company?: string;

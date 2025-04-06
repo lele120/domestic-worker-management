@@ -153,7 +153,7 @@ const CreateEmployer: React.FC = () => {
                   value={formData.image || null}
                   onChange={handleImageChange}
                   onRemove={handleImageRemove}
-                  error={errors.image}
+                  error={errors.image || undefined}
                   required={false}
                 />
               </div>

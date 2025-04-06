@@ -98,7 +98,7 @@ export default function EmployersList() {
                 <div className="flex items-center">
                   <Image className="w-12 h-12 rounded-full object-cover" 
                     alt={employer.firstName + ' ' + employer.lastName}
-                    src={employer.image || '/default-avatar-512.png'}
+                    src={employer.image || employer.imageUrl || '/default-avatar-512.png'}
                     width={150}
                     height={150}
                   />

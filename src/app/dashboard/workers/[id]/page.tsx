@@ -114,7 +114,7 @@ export default function WorkerProfilePage() {
       <div className="flex justify-between items-start mb-8">
         <div className="flex items-center">
           <Image
-            src={worker.image || '/default-avatar-512.png'}
+            src={worker.image || worker.imageUrl || '/default-avatar-512.png'}
             alt={`${worker.firstName} ${worker.lastName}`}
             width={80}
             height={80}

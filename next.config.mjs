@@ -7,7 +7,7 @@ const withNextIntl = createNextIntlPlugin('./src/i18n.ts');
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ['images.unsplash.com'],
+    domains: ['images.unsplash.com', 'staffwise-static.s3.us-east-2.amazonaws.com'],
   }
 };
 

@@ -86,7 +86,7 @@ const EmployerProfile = () => {
       <div className="flex justify-between items-start mb-8">
         <div className="flex items-center">
           <Image
-            src={employer.image || '/default-avatar-512.png'}
+            src={employer.image || employer.imageUrl || '/default-avatar-512.png'}
             alt={`${employer.firstName} ${employer.lastName}`}
             className="w-20 h-20 rounded-full object-cover"
             width={80}

@@ -52,6 +52,7 @@ export interface CreateWorkerResponse {
     city : string;
     state : string; 
     province : string; 
-    image?: string;
+    image?: string | null;
+    imageUrl?: string | null;
 }
 
