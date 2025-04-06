@@ -2,13 +2,14 @@
 
 import React, { useRef, useState } from 'react';
 import Image from 'next/image';
-import { Upload } from 'lucide-react';
+import { Upload, X } from 'lucide-react';
 
 interface ImageUploadFieldProps {
   label: string;
   name: string;
   value: string | null;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onRemove?: () => void;
   error?: string;
   required?: boolean;
 }
@@ -18,6 +19,7 @@ const ImageUploadField: React.FC<ImageUploadFieldProps> = ({
   name,
   value,
   onChange,
+  onRemove,
   error,
   required = false
 }) => {
@@ -40,6 +42,14 @@ const ImageUploadField: React.FC<ImageUploadFieldProps> = ({
     fileInputRef.current?.click();
   };
 
+  const handleRemove = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setPreviewUrl(null);
+    if (onRemove) {
+      onRemove();
+    }
+  };
+
   return (
     <div>
       <label className="block text-sm font-medium text-gray-700">
@@ -53,12 +63,22 @@ const ImageUploadField: React.FC<ImageUploadFieldProps> = ({
           } hover:border-gray-400 cursor-pointer`}
         >
           {previewUrl ? (
-            <Image
-              src={previewUrl}
-              alt="Preview"
-              fill
-              className="object-cover rounded-lg"
-            />
+            <>
+              <Image
+                src={previewUrl}
+                alt="Preview"
+                fill
+                className="object-cover rounded-lg"
+              />
+              <button
+                type="button"
+                onClick={handleRemove}
+                className="absolute top-1 right-1 p-1 bg-red-500 text-white rounded-full hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+                aria-label="Remove image"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </>
           ) : (
             <div className="text-center">
               <Upload className="mx-auto h-8 w-8 text-gray-400" />

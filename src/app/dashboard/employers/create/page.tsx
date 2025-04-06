@@ -124,6 +124,13 @@ const CreateEmployer: React.FC = () => {
     }
   };
 
+  const handleImageRemove = () => {
+    setFormData(prev => ({
+      ...prev,
+      image: ''
+    }));
+  };
+
   return (
     <div className="max-w-4xl mx-auto">
       <div className="mb-8">
@@ -145,6 +152,7 @@ const CreateEmployer: React.FC = () => {
                   name="image"
                   value={formData.image || null}
                   onChange={handleImageChange}
+                  onRemove={handleImageRemove}
                   error={errors.image}
                   required={false}
                 />
