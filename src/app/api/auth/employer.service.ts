@@ -60,3 +60,18 @@ export async function getEmployers(token: string) : Promise<CreateEmployer[] | u
         console.error("Error fetching employers:", error);
     }
 }
+
+export async function getEmployerById(id: number, token: string) : Promise<CreateEmployer | undefined> {
+    try {
+        const response = await axios({
+            method: "get",
+            url: process.env.NEXT_PUBLIC_BACKEND_URL + "employer/" + id,
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+        return response.data;
+    } catch (error) {
+        console.error("Error fetching employer:", error);
+    }
+}
