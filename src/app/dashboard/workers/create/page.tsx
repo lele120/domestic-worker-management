@@ -94,13 +94,20 @@ const NewWorker: React.FC = () => {
     }
   };
 
-  const handleImageChange = (name: string, value: string | null) => {
-    setworkerForm(prev => ({
-      ...prev,
-      [name]: value
-    }));
-    if (errors[name as keyof CreateWorkerInput]) {
-      setErrors(prev => ({ ...prev, [name]: undefined }));
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setworkerForm(prev => ({
+          ...prev,
+          image: reader.result as string
+        }));
+        if (errors.image) {
+          setErrors(prev => ({ ...prev, image: undefined }));
+        }
+      };
+      reader.readAsDataURL(file);
     }
   };
 

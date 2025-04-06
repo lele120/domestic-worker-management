@@ -5,6 +5,7 @@ import { useTranslations } from 'next-intl';
 import { Save, X } from 'lucide-react';
 import InputField from '@/components/shared/forms/InputField';
 import SelectField from '@/components/shared/forms/SelectField';
+import ImageUploadField from '@/components/shared/forms/ImageUploadField';
 import type { CreateEmployer } from '@/types/employer.types';
 import { createEmployer } from '@/app/api/auth/employer.service';
 import { useSession } from 'next-auth/react';
@@ -41,7 +42,6 @@ const CreateEmployer: React.FC = () => {
     company: '',
     image: '',
     workersCount: 0
-
   });
 
   const [errors, setErrors] = useState<Partial<CreateEmployer>>({});
@@ -107,6 +107,23 @@ const CreateEmployer: React.FC = () => {
     }
   };
 
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setFormData(prev => ({
+          ...prev,
+          image: reader.result as string
+        }));
+        if (errors.image) {
+          setErrors(prev => ({ ...prev, image: undefined }));
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   return (
     <div className="max-w-4xl mx-auto">
       <div className="mb-8">
@@ -122,6 +139,16 @@ const CreateEmployer: React.FC = () => {
               {t('employers.create.sections.personal')}
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="md:col-span-2">
+                <ImageUploadField
+                  label={t('employers.fields.photo')}
+                  name="image"
+                  value={formData.image || null}
+                  onChange={handleImageChange}
+                  error={errors.image}
+                  required={false}
+                />
+              </div>
               <InputField 
                 label={t('employers.fields.firstName')}
                 name="firstName"

@@ -152,7 +152,8 @@
         "questura": "Questura",
         "permitNumber": "Numero Permesso",
         "permitIssueDate": "Data Rilascio",
-        "permitExpiryDate": "Data Scadenza"
+        "permitExpiryDate": "Data Scadenza",
+        "photo": "Foto"
       },
       "options": {
         "selectEmployer": "Seleziona Datore di Lavoro",

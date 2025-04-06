@@ -78,7 +78,8 @@
         "questura": "Questura",
         "permitNumber": "Permit Number",
         "permitIssueDate": "Issue Date",
-        "permitExpiryDate": "Expiry Date"
+        "permitExpiryDate": "Expiry Date",
+        "photo": "Photo"
       },
       "options": {
         "selectEmployer": "Select Employer",

@@ -64,7 +64,7 @@ interface PersonalInfoFormProps {
     image?: string;
   }>;
   onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
-  onImageChange: (name: string, value: string | null) => void;
+  onImageChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
@@ -93,6 +93,7 @@ const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
               value={formData.image}
               onChange={onImageChange}
               error={errors.image}
+              required={false}
             />
           </div>
           <InputField
