@@ -92,7 +92,8 @@
         "employmentType": "Tipo di Impiego",
         "notes" : "Note",
         "profile": "Profilo",
-        "workersCount": "Lavoratori"
+        "workersCount": "Lavoratori",
+        "photo": "Foto"
       }
     }, 
     "worker": {

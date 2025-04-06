@@ -7,7 +7,53 @@
       "employers": {
         "title": "Employers",
         "list": "Employers List",
-        "new": "New Employer"
+        "new": "New Employer",
+        "create": {
+          "title": "Create New Employer",
+          "subtitle": "Add a new employer to the system",
+          "submit": "Create Employer",
+          "sections": {
+            "personal": "Personal Information",
+            "document": "Document Information",
+            "contact": "Contact Information",
+            "address": "Address",
+            "preferences": "Preferences"
+          },
+          "placeholders": {
+            "notes": "Enter any additional notes about the employer..."
+          },
+          "validation": {
+            "required": "This field is required",
+            "email": "Please enter a valid email address",
+            "phone": "Please enter a valid phone number",
+            "zipCode": "Please enter a valid ZIP code"
+          }
+        },
+        "fields": {
+          "firstName": "First Name",
+          "lastName": "Last Name",
+          "sex": "Sex",
+          "dateOfBirth": "Date of Birth",
+          "placeOfBirth": "Place of Birth",
+          "nationality": "Nationality",
+          "taxNumber": "Tax Number",
+          "job": "Job",
+          "documentType": "Document Type",
+          "documentNumber": "Document Number",
+          "documentIssuer": "Document Issuer",
+          "documentExpiration": "Document Expiration",
+          "email": "Email",
+          "phone": "Phone",
+          "address": "Address",
+          "city": "City",
+          "state": "State",
+          "province": "Province",
+          "zipCode": "ZIP Code",
+          "preferredContact": "Preferred Contact Method",
+          "employmentType": "Employment Type",
+          "notes": "Notes",
+          "photo": "Photo"
+        }
       },
       "worker": {
         "title": "Workers",
