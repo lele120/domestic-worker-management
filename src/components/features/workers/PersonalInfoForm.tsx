@@ -4,6 +4,7 @@ import React from 'react';
 import { useTranslations } from 'next-intl';
 import InputField from '@/components/shared/forms/InputField';
 import SelectField from '@/components/shared/forms/SelectField';
+import ImageUploadField from '@/components/shared/forms/ImageUploadField';
 
 interface PersonalInfoFormProps {
   formData: {
@@ -32,6 +33,7 @@ interface PersonalInfoFormProps {
     permitNumber?: string;
     permitIssueDate?: string;
     permitExpiryDate?: string;
+    image: string | null;
   };
   errors: Partial<{
     firstName: string;
@@ -59,14 +61,17 @@ interface PersonalInfoFormProps {
     permitNumber?: string;
     permitIssueDate?: string;
     permitExpiryDate?: string;
+    image?: string;
   }>;
   onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
+  onImageChange: (name: string, value: string | null) => void;
 }
 
 const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
   formData,
   errors,
-  onChange
+  onChange,
+  onImageChange
 }) => {
   const t = useTranslations();
 
@@ -81,6 +86,15 @@ const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
           {t('worker.sections.personalInfo')}
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="md:col-span-2">
+            <ImageUploadField
+              label={t('worker.fields.photo')}
+              name="image"
+              value={formData.image}
+              onChange={onImageChange}
+              error={errors.image}
+            />
+          </div>
           <InputField
             label={t('worker.fields.firstName')}
             name="firstName"

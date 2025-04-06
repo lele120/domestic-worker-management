@@ -40,7 +40,7 @@ const NewWorker: React.FC = () => {
     image: null
   });
 
-  const [errors, setErrors] = useState<Partial<CreateWorkerInput>>({});
+  const [errors, setErrors] = useState<Record<keyof CreateWorkerInput, string | undefined>>({} as Record<keyof CreateWorkerInput, string | undefined>);
 
   const validateForm = () => {
     const newErrors: Partial<CreateWorkerInput> = {};
@@ -79,12 +79,22 @@ const NewWorker: React.FC = () => {
       if (!workerForm.permitExpiryDate) newErrors.permitExpiryDate = t('worker.validation.required');
     }
 
-    setErrors(newErrors);
+    setErrors(newErrors as Record<keyof CreateWorkerInput, string | undefined>);
     return Object.keys(newErrors).length === 0;
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
+    setworkerForm(prev => ({
+      ...prev,
+      [name]: value
+    }));
+    if (errors[name as keyof CreateWorkerInput]) {
+      setErrors(prev => ({ ...prev, [name]: undefined }));
+    }
+  };
+
+  const handleImageChange = (name: string, value: string | null) => {
     setworkerForm(prev => ({
       ...prev,
       [name]: value
@@ -142,6 +152,7 @@ const NewWorker: React.FC = () => {
             formData={workerForm}
             errors={errors}
             onChange={handleInputChange}
+            onImageChange={handleImageChange}
           />
         </div>
 
