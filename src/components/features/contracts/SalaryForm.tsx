@@ -61,7 +61,7 @@ interface CostBreakdown {
 
 const SalaryForm: React.FC<SalaryFormProps> = ({ formData, onChange }) => {
   const t = useTranslations()
-  const { data: session } = useSession()
+  const { data: session, status } = useSession()
   const [costs, setCosts] = useState<CostBreakdown | null>(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -71,8 +71,15 @@ const SalaryForm: React.FC<SalaryFormProps> = ({ formData, onChange }) => {
     setError(null)
     
     try {
+      // Check if user is authenticated
+      if (status === 'loading') {
+        setError(t('common.loading'))
+        return
+      }
+      
       if (!session?.access_token) {
-        throw new Error('Authentication required')
+        setError(t('common.error') + ': ' + t('auth.loginRequired'))
+        return
       }
 
       // Map contract parameters from formData
@@ -257,10 +264,10 @@ const SalaryForm: React.FC<SalaryFormProps> = ({ formData, onChange }) => {
       {/* Cost Breakdown */}
       <div className="bg-gray-50 rounded-lg p-6 mt-8">
         <div className="flex justify-between items-center mb-6">
-          <h3 className="text-lg font-medium text-gray-900">Cost Breakdown</h3>
+          <h3 className="text-lg font-medium text-gray-900">{t('contracts.costBreakdown')}</h3>
           <button
             onClick={calculateCosts}
-            disabled={loading}
+            disabled={loading || status === 'loading'}
             className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50"
           >
             <Calculator className="w-4 h-4 mr-2" />
@@ -280,8 +287,8 @@ const SalaryForm: React.FC<SalaryFormProps> = ({ formData, onChange }) => {
               <div className="grid grid-cols-[1fr_12rem] gap-4">
                 <div></div>
                 <div className="grid grid-cols-2">
-                  <span>Hourly</span>
-                  <span>Monthly</span>
+                  <span>{t('contracts.hourly')}</span>
+                  <span>{t('contracts.monthly')}</span>
                 </div>
               </div>
             </div>
@@ -289,14 +296,14 @@ const SalaryForm: React.FC<SalaryFormProps> = ({ formData, onChange }) => {
             <div className="space-y-6">
               {/* Worker's Costs */}
               <CostTable 
-                title="Worker" 
+                title={t('contracts.worker')} 
                 data={costs.worker} 
               />
 
               {/* Employer's Costs */}
               <div className="border-t border-gray-200 pt-6">
                 <CostTable 
-                  title="Employer" 
+                  title={t('contracts.employer')} 
                   data={costs.employer}
                   showPositive
                 />

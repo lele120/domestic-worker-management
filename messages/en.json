@@ -588,7 +588,12 @@
       "success": "Success",
       "warning": "Warning",
       "info": "Info",
-      "select": "Select an option"
+      "select": "Select an option",
+      "next": "Next",
+      "previous": "Previous",
+      "calculator": "Calculator",
+      "calculateCosts": "Calculate Costs",
+      "costBreakdown": "Cost Breakdown"
     },
     "contracts": {
       "title": "Contracts",
@@ -654,5 +659,18 @@
       "thirteenthMonth": "13th Month",
       "severancePay": "Severance Pay",
       "totalCost": "Total Cost"
+    },
+    "auth": {
+      "loginRequired": "Authentication required. Please log in to continue.",
+      "login": "Log In",
+      "logout": "Log Out",
+      "register": "Register",
+      "email": "Email",
+      "password": "Password",
+      "forgotPassword": "Forgot Password?",
+      "rememberMe": "Remember Me",
+      "loginError": "Invalid email or password",
+      "loginSuccess": "Login successful",
+      "logoutSuccess": "Logout successful"
     }
   }

@@ -684,7 +684,12 @@
         "driversLicense" : "Patente di Guida",
         "residencePermit" : "Permesso di Soggiorno"
       },
-      "select": "Seleziona un'opzione"
+      "select": "Seleziona un'opzione",
+      "next": "Avanti",
+      "previous": "Indietro",
+      "calculator": "Calcolatore",
+      "calculateCosts": "Calcola Costi",
+      "costBreakdown": "Dettaglio Costi"
     },
     "contracts": {
       "title": "Contratti",
@@ -749,5 +754,18 @@
       "thirteenthMonth": "Tredicesima",
       "severancePay": "TFR",
       "totalCost": "Costo Totale"
+    },
+    "auth": {
+      "loginRequired": "Autenticazione richiesta. Effettua l'accesso per continuare.",
+      "login": "Accedi",
+      "logout": "Esci",
+      "register": "Registrati",
+      "email": "Email",
+      "password": "Password",
+      "forgotPassword": "Password dimenticata?",
+      "rememberMe": "Ricordami",
+      "loginError": "Email o password non validi",
+      "loginSuccess": "Accesso effettuato con successo",
+      "logoutSuccess": "Disconnessione effettuata con successo"
     }
   }
