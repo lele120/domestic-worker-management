@@ -77,7 +77,7 @@ const SalaryForm: React.FC<SalaryFormProps> = ({ formData, onChange }) => {
         return
       }
       
-      if (!session?.access_token) {
+      if (!session?.user.accessToken) {
         setError(t('common.error') + ': ' + t('auth.loginRequired'))
         return
       }
@@ -92,7 +92,7 @@ const SalaryForm: React.FC<SalaryFormProps> = ({ formData, onChange }) => {
 
       const result = await calculateContractCost(
         contractParams,
-        session.access_token
+        session?.user.accessToken
       )
 
       if (!result) {
