@@ -29,11 +29,11 @@ interface SalaryFormProps {
       accommodationAllowance: number
       inKindBenefits: boolean
     }
-    workSchedule?: {
+    workSchedule: {
       weeklyHours: number
     }
-    contractColf?: {
-      subCategory: string
+    contractColf: {
+      level: string
     }
   }
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -84,8 +84,8 @@ const SalaryForm: React.FC<SalaryFormProps> = ({ formData, onChange }) => {
 
       // Map contract parameters from formData
       const contractParams = {
-        numberOfHours: formData.workSchedule?.weeklyHours || 40, // Default to 40 if not provided
-        subcategory: formData.contractColf?.subCategory || 'domestic', // Default to 'domestic' if not provided
+        numberOfHours: formData.workSchedule?.weeklyHours, // Default to 40 if not provided
+        subcategory: formData.contractColf?.level, // Default to 'colf' as specified
         contractType: 'colf', // Always use 'colf' as specified
         basePay: formData.salary.basePay,
       }
