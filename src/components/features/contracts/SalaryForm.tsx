@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import { useTranslations } from 'next-intl'
 import InputField from '@/components/shared/forms/InputField'
 import CostTable from './CostTable'
-import { calculateContractCost } from '@/app/api/auth/contractCost.service'
+import { calculateContractCost, Response,ErrorCost, CostBreakdown } from '@/app/api/auth/contractCost.service'
 import { useSession } from 'next-auth/react'
 import { Calculator } from 'lucide-react'
 
@@ -40,31 +40,12 @@ interface SalaryFormProps {
   onChange: (name: string, value: any) => void
 }
 
-interface CostBreakdown {
-  worker: {
-    grossPay: { hourly: number; monthly: number };
-    contributions: { hourly: number; monthly: number };
-    cassaColf: { hourly: number; monthly: number };
-    netPay: { hourly: number; monthly: number };
-  };
-  employer: {
-    grossPay: { hourly: number; monthly: number };
-    roomBoard: { hourly: number; monthly: number };
-    contributions: { hourly: number; monthly: number };
-    cassaColf: { hourly: number; monthly: number };
-    holidays: { hourly: number; monthly: number };
-    thirteenthMonth: { hourly: number; monthly: number };
-    severancePay: { hourly: number; monthly: number };
-    totalCost: { hourly: number; monthly: number };
-  };
-}
-
 const SalaryForm: React.FC<SalaryFormProps> = ({ formData, onChange }) => {
   const t = useTranslations()
   const { data: session, status } = useSession()
   const [costs, setCosts] = useState<CostBreakdown | null>(null)
   const [loading, setLoading] = useState(false)
-  const [error, setError] = useState<string | null>(null)
+  const [error, setError] = useState<ErrorCost | string | null>(null)
 
   const calculateCosts = async () => {
     setLoading(true)
@@ -90,16 +71,18 @@ const SalaryForm: React.FC<SalaryFormProps> = ({ formData, onChange }) => {
         basePay: formData.salary.basePay,
       }
 
-      const result = await calculateContractCost(
+      const result : Response = await calculateContractCost(
         contractParams,
         session?.user.accessToken
       )
 
-      if (!result) {
-        throw new Error('Failed to calculate costs')
+      if (result.errors !== null) {
+        setError(result.errors)
       }
 
-      setCosts(result.costs)
+      if (result.costs !== null) {
+        setCosts(result.costs)
+      }
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An unknown error occurred')
     } finally {
@@ -277,7 +260,7 @@ const SalaryForm: React.FC<SalaryFormProps> = ({ formData, onChange }) => {
 
         {error && (
           <div className="p-4 bg-red-50 border border-red-200 rounded-md mb-6">
-            <p className="text-sm text-red-600">{error}</p>
+            <p className="text-sm text-red-600">{error instanceof Error ? error.message : 'An unknown error occurred'}</p>
           </div>
         )}
         

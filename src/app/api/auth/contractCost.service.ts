@@ -1,13 +1,22 @@
 import axios from "axios";
 
-interface ContractCostRequest {
+export interface ContractCostRequest {
   numberOfHours: number;
   subcategory: string;
   contractType: string;
   basePay: number;
 }
 
-interface CostBreakdown {
+export interface Response {
+  costs: CostBreakdown | null;
+  errors: ErrorCost | null;
+}
+
+export interface ErrorCost {
+  [key: string]: string;
+}
+
+export interface CostBreakdown {
   worker: {
     grossPay: { hourly: number; monthly: number };
     contributions: { hourly: number; monthly: number };
@@ -26,7 +35,8 @@ interface CostBreakdown {
   };
 }
 
-export async function calculateContractCost(request: ContractCostRequest, token: string): Promise<{ costs: CostBreakdown } | null> {
+export async function calculateContractCost(request: ContractCostRequest, token: string): 
+              Promise<Response> {
   try {
     const response = await axios({
       method: "post",
@@ -39,6 +49,6 @@ export async function calculateContractCost(request: ContractCostRequest, token:
     return response.data;
   } catch (error) {
     console.error("Error calculating contract cost:", error);
-    return null;
+    return { costs: null, errors: { error: "An unknown error occurred" } };
   }
 } 

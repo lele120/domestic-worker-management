@@ -628,6 +628,9 @@
       }
     },
     "common": {
+      "isLowerBaseHourlyRate": "Costo orario inferiore al minimo",
+      "costContract": "Costo Contratto",
+      "notFound": "Non trovato",
       "loading": "Caricamento...",
       "save": "Salva",
       "cancel": "Annulla",
