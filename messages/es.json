@@ -69,7 +69,8 @@
         "zipCode": "Código Postal",
         "preferredContact": "Método de Contacto Preferido",
         "employmentType": "Tipo de Empleo",
-        "notes": "Notas"
+        "notes": "Notas",
+        "photo": "Foto"
       },
       "create": {
         "title": "Nuevo Empleador",

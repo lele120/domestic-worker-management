@@ -92,7 +92,8 @@
         "employmentType": "Tipo di Impiego",
         "notes" : "Note",
         "profile": "Profilo",
-        "workersCount": "Lavoratori"
+        "workersCount": "Lavoratori",
+        "photo": "Foto"
       }
     }, 
     "worker": {
@@ -172,7 +173,6 @@
         "permesso": "Permesso di Soggiorno",
         "cartaSoggiorno": "Carta di Soggiorno",
         "selectReason": "Seleziona motivo",
-        "volunteerMission": "Missione Volontaria",
         "subordinateWork": "Lavoro Subordinato",
         "familyReasons": "Motivi Familiari",
         "selectPermitType": "Seleziona tipo permesso",
@@ -663,6 +663,9 @@
       "success": "Successo",
       "warning": "Attenzione",
       "info": "Informazione",
+      "export": "Esporta",
+      "view": "Visualizza",
+      "manage": "Gestisci",
       "gender": {
         "male" : "Maschio",
         "female" : "Femmina",
@@ -699,21 +702,6 @@
       "details": "Dettagli Contratto",
       "list": "Lista Contratti",
       "new": "Nuovo Contratto",
-      "calculateCosts": "Calcola Costi",
-      "costBreakdown": "Dettaglio Costi",
-      "hourly": "Orario",
-      "monthly": "Mensile",
-      "worker": "Lavoratore",
-      "employer": "Datore di Lavoro",
-      "grossPay": "Retribuzione Lorda",
-      "contributions": "Contributi",
-      "cassaColf": "Cassa Colf",
-      "netPay": "Retribuzione Netta",
-      "roomBoard": "Vitto e Alloggio",
-      "holidays": "Ferie",
-      "thirteenthMonth": "Tredicesima",
-      "severancePay": "TFR",
-      "totalCost": "Costo Totale",
       "fields": {
         "employer": "Datore di Lavoro",
         "worker": "Lavoratore",

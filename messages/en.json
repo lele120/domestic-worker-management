@@ -593,7 +593,10 @@
       "previous": "Previous",
       "calculator": "Calculator",
       "calculateCosts": "Calculate Costs",
-      "costBreakdown": "Cost Breakdown"
+      "costBreakdown": "Cost Breakdown",
+      "export": "Export",
+      "view": "View",
+      "manage": "Manage"
     },
     "contracts": {
       "title": "Contracts",
@@ -603,21 +606,7 @@
       "details": "Contract Details",
       "list": "Contracts List",
       "new": "New Contract",
-      "calculateCosts": "Calculate Costs",
-      "costBreakdown": "Cost Breakdown",
-      "hourly": "Hourly",
-      "monthly": "Monthly",
-      "worker": "Worker",
-      "employer": "Employer",
-      "grossPay": "Gross Pay",
-      "contributions": "Contributions",
-      "cassaColf": "Cassa Colf",
-      "netPay": "Net Pay",
-      "roomBoard": "Room & Board",
-      "holidays": "Holidays",
-      "thirteenthMonth": "Thirteenth Month",
-      "severancePay": "Severance Pay",
-      "totalCost": "Total Cost",
+
       "fields": {
         "employer": "Employer",
         "worker": "Worker",
@@ -672,5 +661,10 @@
       "loginError": "Invalid email or password",
       "loginSuccess": "Login successful",
       "logoutSuccess": "Logout successful"
+    },
+    "employers": {
+      "fields": {
+        "photo": "Photo"
+      }
     }
   }
