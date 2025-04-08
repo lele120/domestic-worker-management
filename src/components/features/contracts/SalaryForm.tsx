@@ -78,13 +78,16 @@ const SalaryForm: React.FC<SalaryFormProps> = ({ formData, onChange }) => {
 
       if (result.errors !== null) {
         setError(result.errors)
+        setCosts(null)
       }
 
       if (result.costs !== null) {
         setCosts(result.costs)
+        setError(null)
       }
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'An unknown error occurred')
+      console.error('Error calculating contract costs:', err)
+      //setError(err instanceof Error ? err.message : 'An unknown error occurred')
     } finally {
       setLoading(false)
     }
@@ -260,7 +263,20 @@ const SalaryForm: React.FC<SalaryFormProps> = ({ formData, onChange }) => {
 
         {error && (
           <div className="p-4 bg-red-50 border border-red-200 rounded-md mb-6">
-            <p className="text-sm text-red-600">{error instanceof Error ? error.message : 'An unknown error occurred'}</p>
+            {typeof error === 'string' ? (
+              <p className="text-sm text-red-600">{error}</p>
+            ) : (
+              <div className="space-y-2">
+                <p className="text-sm font-medium text-red-600">{t('common.error')}</p>
+                <ul className="list-disc pl-5 space-y-1">
+                  {Object.entries(error).map(([key, value]) => (
+                    <li key={key} className="text-sm text-red-600">
+                      <span className="font-medium">{t(key)}:</span> {t(value)}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </div>
         )}
         
