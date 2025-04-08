@@ -550,6 +550,17 @@
             }
           }
         }
+      },
+      "costBreakdown": {
+        "grossPay": "Gross Pay",
+        "contributions": "Contributions",
+        "cassaColf": "Cassa Colf",
+        "netPay": "Net Pay",
+        "roomBoard": "Room & Board",
+        "holidays": "Holidays",
+        "thirteenthMonth": "13th Month",
+        "severancePay": "Severance Pay",
+        "totalCost": "Total Cost"
       }
     },
     "common": {
@@ -616,7 +627,16 @@
         "status": "Status",
         "basePay": "Base Pay",
         "numberOfHours": "Number of Hours",
-        "subcategory": "Subcategory"
+        "subcategory": "Subcategory",
+        "grossPay": "Gross Pay",
+        "contributions": "Contributions",
+        "cassaColf": "Cassa Colf",
+        "netPay": "Net Pay",
+        "roomBoard": "Room & Board",
+        "holidays": "Holidays",
+        "thirteenthMonth": "13th Month",
+        "severancePay": "Severance Pay",
+        "totalCost": "Total Cost"
       },
       "types": {
         "fullTime": "Full Time",

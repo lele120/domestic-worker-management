@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslations } from 'next-intl'
 
 interface CostTableProps {
   title: string;
@@ -9,6 +10,8 @@ interface CostTableProps {
 const CostTable: React.FC<CostTableProps> = ({ title, data, showPositive = false }) => {
   const sign = showPositive ? '+' : '-';
 
+  const t = useTranslations()
+
   return (
     <div className="space-y-2">
       <h3 className="text-sm font-medium text-gray-900">{title}</h3>
@@ -16,7 +19,7 @@ const CostTable: React.FC<CostTableProps> = ({ title, data, showPositive = false
         {Object.entries(data).map(([key, value]) => (
           <div key={key} className="flex justify-between text-sm">
             <span className="text-gray-500">
-              {key.charAt(0).toUpperCase() + key.slice(1).replace(/([A-Z])/g, ' $1')}:
+              {t(`contract.costBreakdown.${key}`)}:
             </span>
             <div className="flex gap-8">
               <span className="text-gray-900 w-24 text-right">

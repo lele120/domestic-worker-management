@@ -625,6 +625,17 @@
         "city": "Città",
         "postalCode": "CAP",
         "province": "Provincia"
+      },
+      "costBreakdown": {
+        "grossPay": "Retribuzione Lorda",
+        "contributions": "Contributi",
+        "cassaColf": "Cassa Colf",
+        "netPay": "Retribuzione Netta",
+        "roomBoard": "Vitto e Alloggio",
+        "holidays": "Ferie",
+        "thirteenthMonth": "Tredicesima",
+        "severancePay": "TFR",
+        "totalCost": "Costo Totale"
       }
     },
     "common": {
@@ -714,7 +725,16 @@
         "status": "Stato",
         "basePay": "Retribuzione Base",
         "numberOfHours": "Numero di Ore",
-        "subcategory": "Sottocategoria"
+        "subcategory": "Sottocategoria",
+        "grossPay": "Retribuzione Lorda",
+        "contributions": "Contributi",
+        "cassaColf": "Cassa Colf",
+        "netPay": "Retribuzione Netta",
+        "roomBoard": "Vitto e Alloggio",
+        "holidays": "Ferie",
+        "thirteenthMonth": "Tredicesima",
+        "severancePay": "TFR",
+        "totalCost": "Costo Totale"
       },
       "types": {
         "fullTime": "Tempo Pieno",

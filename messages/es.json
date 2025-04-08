@@ -17,7 +17,16 @@
       "contracts": {
         "title": "Contratos",
         "list": "Lista de Contratos",
-        "new": "Nuevo Contrato"
+        "new": "Nuevo Contrato",
+        "grossPay": "Salario Bruto",
+        "contributions": "Contribuciones",
+        "cassaColf": "Cassa Colf",
+        "netPay": "Salario Netto",
+        "roomBoard": "Alojamiento y Comida",
+        "holidays": "Vacaciones",
+        "thirteenthMonth": "Décimo Tercer Mes",
+        "severancePay": "Indemnización por Despido",
+        "totalCost": "Costo Total"
       },
       "payroll": {
         "title": "Nómina",
@@ -130,6 +139,19 @@
         "nationalId": "DNI",
         "driversLicense": "Permiso de Conducir",
         "residencePermit": "Permiso de Residencia"
+      }
+    },
+    "contract": {
+      "costBreakdown": {
+        "grossPay": "Salario Bruto",
+        "contributions": "Contribuciones",
+        "cassaColf": "Cassa Colf",
+        "netPay": "Salario Netto",
+        "roomBoard": "Alojamiento y Comida",
+        "holidays": "Vacaciones",
+        "thirteenthMonth": "Decimotercer Mes",
+        "severancePay": "Indemnización",
+        "totalCost": "Costo Total"
       }
     }
   }
